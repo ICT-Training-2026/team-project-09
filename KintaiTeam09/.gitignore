@@ -1,47 +1,33 @@
-# コンパイルされたクラスファイル
-*.class
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# ログファイルとデバッグ出力
-*.log
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# パッケージ化されたJavaアーカイブ(依存関係など)
-*.jar
-*.war
-*.ear
-
-# バージョン管理されていない依存関係
-/lib/
-
-# 特定のIDEディレクトリ
-/.settings/
-/project/
-/.classpath
-/.idea/
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
 *.ipr
-*.iws
 
-# Eclipse特有のファイル
-*~.nib
-*.swp
-*.bak
-*.tmp
-*.orig
-*.rej
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# MavenやGradleのフォルダ
-/target/
-/build/
-
-# サーバーのランタイムファイル
-/.tomcat/
-
-# 動的Webプロジェクトに特化
-/.apt_generated/
-/.classpath
-/.factorypath
-/.project
-/.settings/
-/target/
-/tmp/
-.logs/
+### VS Code ###
+.vscode/
