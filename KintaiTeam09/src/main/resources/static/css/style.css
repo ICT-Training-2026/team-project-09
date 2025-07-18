@@ -35,6 +35,7 @@ header {
     cursor: pointer;
     text-decoration: none; /* リンクの下線を消す */
     box-shadow: 5px 5px 5px rgb(158, 158, 158);
+	transition: background-color 0.3s;
 }
 
 .login-button:hover {
