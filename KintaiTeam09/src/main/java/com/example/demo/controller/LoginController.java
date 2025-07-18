@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 	
+	// コメント
 	@GetMapping("/login")
 	public String login() {
 	    return "login"; //ログイン画面に遷移
