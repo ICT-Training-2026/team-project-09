@@ -3,24 +3,31 @@ body {
     margin: 0;
     padding: 0;
     background-color: #F5F5F5;
+    overflow-x: auto;
+}
+
+.main-container {
+  overflow-x: auto;
+  width: 100%;
 }
 
 header {
+    display: flex;
+    width: 100%;
+    min-width: 900px;
+    overflow-x: auto;
     background-color: #FFFEDA;
     color: #808080;
     padding: 10px 20px;
     position: relative;
-    height: 60px;
-}
+    font-size: 16px;
+    text-align: left;
 
-h1 {
-    margin: 0;
-    font-size: 24px;
 }
 
 .top-right-buttons {
     position: absolute;
-    top: 10px;
+    top: 20px;
     right: 20px;
     display: flex;
 }
@@ -85,11 +92,6 @@ h1 {
     background-color: #9ea7aa;
 }
 
-.container {
-    margin: 20px;
-    text-align: left;
-}
-
 .button-group {
     display: flex;
     flex-direction: column;
@@ -106,7 +108,7 @@ input, select {
 table {
   border-collapse: collapse;
   width: 100%;
-  max-width: 900px;
+  min-width: 900px;
   margin: 20px auto;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -116,7 +118,7 @@ table {
 }
 
 thead {
-  background-color: #4a90e2;
+  background-color: #929fab;
   color: white;
 }
 
@@ -146,4 +148,27 @@ tbody td:nth-child(9) input {
   width: 90%;
   min-width: 200px;
 }
+
+.submit-button {
+  font-weight: bold;
+  background-color: #e6fcff;
+  color: #808080;
+  padding: 10px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.submit-button:hover {
+  background-color: #d0f1f5;
+}
+
 
