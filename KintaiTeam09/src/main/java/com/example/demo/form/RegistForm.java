@@ -1,5 +1,9 @@
 package com.example.demo.form;
 
-public class RegistForm {
+import lombok.Data;
 
+@Data
+public class RegistForm {
+	
+	private String userId;
 }
