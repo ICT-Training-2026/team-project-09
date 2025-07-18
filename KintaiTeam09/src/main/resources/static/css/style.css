@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #fffeda;
+    color: #808080;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.left-align {
+    text-align: left;
+    color: #808080;
+    padding: 0px 45px;
+}
+
+.login-button {
+    background-color: #e6fcff;
+    color: #808080;
+    padding: 60px 100px;
+    border: none;
+    font-weight: bold; /* フォントを太くする */
+    font-size: 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none; /* リンクの下線を消す */
+    box-shadow: 5px 5px 5px rgb(158, 158, 158);
+}
+
+.login-button:hover {
+    background-color: #d0f1f5; /* ホバー時の色 */
+}
+
+.image {
+    max-width: 100%;
+    height: auto; /* 高さを自動調整 */
+    border-radius: 50%; /* 画像を円形にする */
+}
+
+.circle {
+    width: 150px; /* 円の幅 */
+    height: 150px; /* 円の高さ */
+    background-color: #ffffff; /* 円の背景色 */
+    border-radius: 50%; /* 円形にする */
+    margin: 20px auto; /* 上下のマージンを追加 */
+    position: relative; /* 子要素の絶対位置を基準にする */
+    box-shadow: 3px 5px 5px rgb(158, 158, 158);
+}
+
+.circle img {
+    position: absolute; /* 絶対位置で配置 */
+    top: 50%; /* 円の中央に配置 */
+    left: 50%; /* 円の中央に配置 */
+    transform: translate(-50%, -50%); /* 画像を中央に配置 */
+    width: 80%; /* 画像の幅を円の80%に設定 */
+    height: auto; /* 高さを自動調整 */
+}
+
+
+
+
+   .tiny-icon {
+    width: 120px;
+    height: 120px;
+    color: #808080;
+    position: absolute; /* 絶対位置で配置 */
+    top: 42%; /* 円の中央に配置 */
+    left: 50%; /* 円の中央に配置 */
+    transform: translate(-50%, -50%); /* 画像を中央に配置 */
+    height: auto; /* 高さを自動調整 */
+}
