@@ -14,11 +14,11 @@ public class LoginController {
 	}
 	
 	
-	// 仮実装(ページ遷移のみ)
-	@GetMapping("/top")
-	public String top() {
-	    return "top"; //トップ画面に遷移
-	}
+//	// 仮実装(ページ遷移のみ)
+//	@GetMapping("/top")
+//	public String top() {
+//	    return "top"; //トップ画面に遷移
+//	}
 	
 	// 本実装
 //	@GetMapping("/logout")
@@ -28,11 +28,11 @@ public class LoginController {
 //	}
 	
 	
-	// 仮実装(ページ遷移のみ)
-	@GetMapping("/topmenu")
-	public String topmenu() {
-	    return "topmenu"; // メニュー画面に遷移
-	}
+//	// 仮実装(ページ遷移のみ)
+//	@GetMapping("/topmenu")
+//	public String topmenu() {
+//	    return "topmenu"; // メニュー画面に遷移
+//	}
 	
 	// 本実装
 //	@PostMapping("/login")
