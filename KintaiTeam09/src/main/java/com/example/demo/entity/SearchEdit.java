@@ -1,5 +1,5 @@
 package com.example.demo.entity;
 
-public class LoginEntity {
+public class SearchEdit {
 
 }
