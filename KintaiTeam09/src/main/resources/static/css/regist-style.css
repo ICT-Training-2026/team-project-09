@@ -62,23 +62,11 @@ header {
 
 }
 
-.button,
-.button-logout {
-  background-color: none;
-  padding: 0;
-  margin-left: 0;
-  border-radius: 0;
-}
-
 .button-logout {
   background-color: white;
 }
 
 .button:hover {
-  background-color: #9ea7aa;
-}
-
-.button-logout:hover {
   background-color: #9ea7aa;
 }
 
