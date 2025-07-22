@@ -3,11 +3,12 @@ package com.example.demo.form;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+//import java.sql.Date;
+
 import lombok.Data;
 
 @Data
 public class RegistForm {
-	
 	private String userId;
 	private Date date;
 	private Integer workStatus;
@@ -17,5 +18,4 @@ public class RegistForm {
 	private Integer BreakTime;
 	private Integer cumOverTime;
 	private String note;
-	
 }

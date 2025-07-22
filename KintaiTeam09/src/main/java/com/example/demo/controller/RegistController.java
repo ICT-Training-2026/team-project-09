@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ public class RegistController {
 	public String regist(@ModelAttribute RegistForm registForm) {
 		return "regist"; //regist.html(仮称)を表示
 	}
+
+	
 
 	@PostMapping("/regist-post")
 	public String registPost(@ModelAttribute RegistForm registForm, Model model) {
