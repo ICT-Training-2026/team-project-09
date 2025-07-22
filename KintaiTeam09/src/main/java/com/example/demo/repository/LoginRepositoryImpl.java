@@ -16,6 +16,7 @@ public class LoginRepositoryImpl implements LoginRepository {
         logins.put(login.getUserId(), login);
     }
 
+	
 	@Override
     public boolean findByUserId(Login login) {
 		boolean resultUser = login.getUserId().equals("user002");
