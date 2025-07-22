@@ -44,7 +44,8 @@ public class LoginController {
         if (result) { // ログイン成功時
             // Modelにユーザー情報を追加
             model.addAttribute("userId", loginForm.getUserId());
-            return "topmenu";
+//            return "topmenu";
+            return "top_menu";
         } else { // ログイン失敗時
             model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
             return "login";
