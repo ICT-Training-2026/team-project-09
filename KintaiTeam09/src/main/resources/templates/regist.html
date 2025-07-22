@@ -27,6 +27,9 @@
 				</div>
 			</div>
 		</header>
+		
+		
+		<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
 
 		
 		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
