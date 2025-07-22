@@ -2,72 +2,74 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>regist</title>
-    <link rel="stylesheet" href="regist-styles.css"> <!-- CSSファイルをリンク -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>regist</title>
+  <link rel="stylesheet" href="regist-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="main-container">
-    <header>
-        <h1>勤怠管理</h1>
-        <div class="top-right-buttons">
-            <div class="button-group">
-                <a href="#" class="icon-circle"><i class="fas fa-house"></i></a>
-                <span class="button-label">トップメニュー</span>
-            </div>
-            <div class="button-group">
-                <a href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></a>
-                <span class="button-label">ログアウト</span>
-            </div>
-        </div>
 
-    </header>
+  <header>
+    <h1>勤怠管理</h1>
+    <div class="top-right-buttons">
+      <div class="button-group">
+        <a href="#" class="icon-circle"><i class="fas fa-house"></i></a>
+        <span class="button-label">トップメニュー</span>
+      </div>
+      <div class="button-group">
+        <a href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></a>
+        <span class="button-label">ログアウト</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="table-container">
+
     <table>
-  <thead>
-    <tr>
-      <th>社員コード</th>
-      <th>日付</th>
-      <th>勤怠区分</th>
-      <th>出勤時間</th>
-      <th>退勤時間</th>
-      <th>実労働時間(分)</th>
-      <th>休憩時間(分)</th>
-      <th>累計労働時間(分)</th>
-      <th>備考</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><input type="text" name="employee_code" value="12345" readonly></td>
-      <td><input type="date" name="date"></td>
-      <td>
-        <select name="work_type">
-          <option value="出勤">出勤</option>
-          <option value="欠勤">欠勤</option>
-          <option value="遅刻">遅刻</option>
-          <option value="前半休">前半休</option>
-          <option value="後半休">後半休</option>
-          <option value="出張">出張</option>
-        </select>
-      </td>
-      <td><input type="time" name="start_time"></td>
-      <td><input type="time" name="end_time"></td>
-      <td><input type="text" name="work_hours" placeholder="例:420"></td>
-      <td><input type="text" name="break_time" placeholder="例:60"></td>
-      <td><input type="text" name="total_hours" value="1280" readonly></td>
-      <td><input type="text" name="remarks" placeholder="備考"></td>
-    </tr>
-  </tbody>
-</table>
-</div>
+      <thead>
+        <tr>
+          <th>社員コード</th>
+          <th>日付</th>
+          <th>勤怠区分</th>
+          <th>出勤時間</th>
+          <th>退勤時間</th>
+          <th>実労働時間(分)</th>
+          <th>休憩時間(分)</th>
+          <th>累計労働時間(分)</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="employee_code" value="12345" readonly></td>
+          <td><input type="date" name="date"></td>
+          <td>
+            <select name="work_type">
+              <option value="出勤">出勤</option>
+              <option value="欠勤">欠勤</option>
+              <option value="遅刻">遅刻</option>
+              <option value="前半休">前半休</option>
+              <option value="後半休">後半休</option>
+              <option value="出張">出張</option>
+            </select>
+          </td>
+          <td><input type="time" name="start_time" required></td>
+          <td><input type="time" name="end_time" required></td>
+          <td><input type="text" name="work_hours" placeholder="例:420" required></td>
+          <td><input type="text" name="break_time" placeholder="例:60" required></td>
+          <td><input type="text" name="total_hours" value="1280" readonly></td>
+          <td><input type="text" name="remarks"></td>
+        </tr>
+      </tbody>
+    </table>
 
+  </div>
 
-<div class="submit-button-container">
-  <button type="submit" class="submit-button">登録</button>
-</div>
+  <div class="submit-button-container">
+    <button type="submit" class="submit-button">登録</button>
+  </div>
 
 </body>
 
