@@ -1,5 +1,37 @@
 package com.example.demo.entity;
 
-public class Regist {
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Regist {
+//	private String userId;
+//	private Date date;
+//	private Integer workStatus;
+//	private Timestamp clockIn;
+//	private Timestamp clockOut;
+//	private Integer actualWorkTime;
+//	private Integer BreakTime;
+//	private Integer cumOverTime;
+//	private String note;
+	
+	private String userId;
+	private LocalDate date;
+	private Integer workStatus;
+
+//	private LocalTime clockInTime;
+//	private LocalTime clockOutTime;
+	private Timestamp clockIn;
+	private Timestamp clockOut;
+	
+	private Integer actualWorkTime;
+	private Integer BreakTime;
+	private Integer cumOverTime;
+	private String note;
 }
