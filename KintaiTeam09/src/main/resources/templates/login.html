@@ -52,6 +52,7 @@
 	<!-- エラーメッセージ表示 -->
 	<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
 
+	<!-- ログインフォーム -->
 	<div class="container">
 	        <div class="box2">
 				<form th:action="@{/login-post}" th:object="${loginForm}" method="POST" class="login-form">
