@@ -26,25 +26,16 @@ public class LoginController {
 	    return "login"; //ログイン画面に遷移
 	}
 	
-//	@PostMapping("/login")
-//	public String loginPost(@ModelAttribute LoginForm loginForm, Model model) {
-//		model.addAttribute("userId", loginForm.getUserId());
-////		model.addAttribute("userId","user001");
-//	    return "topmenu"; //トップメニュー画面に遷移
-//	}
-	
 	@PostMapping("/login-post")
     public String loginPost(@ModelAttribute LoginForm loginForm, Model model) {
         // ログイン処理の実行
         Login login = new Login(loginForm.getUserId(), loginForm.getPass());
         boolean result = loginService.execute(login);
-//        boolean result = true;
 
         // ログイン処理の成否によって処理を分岐
         if (result) { // ログイン成功時
             // Modelにユーザー情報を追加
             model.addAttribute("userId", loginForm.getUserId());
-//            return "topmenu";
             return "top_menu";
         } else { // ログイン失敗時
             model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
@@ -52,12 +43,6 @@ public class LoginController {
         }
     }
 	
-	
-//	// 仮実装(ページ遷移のみ)
-//	@GetMapping("/top")
-//	public String top() {
-//	    return "top"; //トップ画面に遷移
-//	}
 	
 	// 本実装
 //	@GetMapping("/logout")
@@ -67,21 +52,5 @@ public class LoginController {
 //	}
 	
 	
-//	// 仮実装(ページ遷移のみ)
-//	@GetMapping("/topmenu")
-//	public String topmenu() {
-//	    return "topmenu"; // メニュー画面に遷移
-//	}
-	
-	// 本実装
-//	@PostMapping("/login")
-//	public String login(@ModelAttribute LoginForm form, Model model) {
-//	    boolean isAuthenticated = LoginService.authenticate(form.getUsername(), form.getPassword());
-//	    if (!isAuthenticated) {
-//	        model.addAttribute("error", "ログインに失敗しました。ユーザー名またはパスワードが間違っています。");
-//	        return "login"; // ログイン画面に戻る
-//	    }
-//	    return "redirect:/top"; // 認証成功時はトップ画面にリダイレクト
-//	}
 	
     }
