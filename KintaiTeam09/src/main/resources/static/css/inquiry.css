@@ -112,63 +112,8 @@ input[type="text"], select {
     background-color: #d0f1f5;
 }
 
- .square-button {
-    padding: 10px 12px;
-    background-color: #e6fcff;
-    color: #808080;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px; /* テーブルとの間にスペースを追加 */
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    font-size: 16px;
-    font-weight: bold;
-    justify-content: flex-start;
-}
-
-.square-button:hover {
-    background-color: #d0f1f5;
-}
-
 .table-button-wrapper {
     display: flex;
     align-items: center;
     gap: 10px; /* テーブルとボタンの間のスペースを追加 */
-}
-
-
-.textbox {
-    flex-grow: 1;                /* 余白を埋めるよう可変 */
-    height: 30px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-top: 21px;
-}
-
-
-.textbox-button-wrapper {
-    display: flex;
-    flex-direction: row;         /* 横並び */
-    align-items: center;         /* 垂直中央に整列 */
-    justify-content: flex-start; /* 左寄せ（必要なら center に変更） */
-    gap: 10px;                   /* 間隔 */
-    width: 100%;
-    max-width: 600px;
-}
-
-main {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-/* 新たに追加 */
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 中央に配置 */
-    gap: 20px;
 }
