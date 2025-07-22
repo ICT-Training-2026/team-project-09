@@ -6,11 +6,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+//import java.sql.Date;
+
 import lombok.Data;
 
 @Data
 public class RegistForm {
-	
 	private String userId;
 //	private Date date;
 	private LocalDate date;
@@ -25,7 +26,7 @@ public class RegistForm {
 	private Integer breakTime;
 	private Integer cumOverTime;
 	private String note;
-	
+
 	public void combineDateTime() {
         if (date != null && clockInTime != null && clockOutTime != null) {
             LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
