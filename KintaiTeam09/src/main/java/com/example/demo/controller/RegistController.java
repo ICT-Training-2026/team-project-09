@@ -19,9 +19,27 @@ public class RegistController {
 
 	@PostMapping("/regist-post")
 	public String registPost(@ModelAttribute RegistForm registForm, Model model) {
-		Regist regist = new Regist();
-		regist.setNote(registForm.getNote());
+		registForm.combineDateTime();
+		Regist regist = new Regist(
+				registForm.getUserId(),
+				registForm.getDate(),
+				registForm.getWorkStatus(),
+				registForm.getClockIn(),
+				registForm.getClockOut(),
+				registForm.getActualWorkTime(),
+				registForm.getBreakTime(),
+				registForm.getCumOverTime(),
+				registForm.getNote()
+				);
 		
+		System.out.println(regist.getUserId());
+		System.out.println(regist.getDate());
+		System.out.println(regist.getWorkStatus());
+		System.out.println(regist.getClockIn());
+		System.out.println(regist.getClockOut());
+		System.out.println(regist.getActualWorkTime());
+		System.out.println(regist.getBreakTime());
+		System.out.println(regist.getCumOverTime());
 		System.out.println(regist.getNote());
 		
 		return "regist";
