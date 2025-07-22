@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
 	<div class="main-container">
 		<header>
 			<h1>勤怠管理</h1>
@@ -25,10 +26,12 @@
 					<span class="button-label">ログアウト</span>
 				</div>
 			</div>
-
 		</header>
+		
+		
+		<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
 
-
+		
 		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
 			<table>
 				<thead>
@@ -82,8 +85,6 @@
 		</form>
 		
 	</div>
-
-
 
 
 </body>
