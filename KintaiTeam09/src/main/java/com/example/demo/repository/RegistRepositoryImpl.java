@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.Regist;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RegistRepositoryImpl implements RegistRepository {
 
-//	private final JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void add(Regist regist) {
@@ -26,21 +27,22 @@ public class RegistRepositoryImpl implements RegistRepository {
 		System.out.println("備考:" + regist.getNote());
 
 		
-//		// DB登録処理
-//		String sql = " INSERT INTO attend_info " +
-//				" (user_code, date, work_status_code, clock_in, clock_out," +
-//				" actual_worktime, breaktime, cum_overtime, note) " +
-//				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-//
-//		jdbcTemplate.update(sql, regist.getUserId(),
-//				regist.getDate(),
-//				regist.getWorkStatus(),
-//				regist.getClockIn(),
-//				regist.getClockOut(),
-//				regist.getActualWorkTime(),
-//				regist.getBreakTime(),
-//				regist.getCumOverTime(),
-//				regist.getNote());
+		// DB登録処理
+		String sql = " INSERT INTO attend_info " +
+				" (user_code, date, work_status_code, clock_in, clock_out," +
+				" worktime, actual_worktime, breaktime, cum_overtime, note) " +
+				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+
+		jdbcTemplate.update(sql, regist.getUserId(),
+				regist.getDate(),
+				regist.getWorkStatus(),
+				regist.getClockIn(),
+				regist.getClockOut(),
+				regist.getActualWorkTime() + regist.getBreakTime(),
+				regist.getActualWorkTime(),
+				regist.getBreakTime(),
+				regist.getCumOverTime(),
+				regist.getNote());
 
 	}
 }
