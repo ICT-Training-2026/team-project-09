@@ -48,8 +48,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import lombok.Data;
 
@@ -62,41 +67,107 @@ public class RegistForm {
     @NotNull(message = "日付は必須です")
     private LocalDate date;
 
-//    @NotNull(message = "勤怠区分は必須です")
+    @NotNull(message = "勤怠区分は必須です")
     private Integer workStatus;
 
-//    @NotNull(message = "出勤時間は必須です")
+    @NotNull(message = "出勤時間は必須です")
     private LocalTime clockInTime;
 
-//    @NotNull(message = "退勤時間は必須です")
+    @NotNull(message = "退勤時間は必須です")
     private LocalTime clockOutTime;
+    
+    @NotNull(message = "休憩時間は必須です")
+    @Min(value = 0, message = "実労働時間は0以上でなければなりません")
+    private Integer breakTime;    
 
     private Timestamp clockIn;
     private Timestamp clockOut;
 
-//    @Min(value = 0, message = "実労働時間は0以上でなければなりません")
+    @Min(value = 0, message = "実労働時間は0以上でなければなりません")
     private Integer actualWorkTime;
 
-//    @Min(value = 0, message = "休憩時間は0以上でなければなりません")
-    private Integer breakTime;
-
-//    @Min(value = 0, message = "累計労働時間は0以上でなければなりません")
+    @Min(value = 0, message = "累計労働時間は0以上でなければなりません")
     private Integer cumOverTime;
 
-//    @Size(max = 100, message = "備考は文字以内で入力してください")
+    @Size(max = 100, message = "備考は文字以内で入力してください")
     private String note;
+    
+    
+    public void validateFields(BindingResult bindingResult) {
+    	// 出勤時間が退勤時間より遅くならないバリデーション
+        if (this.clockInTime.isAfter(this.clockOutTime)) {
+            bindingResult.addError(new FieldError("registForm", "clockInTime", "出勤時間は退勤時間より前です"));
+        }
 
-    public void combineDateTime() {
-        if (date != null && clockInTime != null && clockOutTime != null) {
-            LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
-            LocalDateTime clockOutDateTime = LocalDateTime.of(date, clockOutTime);
-            this.clockIn = Timestamp.valueOf(clockInDateTime);
-            this.clockOut = Timestamp.valueOf(clockOutDateTime);
+//        // 所定時間のバリデーション
+//        LocalTime startOfWorkDay = LocalTime.of(8, 0);
+//        LocalTime endOfWorkDay = LocalTime.of(22, 45);
+//        if (clockInTime.isBefore(startOfWorkDay) || clockOutTime.isAfter(endOfWorkDay)) {
+//            bindingResult.addError(new FieldError("registForm", "clockInTime", "出勤時間と退勤時間は8:00から22:45の間でなければなりません"));
+//        }
+//
+//        // コアタイムのバリデーション
+//        LocalTime coreTimeStart = LocalTime.of(10, 45);
+//        LocalTime coreTimeEnd = LocalTime.of(15, 0);
+//        if (clockInTime.isAfter(coreTimeStart) || clockOutTime.isBefore(coreTimeEnd)) {
+//            bindingResult.addError(new FieldError("registForm", "clockInTime", "コアタイムは10:45から15:00の間でなければなりません"));
+//        }
+//        
+//        
+//        
+//     // 実労働時間の計算
+//        int calculatedWorkMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes() - (breakTime != null ? breakTime : 0);
+//        if (actualWorkTime != null && actualWorkTime != calculatedWorkMinutes) {
+//            bindingResult.addError(new FieldError("registForm", "actualWorkTime", "手入力された実労働時間が計算された値と一致しません"));
+//        }
+//       
+//
+//        // 実労働時間が4時間以上の場合は、1時間の休憩を取る
+//        int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
+//        if (workMinutes >= 240 && (breakTime == null || breakTime < 60)) {
+//            bindingResult.addError(new FieldError("registForm", "breakTime", "実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります"));
+//        }
+//
+//        // 休憩時間が実労働時間を超えないこと
+//        if (breakTime != null && breakTime > workMinutes) {
+//            bindingResult.addError(new FieldError("registForm", "breakTime", "休憩時間が実労働時間を超えることはできません"));
+//        }
+//
+//
+//        // 勤怠区分に応じた処理
+//        switch (workStatus) {
+//            case 1: // 振出
+//                // 振出の処理
+//                break;
+//            case 2: // 振休
+//                // 振休の処理
+//                break;
+//            case 3: // 年休
+//                // 年休の処理
+//                break;
+//            case 4: // 休日
+//                // 休日の処理
+//                break;
+//            case 5: // 欠勤
+//                // 欠勤の処理
+//                break;
+//            default:
+//                // 通常勤務の処理
+//                break;
+//        }
+    	
+    }
 
+//    public void combineDateTime() {
+//        if (date != null && clockInTime != null && clockOutTime != null) {
+//            LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
+//            LocalDateTime clockOutDateTime = LocalDateTime.of(date, clockOutTime);
+//            this.clockIn = Timestamp.valueOf(clockInDateTime);
+//            this.clockOut = Timestamp.valueOf(clockOutDateTime);
+//
 //            // 出勤時間が退勤時間より遅くならないバリデーション
 //            if (clockInDateTime.isAfter(clockOutDateTime)) {
 //                throw new IllegalArgumentException("出勤時間は退勤時間より前です");
-////                System.out.println("出勤時間は退勤時間より前です");
 //            }
 //
 //            // 所定時間のバリデーション
@@ -106,11 +177,35 @@ public class RegistForm {
 //                throw new IllegalArgumentException("出勤時間と退勤時間は8:00から22:45の間でなければなりません");
 //            }
 //
+//            // コアタイムのバリデーション
+//            LocalTime coreTimeStart = LocalTime.of(10, 45);
+//            LocalTime coreTimeEnd = LocalTime.of(15, 0);
+//            if (clockInTime.isAfter(coreTimeStart) || clockOutTime.isBefore(coreTimeEnd)) {
+//                throw new IllegalArgumentException("コアタイムは10:45から15:00の間でなければなりません");
+//            }
+//
 //            // 実労働時間が4時間以上の場合は、1時間の休憩を取る
 //            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
 //            if (workMinutes >= 240 && (breakTime == null || breakTime < 60)) {
 //                throw new IllegalArgumentException("実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります");
 //            }
-        }
+//
+//            // 休憩時間が実労働時間を超えないこと
+//            if (breakTime != null && breakTime > workMinutes) {
+//                throw new IllegalArgumentException("休憩時間が実労働時間を超えることはできません");
+//            }
+    
+    public void combineDateTime() {
+        if (date != null && clockInTime != null && clockOutTime != null) {
+            LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
+            LocalDateTime clockOutDateTime = LocalDateTime.of(date, clockOutTime);
+            this.clockIn = Timestamp.valueOf(clockInDateTime);
+            this.clockOut = Timestamp.valueOf(clockOutDateTime);
     }
 }
+    
+}
+    
+    
+
+
