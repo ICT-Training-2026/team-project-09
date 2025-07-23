@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
-public class RegistRepository {
+import com.example.demo.entity.Regist;
 
+public interface RegistRepository {
+	void add(Regist regist);
 }

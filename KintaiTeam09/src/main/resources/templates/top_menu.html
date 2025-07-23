@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+	
 
   <header>
         <h1>勤怠管理</h1>
@@ -21,6 +22,11 @@
     </header>
 
   <!--<div class="greeting">こんにちは^^</div>-->
+  
+  <p th:text="'社員ID:' + ${userId}">社員ID</p>
+  <p th:text="'氏名:' + ${name}">氏名</p>
+<!--  <p th:text="'部署ID:' + ${departmentCode}">部署ID</p>-->
+<!--  <p th:text="'残り有給日数:' + ${numPaidHoliday}">残り有給日数</p>-->
 
   <div class="menu">
     <!-- 登録ボタン -->
@@ -36,7 +42,7 @@
     </button>
 
     <!-- 検索・編集ボタン -->
-    <button class="button">
+    <button onclick="location.href='/search'" class="button">
       <div class="icon">
         <!-- 検索・編集アイコン -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -48,7 +54,7 @@
     </button>
 
     <!-- エクスポートボタン -->
-    <button class="button">
+    <button onclick="location.href='/export'" class="button">
       <div class="icon">
         <!-- エクスポートアイコン -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
