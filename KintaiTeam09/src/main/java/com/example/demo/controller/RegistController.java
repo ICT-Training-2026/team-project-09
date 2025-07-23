@@ -8,11 +8,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Regist;
 import com.example.demo.form.RegistForm;
 import com.example.demo.service.RegistService;
 
+import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -28,18 +30,52 @@ public class RegistController {
 	}
 
 
+//	@PostMapping("/regist-post")
+//	public String registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result) {	
+////		System.out.println("エラーの有無:" + result.hasErrors());
+//		
+//		
+//		
+//		if (result.hasErrors()) {
+//			System.out.println("入力不備あり");
+//			return "regist";
+//		} else {
+//			
+//			System.out.println("入力不備なし");
+	
 	@PostMapping("/regist-post")
-	public String registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result) {
-//		System.out.println("エラーの有無:" + result.hasErrors());
+	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result, Model model) {
+		ModelAndView modelAndView = new ModelAndView("regist");
+		// エラーの数を取得
+	    int errorCount = result.getErrorCount();
+
+	    if (result.hasErrors()) {
+	        System.out.println("入力不備あり");
+
+	        if (errorCount > 1) {
+	        	modelAndView.addObject("hasErrors", true);
+	        } else {
+	        	modelAndView.addObject("hasErrors", false);
+	        }
+
+	        return modelAndView;
+	    } else {
+	        System.out.println("入力不備なし");
+	    
 		
-		if (result.hasErrors()) {
-			System.out.println("入力不備あり");
-			return "regist";
-		} else {
-			
-			System.out.println("入力不備なし");
-		
-		registForm.combineDateTime();
+	    registForm.combineDateTime();
+	    
+	    
+	    registForm.validateFields(result);
+	    
+	    if (result.hasErrors()) {
+	        System.out.println("追加バリデーションで入力不備あり");
+
+//	        int errorCount = result.getErrorCount();
+//	        modelAndView.addObject("hasErrors", errorCount > 1);
+
+	        return modelAndView;
+	    }
 		Regist regist = new Regist(
 				registForm.getUserId(),
 				registForm.getDate(),
@@ -54,12 +90,13 @@ public class RegistController {
 		
 		registService.add(regist);
 		
-		return "regist";
+		return modelAndView;
 		
 		}
+		
 
-	}
 
+}
 }
 
 
