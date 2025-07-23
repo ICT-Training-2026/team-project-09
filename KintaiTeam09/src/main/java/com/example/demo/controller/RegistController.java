@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,7 +29,16 @@ public class RegistController {
 
 
 	@PostMapping("/regist-post")
-	public String registPost(@Validated @ModelAttribute RegistForm registForm, Model model) {
+	public String registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result) {
+//		System.out.println("エラーの有無:" + result.hasErrors());
+		
+		if (result.hasErrors()) {
+			System.out.println("入力不備あり");
+			return "regist";
+		} else {
+			
+			System.out.println("入力不備なし");
+		
 		registForm.combineDateTime();
 		Regist regist = new Regist(
 				registForm.getUserId(),
@@ -56,6 +65,8 @@ public class RegistController {
 //		System.out.println(regist.getNote());
 		
 		return "regist";
+		
+		}
 
 	}
 
