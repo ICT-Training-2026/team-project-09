@@ -13,15 +13,15 @@ public class RegistRepositoryImpl implements RegistRepository {
 	@Override
 	public void add(Regist regist) {		
 		// 仮実装（コンソールに表示）
-		System.out.println(regist.getUserId());
-		System.out.println(regist.getDate());
-		System.out.println(regist.getWorkStatus());
-		System.out.println(regist.getClockIn());
-		System.out.println(regist.getClockOut());
-		System.out.println(regist.getActualWorkTime());
-		System.out.println(regist.getBreakTime());
-		System.out.println(regist.getCumOverTime());
-		System.out.println(regist.getNote());
+		System.out.println("ID:" + regist.getUserId());
+		System.out.println("日付:" + regist.getDate());
+		System.out.println("区分:" + regist.getWorkStatus());
+		System.out.println("出勤時刻:" + regist.getClockIn());
+		System.out.println("退勤時刻:" + regist.getClockOut());
+		System.out.println("実労働時間" + regist.getActualWorkTime());
+		System.out.println("休憩時間" + regist.getBreakTime());
+		System.out.println("累積超過時間" + regist.getCumOverTime());
+		System.out.println("備考:" + regist.getNote());
 		
 		// DB登録処理を以下に実装
 		

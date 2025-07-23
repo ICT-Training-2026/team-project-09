@@ -48,6 +48,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -55,10 +56,10 @@ import lombok.Data;
 @Data
 public class RegistForm {
 
-    @NotNull(message = "社員IDは必須です")
+    @NotEmpty(message = "社員IDは必須です")
     private String userId;
 
-//    @NotNull(message = "日付は必須です")
+    @NotNull(message = "日付は必須です")
     private LocalDate date;
 
 //    @NotNull(message = "勤怠区分は必須です")
@@ -92,24 +93,24 @@ public class RegistForm {
             this.clockIn = Timestamp.valueOf(clockInDateTime);
             this.clockOut = Timestamp.valueOf(clockOutDateTime);
 
-            // 出勤時間が退勤時間より遅くならないバリデーション
-            if (clockInDateTime.isAfter(clockOutDateTime)) {
-                throw new IllegalArgumentException("出勤時間は退勤時間より前です");
-//                System.out.println("出勤時間は退勤時間より前です");
-            }
-
-            // 所定時間のバリデーション
-            LocalTime startOfWorkDay = LocalTime.of(8, 0);
-            LocalTime endOfWorkDay = LocalTime.of(22, 45);
-            if (clockInTime.isBefore(startOfWorkDay) || clockOutTime.isAfter(endOfWorkDay)) {
-                throw new IllegalArgumentException("出勤時間と退勤時間は8:00から22:45の間でなければなりません");
-            }
-
-            // 実労働時間が4時間以上の場合は、1時間の休憩を取る
-            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
-            if (workMinutes >= 240 && (breakTime == null || breakTime < 60)) {
-                throw new IllegalArgumentException("実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります");
-            }
+//            // 出勤時間が退勤時間より遅くならないバリデーション
+//            if (clockInDateTime.isAfter(clockOutDateTime)) {
+//                throw new IllegalArgumentException("出勤時間は退勤時間より前です");
+////                System.out.println("出勤時間は退勤時間より前です");
+//            }
+//
+//            // 所定時間のバリデーション
+//            LocalTime startOfWorkDay = LocalTime.of(8, 0);
+//            LocalTime endOfWorkDay = LocalTime.of(22, 45);
+//            if (clockInTime.isBefore(startOfWorkDay) || clockOutTime.isAfter(endOfWorkDay)) {
+//                throw new IllegalArgumentException("出勤時間と退勤時間は8:00から22:45の間でなければなりません");
+//            }
+//
+//            // 実労働時間が4時間以上の場合は、1時間の休憩を取る
+//            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
+//            if (workMinutes >= 240 && (breakTime == null || breakTime < 60)) {
+//                throw new IllegalArgumentException("実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります");
+//            }
         }
     }
 }
