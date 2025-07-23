@@ -11,9 +11,9 @@ public class TopmenuController {
 //        return "regist"; //regist.html(仮称)を表示
 //    }
 
-	@GetMapping("/edit")
-    public String edit() {
-        return "edit"; //edit.html(仮称)を表示
+	@GetMapping("/search")
+    public String search() {
+        return "search"; //search.html(仮称)を表示
     }
 	
 	@GetMapping("/export")

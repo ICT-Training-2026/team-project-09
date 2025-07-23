@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Login;
 import com.example.demo.form.LoginForm;
 import com.example.demo.service.LoginService;
@@ -31,11 +32,18 @@ public class LoginController {
         // ログイン処理の実行
         Login login = new Login(loginForm.getUserId(), loginForm.getPass());
         boolean result = loginService.execute(login);
+        Employee employee = loginService.loadAccoundInfo(login);
+        
+//        System.out.println("ログイン中の社員情報:" + employee);
 
         // ログイン処理の成否によって処理を分岐
         if (result) { // ログイン成功時
             // Modelにユーザー情報を追加
-            model.addAttribute("userId", loginForm.getUserId());
+//            model.addAttribute("userId", loginForm.getUserId());
+        	model.addAttribute("userId", employee.getUserId());
+        	model.addAttribute("name", employee.getName());
+        	model.addAttribute("departmentCode", employee.getDepartmentCode());
+        	model.addAttribute("numPaidHoliday", employee.getNumPaidHoliday());
             return "top_menu";
         } else { // ログイン失敗時
             model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
