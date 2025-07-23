@@ -30,8 +30,9 @@ public class LoginController {
 	public String loginPost(@ModelAttribute LoginForm loginForm, Model model) {
 		// ログイン処理の実行
 		Login login = new Login(loginForm.getUserId(), loginForm.getPass());
-		//        boolean result = loginService.execute(login);
 		Employee employee = loginService.loadAccoundInfo(login);
+		// 仮ログイン用
+		boolean result = loginService.execute(login);
 
 
 		// ログイン処理の成否によって処理を分岐
@@ -46,14 +47,20 @@ public class LoginController {
 		//            model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
 		//            return "login";
 		//        }
+		
+		// DB上のユーザ or (ID:user002, pass:5678)でログイン可能
 		if (employee != null) { // ログイン成功時
 			// Modelにユーザー情報を追加
 			model.addAttribute("userId", employee.getUserId());
 			model.addAttribute("name", employee.getName());
-			model.addAttribute("departmentCode", employee.getDepartmentCode());
-			model.addAttribute("numPaidHoliday", employee.getNumPaidHoliday());
+//			model.addAttribute("departmentCode", employee.getDepartmentCode());
+//			model.addAttribute("numPaidHoliday", employee.getNumPaidHoliday());
 			return "top_menu";
-		} else { // ログイン失敗時
+		} else if (result) {
+			model.addAttribute("userId", "user002");
+			model.addAttribute("name", "仮ログイン用ユーザ");
+			return "top_menu";
+		} else {  // ログイン失敗時
 			model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
 			return "login";
 		}
