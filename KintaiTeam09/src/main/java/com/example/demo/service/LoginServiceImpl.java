@@ -41,6 +41,7 @@ package com.example.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Login;
 import com.example.demo.repository.LoginRepository;
 
@@ -61,13 +62,20 @@ public class LoginServiceImpl implements LoginService {
         boolean result = loginRepository.findByUserId(login);
 //        boolean result = login != null && login.getPass().equals(login.getPass());
 
-        // 入力した値、ログイン可否をコンソールに表示
-        System.out.println(login.getUserId());
-        System.out.println(login.getPass());
-        System.out.println(result);
+//        // 入力した値、ログイン可否をコンソールに表示
+//        System.out.println(login.getUserId());
+//        System.out.println(login.getPass());
+//        System.out.println(result);
 
         return result;
 //        return true;
+    }
+    
+    @Override
+	public Employee loadAccoundInfo(Login login) {
+    	Employee employee = loginRepository.loadAccoundInfo(login);
+    	
+    	return employee;
     }
     
 }
