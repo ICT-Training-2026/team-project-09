@@ -7,6 +7,7 @@
 
 package com.example.demo.repository;
 
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Login;
 
 public interface LoginRepository {
@@ -14,4 +15,5 @@ public interface LoginRepository {
 
     void save(Login login);
     boolean findByUserId(Login login);
+    Employee loadAccoundInfo(Login login);
 }

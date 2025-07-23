@@ -90,16 +90,6 @@ public class RegistController {
 		
 		registService.add(regist);
 		
-//		System.out.println(regist.getUserId());
-//		System.out.println(regist.getDate());
-//		System.out.println(regist.getWorkStatus());
-//		System.out.println(regist.getClockIn());
-//		System.out.println(regist.getClockOut());
-//		System.out.println(regist.getActualWorkTime());
-//		System.out.println(regist.getBreakTime());
-//		System.out.println(regist.getCumOverTime());
-//		System.out.println(regist.getNote());
-		
 		return modelAndView;
 		
 		}

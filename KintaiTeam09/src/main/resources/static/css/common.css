@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif; /* 1. �S�̂̎��� */
+  background-color: #F5F5F5; /* 2. �S�̂̔w�i */
+  margin: 0;
+  padding: 0;
+}
+
+
+header {
+  background-color: #FFFEDA;
+  color: #808080;
+  padding: 15px 20px;
+  position: relative;
+  font-size: 16px;
+  text-align: left;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+}
+
+/* 4. �u�g�b�v��ʂցv�u���O�A�E�g�v�u�g�b�v�y�[�W�v�̃{�^�����`�𑵂��� */
+.top-right-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.top-right-buttons a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #808080;
+  font-size: 14px;
+}
+
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #808080;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.icon-circle:hover {
+  background-color: #9ea7aa;
+  color: white;
+  cursor: pointer;
+}
+
+.button-label {
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Common SVG icon styling */
+.icon-svg {
+  width: 24px; /* Default size for header icons */
+  height: 24px; /* Default size for header icons */
+  stroke: currentColor; /* Use the parent's color */
+  stroke-width: 1.5;
+}
+
+.icon-circle {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon-circle:focus {
+  outline: none;
+}

@@ -1,67 +1,82 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #F5F5F5;
-  padding-top: 60px;
+  /* common.css にある以下のプロパティは削除 */
+  /* font-family: Arial, sans-serif; */
+  /* margin: 0; */
+  /* padding: 0; */
+  /* background-color: #F5F5F5; */
+  padding-top: 60px; /* これはheaderのfixedによるコンテンツの隠れを防ぐために残す */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 header {
-  background-color: #FFFEDA;
-  color: #808080;
-  padding: 10px 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  font-size: 16px;
-  text-align: left;
-  z-index: 1000;
+  /* common.css にある以下のプロパティは削除 */
+  /* background-color: #FFFEDA; */
+  /* color: #808080; */
+  /* padding: 10px 20px; */
+  /* font-size: 16px; */
+  /* text-align: left; */
+  position: fixed; /* ヘッダーを固定するために残す */
+  top: 0; /* ヘッダーを固定するために残す */
+  left: 0; /* ヘッダーを固定するために残す */
+  right: 0; /* ヘッダーを固定するために残す */
+  z-index: 1000; /* ヘッダーを最前面に表示するために残す */
 }
 
 .top-right-buttons {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  display: flex;
+  /*position: absolute; /* common.cssではflexboxで配置されているため、absoluteで上書き */
+  top: 10px; /* absoluteと合わせて位置を調整するために残す */
+  right: 20px; /* absoluteと合わせて位置を調整するために残す */
+  /* common.css にある以下のプロパティは削除（または上書きされるため不要） */
+  /* display: flex; */
 }
 
 .button-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 20px;
+  /* common.css にある以下のプロパティは削除 */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  margin-left: 20px; /* ボタン間の間隔を設定するために残す */
 }
 
 .icon-circle {
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #808080;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, color 0.3s;
-  margin-bottom: 6px;
+  
+  /* common.css にある以下のプロパティは削除 */
+  /* background-color: white; */
+  /* border-radius: 50%; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* color: #808080; */
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+  /* transition: background-color 0.3s, color 0.3s; */
 }
 
 .icon-circle:hover {
-  background-color: #9ea7aa;
-  color: white;
-  cursor: pointer;
+  /* common.css にあるため削除 */
+  /* background-color: #9ea7aa; */
+  /* color: white; */
+  /* cursor: pointer; */
 }
 
 .button-label {
-  margin-top: 5px;
-  font-size: 12px;
-  color: #808080;
-  text-align: center;
+ 
+  /* common.css にある以下のプロパティは削除 */
+  /* pointer-events: none; */
+  /* font-size: 12px; */
+  /* color: #808080; */
+  
 }
+
+/* Common SVG icon stylingはcommon.cssにまとめるため削除 */
+/* .icon-svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.5;
+} */
+
 
 .date-search-container {
   display: flex;
@@ -90,23 +105,24 @@ header {
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .search-icon-button:hover {
   background-color: #cde9f0;
+  transform: translateY(-3px);
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  /* min-width を削除 or 小さくする */
-  min-width: 100%; /* または削除してもOK */
+  min-width: 100%;
   max-width: 100%;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  table-layout: fixed; /* カラム幅を均等に分配 */
+  table-layout: fixed;
   margin-bottom: 20px;
 }
 
@@ -116,8 +132,6 @@ input[name="break_time"],
 input[name="total_hours"] {
   width: 80px;
 }
-
-
 
 thead {
   background-color: #929fab;
