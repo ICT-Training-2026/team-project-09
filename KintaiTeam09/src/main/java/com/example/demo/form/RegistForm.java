@@ -41,7 +41,6 @@
 package com.example.demo.form;
 
 import java.math.BigDecimal;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -173,6 +172,9 @@ public class RegistForm {
                 .subtract(breakTime != null ? breakTime : BigDecimal.ZERO);
         return workMinutes.compareTo(BigDecimal.valueOf(480)) <= 0; // 8 hours * 60 minutes
     }
+    
+    
+    
 
 
         
