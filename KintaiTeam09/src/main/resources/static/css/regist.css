@@ -79,7 +79,7 @@ tbody td {
   color: #333;
 }
 
-tbody td:nth-child(9) input {
+tbody td:nth-child(8) input {
   width: 90%;
   min-width: 200px;
 }
@@ -107,15 +107,4 @@ tbody td:nth-child(9) input {
 .submit-button:hover {
   background-color: #d0f1f5;
   transform: translateY(-3px);
-}
-table thead th:nth-child(6),
-table tbody td:nth-child(6) {
-  display: none;
-}table thead th:nth-child(6),
-table tbody td:nth-child(6) {
-  display: none;
-}
-table thead th:nth-child(6),
-table tbody td:nth-child(6) {
-  display: none;
 }
