@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.example.demo.form.SearchEditForm;
 
 @Controller
 public class TopmenuController {
@@ -12,7 +15,7 @@ public class TopmenuController {
 //    }
 
 	@GetMapping("/search")
-    public String search() {
+    public String search(@ModelAttribute SearchEditForm searchEditForm) {
         return "search"; //search.html(仮称)を表示
     }
 

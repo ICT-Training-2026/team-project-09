@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
@@ -23,15 +24,19 @@ public class Regist {
 	
 	private String userId;
 	private LocalDate date;
-	private Integer workStatus;
+//	private Integer workStatus;
+	private BigDecimal workStatus;
 
 //	private LocalTime clockInTime;
 //	private LocalTime clockOutTime;
 	private Timestamp clockIn;
 	private Timestamp clockOut;
 	
-	private Integer actualWorkTime;
-	private Integer BreakTime;
-	private Integer cumOverTime;
+//	private Integer actualWorkTime;
+	private BigDecimal actualWorkTime;
+//	private Integer BreakTime;
+	private BigDecimal BreakTime;
+//	private Integer cumOverTime;
+	private BigDecimal cumOverTime;
 	private String note;
 }
