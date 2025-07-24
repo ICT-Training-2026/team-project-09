@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Login;
@@ -27,7 +30,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/login-post")
-	public String loginPost(@ModelAttribute LoginForm loginForm, Model model) {
+	public String loginPost(@ModelAttribute LoginForm loginForm, Model model,
+							@RequestParam String userId,
+							@RequestParam String pass,
+							HttpSession session) {
 		// ログイン処理の実行
 		Login login = new Login(loginForm.getUserId(), loginForm.getPass());
 		Employee employee = loginService.loadAccoundInfo(login);
@@ -55,6 +61,8 @@ public class LoginController {
 			model.addAttribute("name", employee.getName());
 //			model.addAttribute("departmentCode", employee.getDepartmentCode());
 //			model.addAttribute("numPaidHoliday", employee.getNumPaidHoliday());
+			// セッションにユーザIDを保存
+			session.setAttribute("userId",userId);
 			return "top_menu";
 		} else if (result) {
 			model.addAttribute("userId", "user002");

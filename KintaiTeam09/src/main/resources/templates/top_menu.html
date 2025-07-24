@@ -12,12 +12,14 @@
 
   <header>
         <h1>勤怠管理</h1>
-        <div class="top-right-buttons">
-            <div class="button-group">
-                <a href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></a>
-                <span class="button-label">ログアウト</span>
-            </div>
-        </div>
+		<div class="top-right-buttons">
+		     <div class="button-group">
+				<form th:action="@{/logout}" method="post">
+		            <button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+		            <span class="button-label">ログアウト</span>
+				</form>
+		     </div>
+		 </div>
 
     </header>
 
