@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,136 +29,72 @@ public class RegistController {
 	public String regist(@ModelAttribute RegistForm registForm) {
 		return "regist"; //regist.html(仮称)を表示
 	}
-
-
-//	@PostMapping("/regist-post")
-//	public String registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result) {	
-////		System.out.println("エラーの有無:" + result.hasErrors());
-//		
-//		
-//		
-//		if (result.hasErrors()) {
-//			System.out.println("入力不備あり");
-//			return "regist";
-//		} else {
-//			
-//			System.out.println("入力不備なし");
 	
+	@GetMapping("/success-page") // このメソッドを追加
+	public String showSuccessPage() {
+	    return "success-page"; // templates/success-page.html を返す
+	}
+
 	@PostMapping("/regist-post")
 	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result, Model model) {
 		ModelAndView modelAndView = new ModelAndView("regist");
+
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
 
 	    if (result.hasErrors()) {
 	        System.out.println("入力不備あり");
+	        
+	     // --- ここから追加・修正 ---
+//	        System.out.println("--- BindingResult Errors ---");
+	        for (ObjectError error : result.getAllErrors()) {
+	        	System.out.println(error);
+//	            System.out.println("Error Type: " + error.getClass().getSimpleName());
+//	            if (error instanceof FieldError) {
+//	                FieldError fieldError = (FieldError) error;
+//	                System.out.println("  Field: " + fieldError.getField());
+//	                System.out.println("  Rejected Value: " + fieldError.getRejectedValue());
+//	                System.out.println("  Codes: " + java.util.Arrays.toString(fieldError.getCodes()));
+//	            }
+	            System.out.println("  Message: " + error.getDefaultMessage());
+	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
+	        }
+//	        System.out.println("--------------------------");
+	        // --- ここまで追加・修正 ---
 
-	        if (errorCount > 1) {
+	        if (errorCount > 1) { // 複数エラーがある場合
 	        	modelAndView.addObject("hasErrors", true);
-	        } else {
+	        } else { // 単一エラーの場合 (hasErrors=falseにすることで個別エラー表示を許可)
 	        	modelAndView.addObject("hasErrors", false);
 	        }
-
 	        return modelAndView;
-	    } else {
+	    } else { // バリデーションエラーがなかった場合のみ処理を進める
 	        System.out.println("入力不備なし");
-	    
-		
-	    registForm.combineDateTime();
-	    
-	    
-	    registForm.validateFields(result);
-	    
-	    if (result.hasErrors()) {
-	        System.out.println("追加バリデーションで入力不備あり");
 
-//	        int errorCount = result.getErrorCount();
-//	        modelAndView.addObject("hasErrors", errorCount > 1);
+		    registForm.combineDateTime();
 
-	        return modelAndView;
+		    // カスタムバリデーションの呼び出しは不要になる
+		    // registForm.validateFields(result); // この行は削除
+
+		    // @AssertTrueを使えば、ここで改めてresult.hasErrors()をチェックする必要も基本的にはなくなる
+		    // なぜなら、すべて@Validatedで処理されているため、このelseブロックに来た時点でエラーがないから
+		    // ただし、combineDateTime()でnullチェックをしているため、ここで例外が発生する可能性は低い
+
+			Regist regist = new Regist(
+					registForm.getUserId(),
+					registForm.getDate(),
+					registForm.getWorkStatus(),
+					registForm.getClockIn(),
+					registForm.getClockOut(),
+					registForm.getActualWorkTime(),
+					registForm.getBreakTime(),
+					registForm.getCumOverTime(),
+					registForm.getNote()
+					);
+
+			registService.add(regist);
+
+			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 	    }
-		Regist regist = new Regist(
-				registForm.getUserId(),
-				registForm.getDate(),
-				registForm.getWorkStatus(),
-				registForm.getClockIn(),
-				registForm.getClockOut(),
-				registForm.getActualWorkTime(),
-				registForm.getBreakTime(),
-				registForm.getCumOverTime(),
-				registForm.getNote()
-				);
-		
-		registService.add(regist);
-		
-		return modelAndView;
-		
-		}
-		
-
-
+	}
 }
-}
-
-
-//
-//package com.example.demo.form;
-//
-//import java.time.LocalDate;
-//import java.time.LocalTime;
-//
-//import jakarta.validation.constraints.NotNull;
-//
-//import lombok.Data;
-//
-//@Data
-//public class RegistForm {
-//
-//    @NotNull(message = "社員コードは必須です")
-//    private String userId;
-//
-//    @NotNull(message = "日付は必須です")
-//    private LocalDate date;
-//
-//    @NotNull(message = "勤怠区分は必須です")
-//    private String workStatus;
-//
-//    @NotNull(message = "出勤時間は必須です")
-//    private LocalTime clockIn;
-//
-//    @NotNull(message = "退勤時間は必須です")
-//    private LocalTime clockOut;
-//
-//    private Integer workHours;
-//    private Integer breakTime;
-//    private String note;
-//
-//    public void combineDateTime() {
-//        // 出勤時間と退勤時間のバリデーション
-//        if (clockIn != null && clockOut != null && clockIn.isAfter(clockOut)) {
-//            throw new IllegalArgumentException("出勤時間が退勤時間より遅いです");
-//        }
-//
-//        // 実労働時間の計算
-//        if (clockIn != null && clockOut != null) {
-//            workHours = (int) java.time.Duration.between(clockIn, clockOut).toMinutes();
-//        }
-//
-//        // 休憩時間のバリデーション
-//        if (workHours != null && breakTime != null && breakTime > workHours) {
-//            throw new IllegalArgumentException("休憩時間は実労働時間を超えることはできません");
-//        }
-//
-//        // 出勤時間と退勤時間が所定の範囲内にあるかのバリデーション
-//        LocalTime startOfWorkDay = LocalTime.of(8, 0);
-//        LocalTime endOfWorkDay = LocalTime.of(17, 45); // 17:45 = 16:45 + 60 minutes break
-//        if (clockIn != null && clockOut != null) {
-//            if (clockIn.isBefore(LocalTime.of(8, 0)) || clockOut.isAfter(LocalTime.of(17, 45))) {
-//                throw new IllegalArgumentException("出勤時間と退勤時間は8:00から17:45の間でなければなりません");
-//            }
-//            if (clockIn.isAfter(clockOut)) {
-//                throw new IllegalArgumentException("出勤時間は退勤時間より前でなければなりません");
-//            }
-//        }
-//    }
-//}
