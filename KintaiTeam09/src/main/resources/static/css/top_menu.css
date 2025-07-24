@@ -1,34 +1,3 @@
-body {
-  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  margin: 0;
-  background-color: #f5f5f5;
-}
-
-header {
-    background-color: #FFFEDA;
-    color: #808080;
-    padding: 10px 20px;
-    position: relative;
-    font-size: 16px;
-    text-align: left;
-}
-
-.title {
-  font-weight: bold;
-  color: #555;
-}
-
-.logout-area {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  color: #666;
-   transition: background-color 0.3s, color 0.3s;
-}
-
-.logout-icon {
-  margin-right: 5px;
-}
 
 .greeting {
   text-align: left;
@@ -56,70 +25,6 @@ header {
   font-family: inherit;
   outline: none;
    transition: background-color 0.3s, color 0.3s;
-}
-
-.button-label {
-    pointer-events: none;
-    font-size: 14px;
-
-}
-
-header {
-    background-color: #FFFEDA;
-    color: #808080;
-    padding: 10px 20px;
-    position: relative;
-    font-size: 16px;
-    text-align: left;
-}
-
-/*h1 {
-  margin: 0;
-  font-size: 24px;
-}*/
-
-.top-right-buttons {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  height: 60px;
-  display: flex;
-  align-items: flex-start; /* 中央揃えから上揃えに */
-  gap: 8px;
-  padding-top: 25px;  /* 上に余白を追加して下にずらす */
-}
-
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 20px;
-}
-
-.icon-circle {
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #808080;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  margin-bottom: 6px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.icon-circle:hover {
-  background-color: #9ea7aa;
-  color: white;
-  cursor: pointer;
-}
-
-.button-label {
-  pointer-events: none;
-  font-size: 12px;
 }
 
 .button:hover {
@@ -164,19 +69,19 @@ header {
   }
 
   .button {
-    width: 80%;               /* 少し幅を狭く */
-    max-width: 300px;         /* 最大幅も少し小さく */
-    padding: 30px 20px;       /* 上下左右の余白を小さく */
+    width: 80%;
+    max-width: 300px;
+    padding: 30px 20px;
   }
 
   .icon {
-    width: 50px;              /* アイコン円のサイズも小さく */
+    width: 50px;
     height: 50px;
     top: -25px;
   }
 
   .icon svg {
-    width: 26px;              /* アイコンの中の絵も小さく */
+    width: 26px;
     height: 26px;
   }
 

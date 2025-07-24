@@ -1,0 +1,37 @@
+table {
+  border-collapse: collapse; /* search-display.css, styles.css */
+  width: 80%; /* styles.css */
+  min-width: 0; /* styles.css (search-display.cssではmin-width: 100%だったが、styles.cssに合わせて調整) */
+  margin: 20px auto; /* styles.css */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* styles.css */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* search-display.css, styles.css */
+  background-color: #fff; /* search-display.css, styles.css */
+  border-radius: 8px; /* search-display.css, styles.css */
+  overflow: hidden; /* search-display.css, styles.css */
+}
+
+thead {
+  background-color: #929fab; /* search-display.css, styles.css */
+  color: white; /* search-display.css, styles.css */
+}
+
+thead th {
+  padding: 12px 15px; /* search-display.css, styles.css */
+  text-align: center; /* search-display.css, styles.css */
+  font-weight: 600; /* search-display.css, styles.css */
+  white-space: nowrap; /* styles.css (テーブルヘッダーのテキストが折り返されないように追加) */
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd; /* search-display.css, styles.css */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* search-display.css, styles.css */
+}
+
+tbody td {
+  padding: 12px 15px; /* search-display.css, styles.css */
+  text-align: center; /* search-display.css, styles.css */
+  color: #333; /* search-display.css, styles.css */
+}

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>勤怠管理システム</title>
-
-    <link rel="stylesheet" href="export(照会後).css"> <!-- CSSファイルをリンク -->
+    <title>エクスポート</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/export.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -13,38 +13,39 @@
         <h1>勤怠管理</h1>
         <div class="top-right-buttons">
             <div class="button-group">
-                <a href="topmenu" class="icon-circle"><i class="fas fa-house"></i></a>
+                <button href="#" class="icon-circle"><i class="fas fa-house"></i></button>
                 <span class="button-label">トップメニュー</span>
             </div>
             <div class="button-group">
-                <a href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></a>
+                <button href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
                 <span class="button-label">ログアウト</span>
             </div>
         </div>
     </header>
 
     <main>
-    <div class="content-wrapper">
-        <div class="table-button-wrapper">
-            <table class="info-table">
-                <tr>
-                    <td><label for="employeeCode">社員コード:</label></td>
-                    <td><label for="year">年/月:</label></td>
-                </tr>
-                <tr>
-                    <td><input type="text" id="employeeCode" value="12345" readonly></td>
-                    <td><input type="month" id="month" name="month"></td>
-                </tr>
-            </table>
-            <button class="inquiry-button">照会</button>
-        </div>
+        <div class="content-wrapper">
+            <div class="table-button-wrapper">
+                <div class="input-table-wrapper">
+                    <table class="info-table">
+                        <tr>
+                            <td><label for="employeeCode">社員コード</label></td>
+                            <td><label for="month">年/月</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="employeeCode" value="12345" readonly></td>
+                            <td><input type="month" id="month" name="month"></td>
+                        </tr>
+                    </table>
+                    <button class="inquiry-button">照会</button>
+                </div>
+            </div>
 
-        <div class="textbox-button-wrapper">
-            <input type="text" id="textbox" name="textbox" class="textbox" readonly>
-            <button class="square-button"><i class="fa-solid fa-download"></i></button>
+            <div class="textbox-button-wrapper">
+                <input type="text" id="textbox" name="textbox" class="textbox" readonly>
+                <button class="square-button"><i class="fa-solid fa-download"></i></button>
+            </div>
         </div>
-    </div>
-</main>
-
+    </main>
 </body>
 </html>

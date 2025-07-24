@@ -1,0 +1,145 @@
+body {
+  /* common.cssに定義されているため削除: font-family, margin, padding, background-color */
+  padding-top: 60px; /* ヘッダーがfixedなので、コンテンツがヘッダーの下に隠れないように残します。 */
+  display: flex; /* common.cssではbodyにdisplay: flexが定義されていないため残します。 */
+  flex-direction: column; /* common.cssではbodyにflex-directionが定義されていないため残します。 */
+  align-items: center; /* common.cssではbodyにalign-itemsが定義されていないため残します。 */
+}
+
+header {
+  /* common.cssに定義されているため削除: background-color, color, padding, font-size, text-align */
+  position: fixed; /* ヘッダーを固定するために残します。 */
+  top: 0; /* ヘッダーを固定するために残します。 */
+  left: 0; /* ヘッダーを固定するために残します。 */
+  right: 0; /* ヘッダーを固定するために残します。 */
+  z-index: 1000; /* ヘッダーを他の要素の上に表示するために残します。 */
+}
+
+.top-right-buttons {
+  /*position: absolute; /* common.cssのdisplay: flex;からposition: absolute;に上書きするため残します。 */
+  top: 10px; /* absoluteと合わせて位置を調整するために残します。 */
+  right: 20px; /* absoluteと合わせて位置を調整するために残します。 */
+  /* common.cssに定義されているため削除: display */
+}
+
+.button-group {
+  /* common.cssに定義されているため削除: display, flex-direction, align-items */
+  margin-left: 20px; /* common.cssにはないため残します。 */
+}
+
+.icon-circle {
+  /*width: 50px; /* common.cssの40pxから上書きするため残します。 */
+  /*height: 50px; /* common.cssの40pxから上書きするため残します。 */
+  /* common.cssに定義されているため削除: background-color, border-radius, display, justify-content, align-items, color, box-shadow, transition, margin-bottom */
+}
+
+.icon-circle:hover {
+  /* common.cssに定義されているため削除: background-color, color, cursor */
+}
+
+.button-label {
+  /*margin-top: 5px; /* common.cssにはないため残します。 */
+  /* common.cssに定義されているため削除: font-size, color */
+  text-align: center; /* common.cssにはないため残します。 */
+}
+
+.date-search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 140px;
+  margin-bottom: 50px;
+}
+
+#datePicker {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.search-icon-button {
+  width: 44px;
+  height: 44px;
+  background-color: #e6f6fa;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.search-icon-button:hover {
+  background-color: #cde9f0;
+  transform: translateY(-3px);
+}
+
+
+
+/* 共通のテーブルスタイルはcommon_table_styles.cssに移動 */
+table {
+  /* width: 100%; */ /* search-display.htmlのテーブル幅を調整 - 削除またはコメントアウト */
+  /* max-width: 100%; */ /* search-display.htmlのテーブル幅を調整 - 削除またはコメントアウト */
+  table-layout: auto; /* search-display.cssではfixedだったが、コンテンツに合わせてautoに変更 */
+  margin-bottom: 20px;
+}
+
+/* search-display.htmlのinputに特化したスタイルは残す */
+input[name="employee_code"],
+input[name="work_hours"],
+input[name="break_time"],
+input[name="total_hours"] {
+  width: 80px;
+}
+
+/* search-display.htmlのテーブルの備考欄の幅を調整 */
+tbody td:nth-child(9) { /* 9番目のtd（備考欄）に適用 */
+  min-width: 200px; /* regist.htmlの備考欄のinputのmin-widthに合わせる */
+  width: auto; /* コンテンツに応じて自動調整 */
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+
+.icon-button {
+  width: 60px;
+  height: 60px;
+  background-color: #e6f6fa;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background-color: #cde9f0;
+  transform: translateY(-3px);
+}
+
+.icon-svg {
+  width: 30px; /* common.cssの24pxから上書きするため残します。 */
+  height: 30px; /* common.cssの24pxから上書きするため残します。 */
+  color: #555; /* common.cssのstroke: currentColorから上書きするため残します。 */
+}
+
+.icon-button {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon-button:focus {
+  outline: none;
+}
