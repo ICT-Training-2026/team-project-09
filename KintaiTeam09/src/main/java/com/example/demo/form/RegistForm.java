@@ -40,6 +40,7 @@
 
 package com.example.demo.form;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -63,8 +64,9 @@ public class RegistForm {
     private LocalDate date;
 
     @NotNull(message = "勤怠区分は必須です")
-    private Integer workStatus;
-
+//    private Integer workStatus;
+    private BigDecimal workStatus;
+    
     @NotNull(message = "出勤時間は必須です")
     private LocalTime clockInTime;
 
@@ -73,16 +75,19 @@ public class RegistForm {
     
     @NotNull(message = "休憩時間は必須です")
     @Min(value = 0, message = "実労働時間は0以上でなければなりません")
-    private Integer breakTime;    
+//    private Integer breakTime; 
+    private BigDecimal breakTime;
 
     private Timestamp clockIn;
     private Timestamp clockOut;
 
     @Min(value = 0, message = "実労働時間は0以上でなければなりません")
-    private Integer actualWorkTime;
+//    private Integer actualWorkTime;
+    private BigDecimal actualWorkTime;
 
     @Min(value = 0, message = "累計労働時間は0以上でなければなりません")
-    private Integer cumOverTime;
+//    private Integer cumOverTime;
+    private BigDecimal cumOverTime;
 
     @Size(max = 100, message = "備考は文字以内で入力してください")
     private String note;
@@ -115,32 +120,35 @@ public class RegistForm {
             return !clockInTime.isAfter(coreTimeStart) && !clockOutTime.isBefore(coreTimeEnd);
         }
 
-        @AssertTrue(message = "手入力された実労働時間が計算された値と一致しません")
-        public boolean isActualWorkTimeValid() {
-            if (clockInTime == null || clockOutTime == null || actualWorkTime == null) {
-                return true;
-            }
-            int calculatedWorkMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes() - (breakTime != null ? breakTime : 0);
-            return actualWorkTime == calculatedWorkMinutes;
-        }
-
-        @AssertTrue(message = "実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります")
-        public boolean isBreakTimeValid() {
-            if (clockInTime == null || clockOutTime == null) {
-                return true;
-            }
-            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
-            return workMinutes < 240 || (breakTime != null && breakTime >= 60);
-        }
-
-        @AssertTrue(message = "休憩時間が実労働時間を超えることはできません")
-        public boolean isBreakTimeNotExceedingWorkTime() {
-            if (clockInTime == null || clockOutTime == null || breakTime == null) {
-                return true;
-            }
-            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
-            return breakTime <= workMinutes;
-        }
+        // フィールドの型をintからBigDecimalに変更したため要修正
+        // ここから
+//        @AssertTrue(message = "手入力された実労働時間が計算された値と一致しません")
+//        public boolean isActualWorkTimeValid() {
+//            if (clockInTime == null || clockOutTime == null || actualWorkTime == null) {
+//                return true;
+//            }
+//            int calculatedWorkMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes() - (breakTime != null ? breakTime : 0);
+//            return actualWorkTime == calculatedWorkMinutes;
+//        }
+//
+//        @AssertTrue(message = "実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります")
+//        public boolean isBreakTimeValid() {
+//            if (clockInTime == null || clockOutTime == null) {
+//                return true;
+//            }
+//            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
+//            return workMinutes < 240 || (breakTime != null && breakTime >= 60);
+//        }
+//
+//        @AssertTrue(message = "休憩時間が実労働時間を超えることはできません")
+//        public boolean isBreakTimeNotExceedingWorkTime() {
+//            if (clockInTime == null || clockOutTime == null || breakTime == null) {
+//                return true;
+//            }
+//            int workMinutes = (int) java.time.Duration.between(clockInTime, clockOutTime).toMinutes();
+//            return breakTime <= workMinutes;
+//        }
+        // ここまで
     
     
     
