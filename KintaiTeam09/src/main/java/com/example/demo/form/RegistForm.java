@@ -41,7 +41,7 @@
 package com.example.demo.form;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -64,8 +64,9 @@ public class RegistForm {
     private LocalDate date;
 
     @NotNull(message = "勤怠区分は必須です")
-    private Integer workStatus;
-
+//    private Integer workStatus;
+    private BigDecimal workStatus;
+    
     @NotNull(message = "出勤時間は必須です")
     private LocalTime clockInTime;
 
@@ -74,20 +75,26 @@ public class RegistForm {
     
     @NotNull(message = "休憩時間は必須です")
     @Min(value = 0, message = "実労働時間は0以上でなければなりません")
+
 //    private Integer breakTime;    
     private BigDecimal breakTime;  // BigDecimalに変更
 
-    private Timestamp clockIn;
-    private Timestamp clockOut;
+
+//    private Timestamp clockIn;
+//    private Timestamp clockOut;
+    private LocalDateTime clockIn;
+    private LocalDateTime clockOut;
 
     @Min(value = 0, message = "実労働時間は0以上でなければなりません")
 //    private Integer actualWorkTime;
+
     private BigDecimal actualWorkTime;  // BigDecimalに変更
 
     @Min(value = 0, message = "累計労働時間は0以上でなければなりません")
 //    private Integer cumOverTime;
     private BigDecimal cumOverTime;  // BigDecimalに変更
     
+
 
     @Size(max = 100, message = "備考は100文字以内で入力してください")
     private String note;
@@ -120,6 +127,7 @@ public class RegistForm {
         return !clockInTime.isAfter(coreTimeStart) && !clockOutTime.isBefore(coreTimeEnd);
     }
 
+
     @AssertTrue(message = "実労働時間が4時間以上の場合は、1時間の休憩を取る必要があります")
     public boolean isBreakTimeValid() {
         if (clockInTime == null || clockOutTime == null) {
@@ -145,6 +153,7 @@ public class RegistForm {
         }
         return breakTime.compareTo(BigDecimal.valueOf(60)) <= 0;
     }
+
 
     @AssertTrue(message = "実労働時間が4時間未満のため、数値を変更してください。")
     public boolean isBreakTimeAppropriateForShortWork() {
@@ -200,8 +209,10 @@ public class RegistForm {
         if (date != null && clockInTime != null && clockOutTime != null) {
             LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
             LocalDateTime clockOutDateTime = LocalDateTime.of(date, clockOutTime);
-            this.clockIn = Timestamp.valueOf(clockInDateTime);
-            this.clockOut = Timestamp.valueOf(clockOutDateTime);
+            this.clockIn = clockInDateTime;
+            this.clockOut = clockOutDateTime;
+//            this.clockIn = Timestamp.valueOf(clockInDateTime);
+//            this.clockOut = Timestamp.valueOf(clockOutDateTime);
     }
 }
     

@@ -25,8 +25,9 @@
 
   <!--<div class="greeting">こんにちは^^</div>-->
   
-  <p th:text="'社員ID:' + ${userId}">社員ID</p>
-  <p th:text="'氏名:' + ${name}">氏名</p>
+  <p th:text="'社員ID:' + ${session.userId}">社員ID</p>
+<!--  <p th:text="'社員ID:' + ${userId}">社員ID</p>-->
+<!--  <p th:text="'氏名:' + ${name}">氏名</p>-->
 <!--  <p th:text="'部署ID:' + ${departmentCode}">部署ID</p>-->
 <!--  <p th:text="'残り有給日数:' + ${numPaidHoliday}">残り有給日数</p>-->
 

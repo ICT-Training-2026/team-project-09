@@ -2,11 +2,24 @@ package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.Regist;
+import com.example.demo.entity.SearchEdit;
+import com.example.demo.repository.SearchEditRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class SearchEditServiceImpl implements SearchEditService {
 	
-	// 抽象メソッドをオーバーライド（具体的な処理を記述）
+	// SearchEditRepositoryインタフェースを実装しているBeanをDI
+		private final SearchEditRepository searchEditRepository;
+	
+	@Override
+	public Regist searchAttendInfo(SearchEdit searchEdit) {
+		Regist regist = searchEditRepository.searchAttendInfo(searchEdit);
+		
+		return regist;
+	}
+	
 }

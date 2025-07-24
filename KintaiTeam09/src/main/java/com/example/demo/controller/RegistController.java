@@ -81,17 +81,16 @@ public class RegistController {
 		    // なぜなら、すべて@Validatedで処理されているため、このelseブロックに来た時点でエラーがないから
 		    // ただし、combineDateTime()でnullチェックをしているため、ここで例外が発生する可能性は低い
 
-			Regist regist = new Regist(
-					registForm.getUserId(),
-					registForm.getDate(),
-					registForm.getWorkStatus(),
-					registForm.getClockIn(),
-					registForm.getClockOut(),
-					registForm.getActualWorkTime(),
-					registForm.getBreakTime(),
-					registForm.getCumOverTime(),
-					registForm.getNote()
-					);
+			Regist regist = new Regist();
+			regist.setUserId(registForm.getUserId()) ;
+			regist.setDate(registForm.getDate());
+			regist.setWorkStatus(registForm.getWorkStatus());
+			regist.setClockIn(registForm.getClockIn());
+			regist.setClockOut(registForm.getClockOut());
+			regist.setActualWorkTime(registForm.getActualWorkTime());
+			regist.setBreakTime(registForm.getBreakTime());
+			regist.setCumOverTime(registForm.getCumOverTime());
+			regist.setNote(registForm.getNote());
 
 			registService.add(regist);
 

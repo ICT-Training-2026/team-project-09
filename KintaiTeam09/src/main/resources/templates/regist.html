@@ -68,7 +68,9 @@ https://g.co/gemini/share/1a162071b0c2
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" th:field="*{userId}" name="employee_code" >
+
+                            <input type="text" th:field="*{userId}" name="employee_code">
+
                             <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
                         </td>
 
@@ -117,7 +119,8 @@ https://g.co/gemini/share/1a162071b0c2
                             <div th:if="${#fields.hasErrors('breakTime') and !hasErrors}" th:errors="*{breakTime}" style="color: red;"></div>
                         </td>
 
-                        <td><input type="text" th:field="*{cumOverTime}" name="total_hours" ></td>
+
+                        <td><input type="text" th:field="*{cumOverTime}" name="total_hours"></td>
                         
                         <td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
 
