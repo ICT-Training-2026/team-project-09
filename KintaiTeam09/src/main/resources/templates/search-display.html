@@ -1,50 +1,33 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>勤怠管理 - 検索・編集</title>
-  <link rel="stylesheet" href="style_search-display.css" />
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/common_table_styles.css}">
+  <link rel="stylesheet" th:href="@{/css/search-display.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <header>
+<header>
     <h1>勤怠管理</h1>
     <div class="top-right-buttons">
-
-      <!-- トップページボタン（SVGに置き換え） -->
       <div class="button-group">
-        <a th:href="@{/}" class="icon-circle" title="トップページ">
-          <!-- SVGアイコン：ホーム -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-               stroke-width="1.5" stroke="currentColor" class="icon-svg">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-          </svg>
-        </a>
-        <span class="button-label">トップページ</span>
+        <button href="#" class="icon-circle"><i class="fas fa-house"></i></button>
+        <span class="button-label">トップメニュー</span>
       </div>
-
-      <!-- ログアウトボタン（SVGに置き換え） -->
       <div class="button-group">
-        <a th:href="@{/logout}" class="icon-circle" title="ログアウト">
-          <!-- SVGアイコン：ログアウト -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-               stroke-width="1.5" stroke="currentColor" class="icon-svg">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M18 12H9m9 0-3-3m3 3-3 3" />
-          </svg>
-        </a>
+        <button href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
         <span class="button-label">ログアウト</span>
       </div>
     </div>
   </header>
 
-  <!-- 日付と検索 -->
   <div class="date-search-container">
     <input type="date" id="datePicker" th:value="${selectedDate}" />
     <button class="search-icon-button" title="検索" type="submit" form="searchForm">
-      <!-- 虫眼鏡SVG -->
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
            stroke-width="1.5" stroke="currentColor" class="icon-svg">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,12 +36,10 @@
     </button>
   </div>
 
-  <!-- 検索フォーム（dateで送信） -->
   <form id="searchForm" th:action="@{/attendance/search}" method="get" style="display:none;">
     <input type="hidden" name="date" th:value="${selectedDate}" />
   </form>
 
-  <!-- 勤怠入力テーブル -->
   <table>
     <thead>
       <tr>
@@ -88,26 +69,32 @@
     </tbody>
   </table>
 
-  <!-- 編集・削除ボタン -->
   <div class="action-buttons" th:if="${attendanceList.size() > 0}">
-    <div class="icon-button" title="編集" th:onclick="'location.href=\'/attendance/edit/' + ${attendanceList[0].id} + '\';'">
-      <!-- ペンアイコン -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-           stroke-width="1.5" stroke="currentColor" class="icon-svg">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-      </svg>
-    </div>
+  
+  <!-- 編集ボタン -->
+  <button class="icon-button" title="編集"
+          type="button"
+          th:onclick="'location.href=\'/attendance/edit/' + ${attendanceList[0].id} + '\';'">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+         stroke-width="1.5" stroke="currentColor" class="icon-svg">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+    </svg>
+  </button>
 
-    <div class="icon-button" title="削除" th:onclick="'location.href=\'/attendance/delete/' + ${attendanceList[0].id} + '\';'">
-      <!-- ゴミ箱アイコン -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-           stroke-width="1.5" stroke="currentColor" class="icon-svg">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-      </svg>
-    </div>
-  </div>
+  <!-- 削除ボタン -->
+  <button class="icon-button" title="削除"
+          type="button"
+          th:onclick="'location.href=\'/attendance/delete/' + ${attendanceList[0].id} + '\';'">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+         stroke-width="1.5" stroke="currentColor" class="icon-svg">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+    </svg>
+  </button>
+
+</div>
 
 </body>
+
 </html>
