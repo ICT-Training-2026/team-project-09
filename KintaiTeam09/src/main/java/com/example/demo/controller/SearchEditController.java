@@ -27,8 +27,8 @@ public class SearchEditController {
 		
 		System.out.println("社員ID:" + regist.getUserId());
 		System.out.println("勤怠区分:" + regist.getWorkStatus());
-//		System.out.println("出勤時刻:" + regist.getClockIn());
-//		System.out.println("退勤時刻:" + regist.getClockOut());
+		System.out.println("出勤時刻:" + regist.getClockInTime());
+		System.out.println("退勤時刻:" + regist.getClockOutTime());
 		System.out.println("実労働時間:" + regist.getActualWorkTime());
 		System.out.println("休憩時間:" + regist.getBreakTime());
 		System.out.println("累計超過時間:" + regist.getCumOverTime());

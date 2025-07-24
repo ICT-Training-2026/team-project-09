@@ -41,7 +41,6 @@
 package com.example.demo.form;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -78,8 +77,10 @@ public class RegistForm {
 //    private Integer breakTime; 
     private BigDecimal breakTime;
 
-    private Timestamp clockIn;
-    private Timestamp clockOut;
+//    private Timestamp clockIn;
+//    private Timestamp clockOut;
+    private LocalDateTime clockIn;
+    private LocalDateTime clockOut;
 
     @Min(value = 0, message = "実労働時間は0以上でなければなりません")
 //    private Integer actualWorkTime;
@@ -233,8 +234,10 @@ public class RegistForm {
         if (date != null && clockInTime != null && clockOutTime != null) {
             LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
             LocalDateTime clockOutDateTime = LocalDateTime.of(date, clockOutTime);
-            this.clockIn = Timestamp.valueOf(clockInDateTime);
-            this.clockOut = Timestamp.valueOf(clockOutDateTime);
+            this.clockIn = clockInDateTime;
+            this.clockOut = clockOutDateTime;
+//            this.clockIn = Timestamp.valueOf(clockInDateTime);
+//            this.clockOut = Timestamp.valueOf(clockOutDateTime);
     }
 }
     

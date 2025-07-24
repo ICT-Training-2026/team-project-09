@@ -1,8 +1,9 @@
 package com.example.demo.entity;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,10 +28,12 @@ public class Regist {
 //	private Integer workStatus;
 	private BigDecimal workStatus;
 
-//	private LocalTime clockInTime;
-//	private LocalTime clockOutTime;
-	private Timestamp clockIn;
-	private Timestamp clockOut;
+	private LocalTime clockInTime;
+	private LocalTime clockOutTime;
+//	private Timestamp clockIn;
+//	private Timestamp clockOut;
+	private LocalDateTime clockIn;
+	private LocalDateTime clockOut;
 	
 //	private Integer actualWorkTime;
 	private BigDecimal actualWorkTime;
