@@ -33,6 +33,7 @@ public class RegistRepositoryImpl implements RegistRepository {
 		// 本実装（データベース登録処理）
 		String sql = " INSERT INTO attend_info " +
 				" (user_code, date, work_status_code, clock_in, clock_out," +
+
 				"breaktime, cum_overtime, note) " +
 				" VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
 

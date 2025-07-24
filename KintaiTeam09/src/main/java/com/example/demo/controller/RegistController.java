@@ -42,6 +42,7 @@ public class RegistController {
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
 
+
 	    if (result.hasErrors()) {
 	        System.out.println("入力不備あり");
 	        
