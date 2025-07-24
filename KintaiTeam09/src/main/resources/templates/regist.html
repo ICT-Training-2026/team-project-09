@@ -1,17 +1,19 @@
 https://g.co/gemini/share/1a162071b0c2
 
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>勤怠登録</title>
 
-    <link rel="stylesheet" th:href="@{/css/regist-style.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>regist</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/common_table_styles.css}">
+  <link rel="stylesheet" th:href="@{/css/regist.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
-
 <body>
 
     <div class="main-container">
@@ -36,6 +38,7 @@ https://g.co/gemini/share/1a162071b0c2
 
 			
 		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
+
 			<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
 <!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
 			<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
@@ -92,6 +95,7 @@ https://g.co/gemini/share/1a162071b0c2
 <!--                            <input type="time" th:field="*{clockOutTime}" name="end_time" id="clockOutTime">-->
 <!--                            <div th:if="${#fields.hasErrors('clockOutTime') and !hasErrors}" th:errors="*{clockOutTime}" style="color: red;"></div>-->
 <!--                        </td>-->
+
 						
 						<td>
 						    <input type="time" th:field="*{clockInTime}" name="start_time" id="clockInTime">

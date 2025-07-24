@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>勤怠管理 - 検索・編集</title>
-  <link rel="stylesheet" href="common.css" />
-  <link rel="stylesheet" href="style_search.css" />
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/style_search.css}">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -14,11 +15,11 @@
     <h1>勤怠管理</h1>
     <div class="top-right-buttons">
       <div class="button-group">
-        <button href="#" class="icon-circle"><i class="fas fa-house"></i></button>
+        <button href="/top_menu" class="icon-circle"><i class="fas fa-house"></i></button>
         <span class="button-label">トップメニュー</span>
       </div>
       <div class="button-group">
-        <button href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+        <button href="/" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
         <span class="button-label">ログアウト</span>
       </div>
     </div>

@@ -1,5 +1,11 @@
 package com.example.demo.controller;
 
-public class SearchEditController {
+import org.springframework.stereotype.Controller;
 
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+public class SearchEditController {
+	
 }

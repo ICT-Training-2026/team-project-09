@@ -1,100 +1,103 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>勤怠管理 - 検索・編集</title>
-  <link rel="stylesheet" href="style_search-edit.css" />
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/common_table_styles.css}">
+  <link rel="stylesheet" th:href="@{/css/search-edit.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <header>
-    <h1>勤怠管理</h1>
-    <div class="top-right-buttons">
-      
-      <!-- トップページボタン（SVGに置き換え） -->
-      <div class="button-group">
-        <a href="#" class="icon-circle" title="トップページ">
-          <!-- SVGアイコン：ホーム -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-               stroke-width="1.5" stroke="currentColor" class="icon-svg">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-          </svg>
-        </a>
-        <span class="button-label">トップページ</span>
-      </div>
-
-      <!-- ログアウトボタン（SVGに置き換え） -->
-      <div class="button-group">
-        <a href="#" class="icon-circle" title="ログアウト">
-          <!-- SVGアイコン：ログアウト -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-               stroke-width="1.5" stroke="currentColor" class="icon-svg">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M18 12H9m9 0-3-3m3 3-3 3" />
-          </svg>
-        </a>
-        <span class="button-label">ログアウト</span>
-      </div>
+<header>
+  <h1>勤怠管理</h1>
+  <div class="top-right-buttons">
+    <div class="button-group">
+      <button href="#" class="icon-circle"><i class="fas fa-house"></i></button>
+      <span class="button-label">トップメニュー</span>
     </div>
-  </header>
-
-  <!-- 日付と検索 -->
-  <div class="date-search-container">
-    <input type="date" id="datePicker" />
-    <button class="search-icon-button" title="検索">
-      <!-- 虫眼鏡SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-           stroke-width="1.5" stroke="currentColor" class="icon-svg">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-      </svg>
-    </button>
+    <div class="button-group">
+      <button href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+      <span class="button-label">ログアウト</span>
+    </div>
   </div>
+</header>
 
-  <!-- 勤怠入力テーブル -->
-  <table>
-    <thead>
-      <tr>
-        <th>社員コード</th>
-        <th>日付</th>
-        <th>勤怠区分</th>
-        <th>出勤時間</th>
-        <th>退勤時間</th>
-        <th>実労働時間(分)</th>
-        <th>休憩時間(分)</th>
-        <th>累計労働時間(分)</th>
-        <th>備考</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="text" name="employee_code" value="12345" readonly></td>
-        <td><input type="date" name="date"></td>
-        <td>
-          <select name="work_type">
-            <option value="出勤">出勤</option>
-            <option value="欠勤">欠勤</option>
-            <option value="遅刻">遅刻</option>
-            <option value="前半休">前半休</option>
-            <option value="後半休">後半休</option>
-            <option value="出張">出張</option>
-          </select>
-        </td>
-        <td><input type="time" name="start_time"></td>
-        <td><input type="time" name="end_time"></td>
-        <td><input type="text" name="work_hours" placeholder="例:420"></td>
-        <td><input type="text" name="break_time" placeholder="例:60"></td>
-        <td><input type="text" name="total_hours" value="1280" readonly></td>
-        <td><input type="text" name="remarks" placeholder="備考"></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="date-search-container">
+  <input type="date" id="datePicker" th:value="${selectedDate}" />
+  <button class="search-icon-button" title="検索" type="submit" form="searchForm">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+         stroke-width="1.5" stroke="currentColor" class="icon-svg">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+    </svg>
+  </button>
+</div>
 
-  <!-- 編集・削除ボタン -->
-  <div class="action-buttons">
-  <div class="icon-button" title="完了">
+<form id="searchForm" th:action="@{/attendance/search}" method="get" style="display:none;">
+  <input type="hidden" name="date" th:value="${selectedDate}" />
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>社員コード</th>
+      <th>日付</th>
+      <th>勤怠区分</th>
+      <th>出勤時間</th>
+      <th>退勤時間</th>
+      <th>実労働時間(分)</th>
+      <th>休憩時間(分)</th>
+      <th>累計労働時間(分)</th>
+      <th>備考</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr th:each="record : ${attendanceList}">
+    <td>
+      <input type="text" name="employee_code" th:value="${record.employeeCode}" readonly />
+    </td>
+    <td>
+      <input type="date" name="date" th:value="${#dates.format(record.date, 'yyyy-MM-dd')}" required />
+    </td>
+    <td>
+      <select name="work_type" required>
+        <option value="" disabled>選択</option>
+        <option value="出勤" th:selected="${record.workType == '出勤'}">出勤</option>
+        <option value="欠勤" th:selected="${record.workType == '欠勤'}">欠勤</option>
+        <option value="遅刻" th:selected="${record.workType == '遅刻'}">遅刻</option>
+        <option value="前半休" th:selected="${record.workType == '前半休'}">前半休</option>
+        <option value="後半休" th:selected="${record.workType == '後半休'}">後半休</option>
+        <option value="出張" th:selected="${record.workType == '出張'}">出張</option>
+      </select>
+    </td>
+    <td>
+      <input type="time" name="start_time" th:value="${record.startTime}" required />
+    </td>
+    <td>
+      <input type="time" name="end_time" th:value="${record.endTime}" required />
+    </td>
+    <td>
+      <input type="text" name="work_hours" th:value="${record.workHours}" placeholder="例:420" required />
+    </td>
+    <td>
+      <input type="text" name="break_time" th:value="${record.breakTime}" placeholder="例:60" required />
+    </td>
+    <td>
+      <input type="text" name="total_hours" th:value="${record.totalHours}" readonly />
+    </td>
+    <td>
+      <input type="text" name="remarks" th:value="${record.remarks}" />
+    </td>
+  </tr>
+</tbody>
+
+</table>
+
+<div class="action-buttons">
+  <button class="icon-button" title="完了" type="button">
     <!-- チェックマークアイコン -->
     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
          viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -102,7 +105,7 @@
       <path stroke-linecap="round" stroke-linejoin="round"
             d="m4.5 12.75 6 6 9-13.5" />
     </svg>
-  </div>
+  </button>
 </div>
 
 </body>

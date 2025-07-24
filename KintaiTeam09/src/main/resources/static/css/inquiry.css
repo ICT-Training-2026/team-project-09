@@ -1,119 +1,177 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F5F5F5;
-}
-
-header {
-    background-color: #FFFEDA;
-    color: #808080;
-    padding: 10px 20px;
-    position: relative;
-    font-size: 16px;
-    text-align: left;
-}
-
-.top-right-buttons {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-}
-
-.top-right-buttons a {
-    display: flex;
-    flex-direction: column; /* 縦に並べる */
-    align-items: center;    /* 中央寄せ */
-    text-decoration: none;
-    color: #808080;
-    margin-left: 10px;
-    font-size: 14px;
-}
-
-.icon-circle {
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    border-radius: 50%; /* 丸くする */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #808080;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    margin-bottom: 6px; /* アイコンと文字の間の余白 */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.icon-circle:hover {
-    background-color: #9ea7aa;
-    color: white;
-    cursor: pointer; /* マウスカーソルを手に変える */
-}
-
-.button-label {
-    pointer-events: none;
-    font-size: 12px;
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 20px;
-}
-
+/* ===== メイン全体の配置 ===== */
 main {
-    padding: 20px;
-    display: flex;
-    justify-content: center; /* 中央に配置 */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
-.info-table {
-    width: auto; /* テーブルの幅を自動調整 */
-    margin: 0;
-    border-collapse: collapse;
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.info-table td {
-    padding: 10px;
-    border: 1px solid #ccc;
+/* ===== テーブル部分 ===== */
+.table-button-wrapper {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+  width: 100%;
 }
 
-label {
-    margin-right: 10px;
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #929fab;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-input[type="text"], select {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.info-table label {
+  color: white;  /* ← 文字色を白に */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;  /* ← フォント指定 */
+  font-size: 16px;  /* 必要ならフォントサイズも調整 */
+  font-weight: bold;  /* 太字で見やすくする */
 }
 
+/* ヘッダーのデザイン */
+thead {
+  background-color: #929fab;
+  color: white;
+}
+
+thead th {
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* テーブルの行・セル */
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: white;
+}
+
+tbody td {
+  padding: 12px 15px;
+  text-align: center;
+  color: #333;
+}
+
+/* ===== 入力欄の共通スタイル ===== */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="month"],
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* ===== 照会ボタン ===== */
 .inquiry-button {
-    padding: 10px 30px;
-    background-color: #e6fcff;
-    color: #808080;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10px; /* テーブルとの間にスペースを追加 */
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.inquiry-button i {
-    margin-right: 8px; /* アイコンとテキストの間にスペースを追加 */
+  padding: 10px 30px;
+  background-color: #e6fcff;
+  color: #808080;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .inquiry-button:hover {
-    background-color: #d0f1f5;
+  background-color: #d0f1f5;
 }
 
-.table-button-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* テーブルとボタンの間のスペースを追加 */
+/* ===== テキストボックスとダウンロードボタンの配置 ===== */
+.textbox-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 80%;
+  max-width: 800px;
+}
+
+.textbox {
+  flex-grow: 1;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-top: 21px;
+}
+
+.square-button {
+  padding: 10px 12px;
+  background-color: #e6fcff;
+  color: #808080;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.square-button:hover {
+  background-color: #d0f1f5;
+  transform: translateY(-3px);
+}
+
+/* ===== トップ右ボタンエリア調整（必要に応じて） ===== */
+.top-right-buttons {
+  top: 10px;
+  right: 20px;
+  gap: 40px;
+}
+
+thead {
+  background-color: #929fab;
+  color: white;
+}
+
+/* テーブルとボタンを横並びにする */
+.input-table-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* テーブルとボタンの間隔 */
+}
+
+/* 照会ボタンのサイズをテーブル高さに揃える（任意調整） */
+.inquiry-button {
+  height: 40px; /* テーブル行に合わせると良い感じに */
+  padding: 0 20px;
+}
+
+#employeeCode,
+#month {
+  width: 120px; /* お好みで調整可能 */
+}
+
+.inquiry-button {
+  white-space: nowrap; /* 改行を禁止 */
 }

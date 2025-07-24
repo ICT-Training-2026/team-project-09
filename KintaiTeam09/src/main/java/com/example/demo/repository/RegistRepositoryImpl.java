@@ -7,12 +7,15 @@ import com.example.demo.entity.Regist;
 
 import lombok.RequiredArgsConstructor;
 
+//RegistRepositoryインタフェースを実装
 @Repository
 @RequiredArgsConstructor
 public class RegistRepositoryImpl implements RegistRepository {
 
+	// JdbcTemplateオブジェクトを利用
 	private final JdbcTemplate jdbcTemplate;
 
+	// 勤怠情報をデータベースに登録するメソッド
 	@Override
 	public void add(Regist regist) {
 		// 仮実装（コンソールに表示）
@@ -27,7 +30,7 @@ public class RegistRepositoryImpl implements RegistRepository {
 		System.out.println("備考:" + regist.getNote());
 
 		
-		// DB登録処理
+		// 本実装（データベース登録処理）
 		String sql = " INSERT INTO attend_info " +
 				" (user_code, date, work_status_code, clock_in, clock_out," +
 				" worktime, actual_worktime, breaktime, cum_overtime, note) " +
