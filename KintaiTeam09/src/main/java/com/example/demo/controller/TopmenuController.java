@@ -15,6 +15,7 @@ public class TopmenuController {
     public String search() {
         return "search"; //search.html(仮称)を表示
     }
+
 	
 	@GetMapping("/export")
     public String export() {
