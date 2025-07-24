@@ -41,7 +41,9 @@
 package com.example.demo.form;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -60,7 +62,8 @@ public class RegistForm {
     private String userId;
 
     @NotNull(message = "日付は必須です")
-    private LocalDate date;
+//    private LocalDate date;
+    private Date date;
 
     @NotNull(message = "勤怠区分は必須です")
 //    private Integer workStatus;
@@ -209,8 +212,9 @@ public class RegistForm {
     
     public void combineDateTime() {
         if (date != null && clockInTime != null && clockOutTime != null) {
-            LocalDateTime clockInDateTime = LocalDateTime.of(date, clockInTime);
-            LocalDateTime clockOutDateTime = LocalDateTime.of(date, clockOutTime);
+        	LocalDate localDate = date.toLocalDate();
+            LocalDateTime clockInDateTime = LocalDateTime.of(localDate, clockInTime);
+            LocalDateTime clockOutDateTime = LocalDateTime.of(localDate, clockOutTime);
             this.clockIn = clockInDateTime;
             this.clockOut = clockOutDateTime;
 //            this.clockIn = Timestamp.valueOf(clockInDateTime);

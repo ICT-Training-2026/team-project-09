@@ -1,7 +1,8 @@
 package com.example.demo.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Date;
+//import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -24,7 +25,8 @@ public class Regist {
 //	private String note;
 	
 	private String userId;
-	private LocalDate date;
+//	private LocalDate date;
+	private Date date;
 //	private Integer workStatus;
 	private BigDecimal workStatus;
 

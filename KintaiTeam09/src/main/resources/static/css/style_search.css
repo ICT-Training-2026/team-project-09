@@ -194,18 +194,3 @@ tbody td:nth-child(9) input {
   color: #555;
 }
 
-/* 入力行（1行目のtr）を非表示 */
-tbody tr {
-  display: none;
-}
-
-/* 編集・削除ボタンを非表示 */
-.action-buttons {
-  display: none;
-}
-
-/* テーブルの1〜9列目（社員コード〜備考列）を非表示にする */
-table th:nth-child(-n+9),
-table td:nth-child(-n+9) {
-  display: none;
-}
