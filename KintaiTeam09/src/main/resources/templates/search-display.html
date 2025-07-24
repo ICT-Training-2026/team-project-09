@@ -19,8 +19,10 @@
         <span class="button-label">トップメニュー</span>
       </div>
       <div class="button-group">
-        <button href="#" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
-        <span class="button-label">ログアウト</span>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+			<span class="button-label">ログアウト</span>
+		</form>
       </div>
     </div>
   </header>
