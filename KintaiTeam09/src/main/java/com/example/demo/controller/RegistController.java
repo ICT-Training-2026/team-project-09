@@ -3,13 +3,13 @@ package com.example.demo.controller;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +22,6 @@ import com.example.demo.entity.Regist;
 import com.example.demo.form.RegistForm;
 import com.example.demo.service.RegistService;
 
-import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -34,24 +33,26 @@ public class RegistController {
 
     @GetMapping("/regist")
 	public String regist(@ModelAttribute RegistForm registForm,
-			HttpSession session) {
+			Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			// 入力日の日付を取得
 			long miliseconds = System.currentTimeMillis();
 			Date today = new Date(miliseconds);
 			
+			// ログイン中のユーザID取得
+			String loginUser = (String)session.getAttribute("userId");
 			// 入力日の月、その月の累積超過時間を取得
 			int currentMonth = LocalDate.now().getMonthValue();
 			System.out.println("今日は" + currentMonth + "月です");
-			BigDecimal overTime = registService.loadCumOverTime(registForm.getUserId(), currentMonth);
+			BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
 			
 			// 初期値のセット
-			registForm.setUserId((String)session.getAttribute("userId"));
+			registForm.setUserId(loginUser);
 			registForm.setDate(today);
-			registForm.setClockInTime(LocalTime.of(8, 45));
-			registForm.setClockOutTime(LocalTime.of(17, 30));
 			registForm.setBreakTime(BigDecimal.valueOf(60));
-			registForm.setCumOverTime(overTime);
+			registForm.setCumOverTime(cumOverTime);
+			model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
 			
 			return "regist"; //regist.html(仮称)を表示
 		} else {
