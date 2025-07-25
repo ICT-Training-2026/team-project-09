@@ -61,6 +61,15 @@ public class RegistRepositoryImpl implements RegistRepository {
 				regist.getOverTime(),
 				regist.getOverTime().add(regist.getCumOverTime()),
 				regist.getNote());
+		
+//		System.out.println("勤怠区分コード:" + regist.getWorkStatus());
+		if (regist.getWorkStatus().compareTo(BigDecimal.valueOf(3)) == 0) {
+			String sqlUpdate = 
+					" UPDATE employees " + 
+					" SET num_paid_holiday = num_paid_holiday - 1 " + 
+					" WHERE user_code = ? ";
+			jdbcTemplate.update(sqlUpdate,regist.getUserId());
+		}
 
 	}
 	
@@ -87,8 +96,6 @@ public class RegistRepositoryImpl implements RegistRepository {
 	
 	// 残り有給休暇日数を取得するメソッド
 	public BigDecimal loadNumPaidHoliday(String userId) {
-		
-//		BigDecimal numPaidHoliday = BigDecimal.valueOf(18);
 		
 		String sql = "SELECT num_paid_holiday " +
 				" FROM employees" +

@@ -31,7 +31,6 @@ public class RegistForm {
     private BigDecimal workStatus;
     
     private LocalTime clockInTime;
-
     private LocalTime clockOutTime;
 
     private BigDecimal breakTime;  // BigDecimalに変更
