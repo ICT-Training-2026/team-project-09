@@ -194,6 +194,18 @@ public class RegistForm {
     }
     
     
+//    @AssertTrue(message = "日付が重複しています")
+//    public boolean isDateNotDuplicated() {
+//        if (userId == null || date == null) {
+//            return true; // ユーザーIDまたは日付がnullの場合はバリデーションをスキップ
+//        }
+//        // データベースをチェックして日付の重複を確認
+//        return !registRepository.isDateAlreadyRegistered(userId, date);
+//    }   
+    
+    
+    
+    
     
 
 

@@ -30,9 +30,9 @@ import lombok.RequiredArgsConstructor;
 public class RegistController {
 	
 	@Autowired
-	private final RegistService registService;
+    private final RegistService registService;
 
-	@GetMapping("/regist")
+    @GetMapping("/regist")
 	public String regist(@ModelAttribute RegistForm registForm,
 			HttpSession session) {
 		if (session.getAttribute("userId") != null) {
@@ -80,13 +80,6 @@ public class RegistController {
 //	        System.out.println("--- BindingResult Errors ---");
 	        for (ObjectError error : result.getAllErrors()) {
 	        	System.out.println(error);
-//	            System.out.println("Error Type: " + error.getClass().getSimpleName());
-//	            if (error instanceof FieldError) {
-//	                FieldError fieldError = (FieldError) error;
-//	                System.out.println("  Field: " + fieldError.getField());
-//	                System.out.println("  Rejected Value: " + fieldError.getRejectedValue());
-//	                System.out.println("  Codes: " + java.util.Arrays.toString(fieldError.getCodes()));
-//	            }
 	            System.out.println("  Message: " + error.getDefaultMessage());
 	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
 	        }
@@ -107,13 +100,6 @@ public class RegistController {
 		    registForm.culcActualWorkTime();
 		    registForm.culcOverTime();
 
-		    // カスタムバリデーションの呼び出しは不要になる
-		    // registForm.validateFields(result); // この行は削除
-
-		    // @AssertTrueを使えば、ここで改めてresult.hasErrors()をチェックする必要も基本的にはなくなる
-		    // なぜなら、すべて@Validatedで処理されているため、このelseブロックに来た時点でエラーがないから
-		    // ただし、combineDateTime()でnullチェックをしているため、ここで例外が発生する可能性は低い
-
 			Regist regist = new Regist();
 			regist.setUserId(registForm.getUserId()) ;
 			regist.setDate(registForm.getDate());
@@ -126,10 +112,20 @@ public class RegistController {
 			regist.setOverTime(registForm.getOverTime());
 			regist.setCumOverTime(registForm.getCumOverTime());
 			regist.setNote(registForm.getNote());
+			
+            try {
+                registService.add(regist);
+            } catch (IllegalArgumentException e) {
+                modelAndView.addObject("errorMessage", e.getMessage());
+                return modelAndView;
+            }
 
-			registService.add(regist);
-
-			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
+            return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
+			
+	
+//			registService.add(regist);
+//
+//			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 	    }
 	}
 }
