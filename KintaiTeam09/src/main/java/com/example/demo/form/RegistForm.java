@@ -258,6 +258,7 @@ public class RegistForm {
 	public void culcOverTime() {
 		this.overTime = this.actualWorkTime.subtract(this.regularTime);
 	}
+	
 }
     
     

@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Regist;
@@ -21,4 +23,11 @@ public class RegistServiceImpl implements RegistService {
 		// registRepositoryImplのaddメソッドを呼び出し
 		registRepository.add(regist);
 	}
+	
+	// 今月の累積超過時間を取得するメソッド
+	@Override
+	public BigDecimal loadCumOverTime(String userId, int month) {
+		BigDecimal overTime = registRepository.loadCumOverTime(userId, month);
+		return overTime;
+	};
 }

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,9 +36,14 @@ public class RegistController {
 	public String regist(@ModelAttribute RegistForm registForm,
 			HttpSession session) {
 		if (session.getAttribute("userId") != null) {
-			// 今日の日付を取得
+			// 入力日の日付を取得
 			long miliseconds = System.currentTimeMillis();
 			Date today = new Date(miliseconds);
+			
+			// 入力日の月、その月の累積超過時間を取得
+			int currentMonth = LocalDate.now().getMonthValue();
+			System.out.println("今日は" + currentMonth + "月です");
+			BigDecimal overTime = registService.loadCumOverTime(registForm.getUserId(), currentMonth);
 			
 			// 初期値のセット
 			registForm.setUserId((String)session.getAttribute("userId"));
@@ -45,6 +51,7 @@ public class RegistController {
 			registForm.setClockInTime(LocalTime.of(8, 45));
 			registForm.setClockOutTime(LocalTime.of(17, 30));
 			registForm.setBreakTime(BigDecimal.valueOf(60));
+			registForm.setCumOverTime(overTime);
 			
 			return "regist"; //regist.html(仮称)を表示
 		} else {
