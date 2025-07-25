@@ -13,13 +13,24 @@ import lombok.RequiredArgsConstructor;
 public class SearchEditServiceImpl implements SearchEditService {
 	
 	// SearchEditRepositoryインタフェースを実装しているBeanをDI
-		private final SearchEditRepository searchEditRepository;
+	private final SearchEditRepository searchEditRepository;
 	
 	@Override
 	public Regist searchAttendInfo(SearchEdit searchEdit) {
 		Regist regist = searchEditRepository.searchAttendInfo(searchEdit);
 		
 		return regist;
+		
+	}
+	
+//	private final SearchEditRepository searchEditRepository2;
+	
+	@Override
+	public void update(Regist edit) {
+//		System.out.println("updateメソッド呼び出し完了");
+		
+		searchEditRepository.update(edit);
+		
 	}
 	
 }
