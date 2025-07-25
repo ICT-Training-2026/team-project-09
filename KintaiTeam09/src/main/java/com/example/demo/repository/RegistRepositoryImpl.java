@@ -2,11 +2,9 @@ package com.example.demo.repository;
 
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-
-import java.sql.Date;
-
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -71,10 +69,11 @@ public class RegistRepositoryImpl implements RegistRepository {
 	public BigDecimal loadCumOverTime(String userId, int month) {
 		String sql = "SELECT cum_overtime " +
 				" FROM attend_info" +
-				" WHERE MONTH(date) = ? " +
+				" WHERE user_code = ? " +
+				" AND MONTH(date) = ? " +
 				"ORDER BY date DESC LIMIT 1";
 
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, month);
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId, month);
 		if (list.isEmpty()) {
 			return BigDecimal.valueOf(0);
 		} else {
