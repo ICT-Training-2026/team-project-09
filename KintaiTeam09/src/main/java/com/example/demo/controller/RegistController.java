@@ -1,5 +1,11 @@
 package com.example.demo.controller;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalTime;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.stereotype.Controller;
@@ -26,8 +32,25 @@ public class RegistController {
 	private final RegistService registService;
 
 	@GetMapping("/regist")
-	public String regist(@ModelAttribute RegistForm registForm) {
-		return "regist"; //regist.html(仮称)を表示
+	public String regist(@ModelAttribute RegistForm registForm,
+			HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			// 今日の日付を取得
+			long miliseconds = System.currentTimeMillis();
+			Date today = new Date(miliseconds);
+			
+			// 初期値のセット
+			registForm.setUserId((String)session.getAttribute("userId"));
+			registForm.setDate(today);
+			registForm.setClockInTime(LocalTime.of(8, 45));
+			registForm.setClockOutTime(LocalTime.of(17, 30));
+			registForm.setBreakTime(BigDecimal.valueOf(60));
+			
+			return "regist"; //regist.html(仮称)を表示
+		} else {
+			return "redirect:/login";
+		}
+		
 	}
 	
 	@GetMapping("/success-page") // このメソッドを追加

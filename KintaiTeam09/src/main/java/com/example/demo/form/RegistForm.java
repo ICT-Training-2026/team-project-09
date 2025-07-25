@@ -53,6 +53,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -69,9 +71,11 @@ public class RegistForm {
 //    private Integer workStatus;
     private BigDecimal workStatus;
     
+    @DateTimeFormat(pattern = "HH:mm")
     @NotNull(message = "出勤時間は必須です")
     private LocalTime clockInTime;
 
+    @DateTimeFormat(pattern = "HH:mm")
     @NotNull(message = "退勤時間は必須です")
     private LocalTime clockOutTime;
     

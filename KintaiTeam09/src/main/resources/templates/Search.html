@@ -30,7 +30,7 @@
   <!-- 日付と検索 -->
 <form th:action="@{/search-post}" th:object="${searchEditForm}" method="post">
 	<div class="date-search-container">
-		<input type="text" th:field="*{searchUserId}" >
+		<input type="text" th:field="*{searchUserId}" readonly>
 		<input type="date" th:field="*{searchDate}" id="datePicker" />
 		<button type="submit" class="search-icon-button" title="検索">
 			<!-- 虫眼鏡SVG -->
