@@ -7,4 +7,7 @@ import com.example.demo.entity.SearchEdit;
 public interface SearchEditService {
 	// 勤怠情報を検索するメソッド(サービス層)
 	Regist searchAttendInfo(SearchEdit searchEdit);
+	// 勤怠情報を編集するメソッド
+	void update(Regist edit);
 }
+
