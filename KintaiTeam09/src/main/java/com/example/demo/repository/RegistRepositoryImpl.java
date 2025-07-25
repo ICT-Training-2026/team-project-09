@@ -1,6 +1,12 @@
 package com.example.demo.repository;
 
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
 import java.sql.Date;
+
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -55,8 +61,27 @@ public class RegistRepositoryImpl implements RegistRepository {
 				regist.getBreakTime(),
 				regist.getActualWorkTime(),
 				regist.getOverTime(),
-				regist.getCumOverTime(),
+				regist.getOverTime().add(regist.getCumOverTime()),
 				regist.getNote());
+
+	}
+	
+
+	@Override
+	public BigDecimal loadCumOverTime(String userId, int month) {
+		String sql = "SELECT cum_overtime " +
+				" FROM attend_info" +
+				" WHERE MONTH(date) = ? " +
+				"ORDER BY date DESC LIMIT 1";
+
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, month);
+		if (list.isEmpty()) {
+			return BigDecimal.valueOf(0);
+		} else {
+			Map<String, Object> one = list.get(0);
+			BigDecimal overTime = (BigDecimal) one.get("cum_overtime");
+			return overTime;
+		}
 
 	}
 	
@@ -69,7 +94,6 @@ public class RegistRepositoryImpl implements RegistRepository {
         return count != null && count > 0;
     }
     
-    
-	
+
 }
 
