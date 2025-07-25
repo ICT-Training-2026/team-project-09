@@ -40,8 +40,9 @@ public class Regist {
 //	private Integer actualWorkTime;
 	private BigDecimal actualWorkTime;
 //	private Integer BreakTime;
-	private BigDecimal BreakTime;
+	private BigDecimal breakTime;
 //	private Integer cumOverTime;
 	private BigDecimal cumOverTime;
 	private String note;
+	
 }

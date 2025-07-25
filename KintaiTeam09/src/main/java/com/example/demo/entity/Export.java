@@ -1,5 +1,11 @@
 package com.example.demo.entity;
 
-public class Export {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+public class Export {
+    private String userId;
+    private String month;
 }
