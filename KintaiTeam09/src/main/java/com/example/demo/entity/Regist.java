@@ -26,8 +26,11 @@ public class Regist {
 	
 	private BigDecimal workTime;
 	private BigDecimal actualWorkTime;
+
 	private BigDecimal BreakTime;
 	private BigDecimal overTime;
+
 	private BigDecimal cumOverTime;
 	private String note;
+	
 }

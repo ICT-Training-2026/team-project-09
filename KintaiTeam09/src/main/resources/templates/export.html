@@ -13,7 +13,9 @@
         <h1>勤怠管理</h1>
         <div class="top-right-buttons">
             <div class="button-group">
-                <a href="topmenu" class="icon-circle"><i class="fas fa-house"></i></a>
+
+                <button href="/top_menu" class="icon-circle"><i class="fas fa-house"></i></button>
+
                 <span class="button-label">トップメニュー</span>
             </div>
             <div class="button-group">
@@ -29,17 +31,21 @@
         <div class="content-wrapper">
             <div class="table-button-wrapper">
                 <div class="input-table-wrapper">
-                    <table class="info-table">
-                        <tr>
-                            <td><label for="employeeCode">社員コード</label></td>
-                            <td><label for="month">年/月</label></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" id="employeeCode"></td>
-                            <td><input type="month" id="month" name="month"></td>
-                        </tr>
-                    </table>
-                    <button class="inquiry-button">照会</button>
+					<form th:action="@{/export-post}" th:object="${exportForm}" method="post">
+	                    <table class="info-table">
+	                        <tr>
+	                            <td><label for="employeeCode">社員コード</label></td>
+	                            <td><label for="month">年/月</label></td>
+	                        </tr>
+	                        <tr>
+	                            <td><input type="text" th:field="*{userId}" id="employeeCode"></td>
+	                            <td><input type="month" th:field="*{month}" id="month" name="month"></td>
+	                        </tr>
+	                    </table>
+						<button type="submit" class="square-button">
+							<i class="fa-solid fa-download"></i> 照会
+						</button>
+					</form>
                 </div>
             </div>
 
