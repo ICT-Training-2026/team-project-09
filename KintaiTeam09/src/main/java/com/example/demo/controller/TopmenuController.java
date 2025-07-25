@@ -31,9 +31,9 @@ public class TopmenuController {
     }
 
 	
-	@GetMapping("/export")
-    public String export() {
-        return "export"; //export(仮称)を表示
+	@GetMapping("/inquiry")
+    public String inquiry() {
+        return "inquiry"; //inquiry(仮称)を表示
     }
 	
 }

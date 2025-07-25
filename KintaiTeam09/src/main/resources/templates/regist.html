@@ -43,7 +43,7 @@
 			<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
 <!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
 			<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
-			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>
+<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 		
 			
 		
@@ -66,6 +66,7 @@
                 <tbody>
                     <tr>
                         <td>
+
                             <input type="text" th:field="*{userId}" name="employee_code" readonly>
                             <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
                         </td>
@@ -114,6 +115,7 @@
                             <input type="text" th:field="*{breakTime}" name="break_time" placeholder="例:60">
                             <div th:if="${#fields.hasErrors('breakTime') and !hasErrors}" th:errors="*{breakTime}" style="color: red;"></div>
                         </td>
+
 
                         <td><input type="text" th:field="*{cumOverTime}" name="total_hours"></td>
                         
