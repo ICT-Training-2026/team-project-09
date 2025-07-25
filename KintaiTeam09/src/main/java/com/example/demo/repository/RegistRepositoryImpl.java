@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
+import java.sql.Date;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +17,7 @@ public class RegistRepositoryImpl implements RegistRepository {
 	// JdbcTemplateオブジェクトを利用
 	private final JdbcTemplate jdbcTemplate;
 
-	// 勤怠情報をデータベースに登録するメソッド
+    // 勤怠情報をデータベースに登録するメソッド
 	@Override
 	public void add(Regist regist) {
 		// 仮実装（コンソールに表示）
@@ -28,6 +30,12 @@ public class RegistRepositoryImpl implements RegistRepository {
 		System.out.println("休憩時間" + regist.getBreakTime());
 		System.out.println("累積超過時間" + regist.getCumOverTime());
 		System.out.println("備考:" + regist.getNote());
+		
+		
+        // 日付の重複を確認
+        if (isDateAlreadyRegistered(regist.getUserId(), regist.getDate())) {
+            throw new IllegalArgumentException("日付が重複しています");
+        }
 
 		
 		// 本実装（データベース登録処理）
@@ -50,6 +58,16 @@ public class RegistRepositoryImpl implements RegistRepository {
 
 	}
 	
-
+	
+	
+    // 日付の重複を確認するメソッド
+    public boolean isDateAlreadyRegistered(String userId, Date date) {
+        String sql = "SELECT COUNT(*) FROM attend_info WHERE user_code = ? AND date = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId, date}, Integer.class);
+        return count != null && count > 0;
+    }
+    
+    
+	
 }
 
