@@ -65,6 +65,7 @@ public class RegistRepositoryImpl implements RegistRepository {
 	}
 	
 
+	// 累積超過時間を取得するメソッド
 	@Override
 	public BigDecimal loadCumOverTime(String userId, int month) {
 		String sql = "SELECT cum_overtime " +
@@ -82,6 +83,22 @@ public class RegistRepositoryImpl implements RegistRepository {
 			return overTime;
 		}
 
+	}
+	
+	// 残り有給休暇日数を取得するメソッド
+	public BigDecimal loadNumPaidHoliday(String userId) {
+		
+//		BigDecimal numPaidHoliday = BigDecimal.valueOf(18);
+		
+		String sql = "SELECT num_paid_holiday " +
+				" FROM employees" +
+				" WHERE user_code = ? ";
+		
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
+		Map<String, Object> one = list.get(0);
+		BigDecimal numPaidHoliday = (BigDecimal) one.get("num_paid_holiday");
+		
+		return numPaidHoliday;
 	}
 	
 	

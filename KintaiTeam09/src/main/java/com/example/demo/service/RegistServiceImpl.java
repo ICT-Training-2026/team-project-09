@@ -29,5 +29,12 @@ public class RegistServiceImpl implements RegistService {
 	public BigDecimal loadCumOverTime(String userId, int month) {
 		BigDecimal overTime = registRepository.loadCumOverTime(userId, month);
 		return overTime;
-	};
+	}
+	
+	// 残り有給休暇日数を取得するメソッド
+	@Override
+	public BigDecimal loadNumPaidHoliday(String userId) {
+		BigDecimal numPaidHoliday = registRepository.loadNumPaidHoliday(userId);
+		return numPaidHoliday;
+	}
 }
