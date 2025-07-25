@@ -43,7 +43,6 @@ public class RegistController {
 			String loginUser = (String)session.getAttribute("userId");
 			// 入力日の月、その月の累積超過時間を取得
 			int currentMonth = LocalDate.now().getMonthValue();
-			System.out.println("今日は" + currentMonth + "月です");
 			BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
 			
 			// 初期値のセット
@@ -67,8 +66,15 @@ public class RegistController {
 	}
 
 	@PostMapping("/regist-post")
-	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result, Model model) {
+	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result,HttpSession session, Model model) {
 		ModelAndView modelAndView = new ModelAndView("regist");
+		
+		// ログイン中のユーザID取得
+		String loginUser = (String) session.getAttribute("userId");
+		// 入力日の月、その月の累積超過時間を取得
+		int currentMonth = LocalDate.now().getMonthValue();
+		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
+		System.out.println("cumover:" + cumOverTime);
 
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
@@ -83,6 +89,8 @@ public class RegistController {
 	        	System.out.println(error);
 	            System.out.println("  Message: " + error.getDefaultMessage());
 	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
+	            model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+    			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
 	        }
 //	        System.out.println("--------------------------");
 	        // --- ここまで追加・修正 ---
@@ -118,6 +126,7 @@ public class RegistController {
                 registService.add(regist);
             } catch (IllegalArgumentException e) {
                 modelAndView.addObject("errorMessage", e.getMessage());
+                
                 return modelAndView;
             }
 
