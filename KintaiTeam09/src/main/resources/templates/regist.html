@@ -1,5 +1,3 @@
-https://g.co/gemini/share/1a162071b0c2
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 
@@ -69,8 +67,7 @@ https://g.co/gemini/share/1a162071b0c2
                     <tr>
                         <td>
 
-                            <input type="text" th:field="*{userId}" name="employee_code">
-
+                            <input type="text" th:field="*{userId}" name="employee_code" readonly>
                             <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
                         </td>
 

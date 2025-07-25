@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +17,17 @@ public class TopmenuController {
 //    }
 
 	@GetMapping("/search")
-    public String search(@ModelAttribute SearchEditForm searchEditForm) {
-        return "search"; //search.html(仮称)を表示
+    public String search(@ModelAttribute SearchEditForm searchEditForm,
+    		HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			// 初期値のセット
+			searchEditForm.setSearchUserId((String)session.getAttribute("userId"));
+			
+			return "search"; //search.html(仮称)を表示
+		} else {
+			return "redirect:/login";
+		}
+        
     }
 
 	

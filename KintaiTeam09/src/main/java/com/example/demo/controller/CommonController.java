@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,8 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CommonController {
 	@GetMapping("/topmenu")
-	public String topmenu() {
-		return "top_menu"; // メニュー画面に遷移
+	public String topmenu(HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			return "top_menu"; // メニュー画面に遷移
+		} else {
+			return "redirect:/login";
+		}
+		
 	}
 
 	@GetMapping("/")
