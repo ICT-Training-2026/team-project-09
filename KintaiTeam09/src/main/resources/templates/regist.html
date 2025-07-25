@@ -36,13 +36,10 @@
 <!--            <div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>-->
 <!--            <div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 <!--            <div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
+		<div th:text="'残り有給休暇日数:' + ${numPaidHoliday} + '日'" style= "text-align:right"></div>
 
 			
 		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
-
-		
-			    	
-			
 			
             <table>
                 <thead>
@@ -124,6 +121,7 @@
 							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">
 							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>
 						</td>
+						
                         
                         <td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
 
