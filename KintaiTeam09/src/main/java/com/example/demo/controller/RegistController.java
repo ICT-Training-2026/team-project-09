@@ -89,6 +89,9 @@ public class RegistController {
 	        System.out.println("入力不備なし");
 
 		    registForm.combineDateTime();
+		    registForm.culcWorkTime();
+		    registForm.culcActualWorkTime();
+		    registForm.culcOverTime();
 
 			Regist regist = new Regist();
 			regist.setUserId(registForm.getUserId()) ;
@@ -96,8 +99,10 @@ public class RegistController {
 			regist.setWorkStatus(registForm.getWorkStatus());
 			regist.setClockIn(registForm.getClockIn());
 			regist.setClockOut(registForm.getClockOut());
+			regist.setWorkTime(registForm.getWorkTime());
 			regist.setActualWorkTime(registForm.getActualWorkTime());
 			regist.setBreakTime(registForm.getBreakTime());
+			regist.setOverTime(registForm.getOverTime());
 			regist.setCumOverTime(registForm.getCumOverTime());
 			regist.setNote(registForm.getNote());
 			
