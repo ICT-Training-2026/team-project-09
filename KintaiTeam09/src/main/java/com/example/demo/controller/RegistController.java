@@ -110,10 +110,8 @@ public class RegistController {
 
             return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 			
-	
-//			registService.add(regist);
-//
-//			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
+
 	    }
 	}
-}
+
+    }
