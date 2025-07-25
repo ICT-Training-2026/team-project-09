@@ -67,6 +67,7 @@ public class LoginController {
 		} else if (result) {
 			model.addAttribute("userId", "user002");
 			model.addAttribute("name", "仮ログイン用ユーザ");
+			session.setAttribute("userId",userId);
 			return "top_menu";
 		} else {  // ログイン失敗時
 			model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
