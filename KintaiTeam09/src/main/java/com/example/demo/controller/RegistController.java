@@ -2,13 +2,14 @@ package com.example.demo.controller;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +22,6 @@ import com.example.demo.entity.Regist;
 import com.example.demo.form.RegistForm;
 import com.example.demo.service.RegistService;
 
-import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -29,22 +29,34 @@ import lombok.RequiredArgsConstructor;
 public class RegistController {
 	
 	@Autowired
-	private final RegistService registService;
+    private final RegistService registService;
 
-	@GetMapping("/regist")
+    @GetMapping("/regist")
 	public String regist(@ModelAttribute RegistForm registForm,
-			HttpSession session) {
+			Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
-			// 今日の日付を取得
+			// 入力日の日付を取得
 			long miliseconds = System.currentTimeMillis();
 			Date today = new Date(miliseconds);
 			
+			// ログイン中のユーザID取得
+			String loginUser = (String)session.getAttribute("userId");
+			// 入力日の月、その月の累積超過時間を取得
+			int currentMonth = LocalDate.now().getMonthValue();
+			BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
+			// 残り有給休暇日数を取得
+			BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
+			System.out.println(numPaidHoliday);
+			
+			
 			// 初期値のセット
-			registForm.setUserId((String)session.getAttribute("userId"));
+			registForm.setUserId(loginUser);
 			registForm.setDate(today);
-			registForm.setClockInTime(LocalTime.of(8, 45));
-			registForm.setClockOutTime(LocalTime.of(17, 30));
 			registForm.setBreakTime(BigDecimal.valueOf(60));
+			registForm.setCumOverTime(cumOverTime);
+			model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+			model.addAttribute("numPaidHoliday", numPaidHoliday);
 			
 			return "regist"; //regist.html(仮称)を表示
 		} else {
@@ -59,8 +71,14 @@ public class RegistController {
 	}
 
 	@PostMapping("/regist-post")
-	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result, Model model) {
+	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result,HttpSession session, Model model) {
 		ModelAndView modelAndView = new ModelAndView("regist");
+		
+		// ログイン中のユーザID取得
+		String loginUser = (String) session.getAttribute("userId");
+		// 入力日の月、その月の累積超過時間を取得
+		int currentMonth = LocalDate.now().getMonthValue();
+		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
 
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
@@ -73,15 +91,10 @@ public class RegistController {
 //	        System.out.println("--- BindingResult Errors ---");
 	        for (ObjectError error : result.getAllErrors()) {
 	        	System.out.println(error);
-//	            System.out.println("Error Type: " + error.getClass().getSimpleName());
-//	            if (error instanceof FieldError) {
-//	                FieldError fieldError = (FieldError) error;
-//	                System.out.println("  Field: " + fieldError.getField());
-//	                System.out.println("  Rejected Value: " + fieldError.getRejectedValue());
-//	                System.out.println("  Codes: " + java.util.Arrays.toString(fieldError.getCodes()));
-//	            }
 	            System.out.println("  Message: " + error.getDefaultMessage());
 	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
+	            model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+    			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
 	        }
 //	        System.out.println("--------------------------");
 	        // --- ここまで追加・修正 ---
@@ -96,13 +109,9 @@ public class RegistController {
 	        System.out.println("入力不備なし");
 
 		    registForm.combineDateTime();
-
-		    // カスタムバリデーションの呼び出しは不要になる
-		    // registForm.validateFields(result); // この行は削除
-
-		    // @AssertTrueを使えば、ここで改めてresult.hasErrors()をチェックする必要も基本的にはなくなる
-		    // なぜなら、すべて@Validatedで処理されているため、このelseブロックに来た時点でエラーがないから
-		    // ただし、combineDateTime()でnullチェックをしているため、ここで例外が発生する可能性は低い
+		    registForm.culcWorkTime();
+		    registForm.culcActualWorkTime();
+		    registForm.culcOverTime();
 
 			Regist regist = new Regist();
 			regist.setUserId(registForm.getUserId()) ;
@@ -110,14 +119,25 @@ public class RegistController {
 			regist.setWorkStatus(registForm.getWorkStatus());
 			regist.setClockIn(registForm.getClockIn());
 			regist.setClockOut(registForm.getClockOut());
+			regist.setWorkTime(registForm.getWorkTime());
 			regist.setActualWorkTime(registForm.getActualWorkTime());
 			regist.setBreakTime(registForm.getBreakTime());
+			regist.setOverTime(registForm.getOverTime());
 			regist.setCumOverTime(registForm.getCumOverTime());
 			regist.setNote(registForm.getNote());
+			
+            try {
+                registService.add(regist);
+            } catch (IllegalArgumentException e) {
+                modelAndView.addObject("errorMessage", e.getMessage());
+                
+                return modelAndView;
+            }
 
-			registService.add(regist);
+            return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
+			
 
-			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 	    }
 	}
-}
+
+    }

@@ -3,12 +3,12 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Regist;
 import com.example.demo.entity.SearchEdit;
+import com.example.demo.form.RegistForm;
 import com.example.demo.form.SearchEditForm;
 import com.example.demo.service.SearchEditService;
 
@@ -20,14 +20,15 @@ public class SearchEditController {
 	
 	@Autowired
 	private final SearchEditService searchEditService;
+//	private final RegistService registService; 
 	
-	@GetMapping ("/search-display")
-	public String searchDisplay() {
+//	@GetMapping ("/search-display")
+//	public String searchDisplay() {
 		
-		return "search-display";
-	}
+//		return "search-display";
+//	}
 	
-	@PostMapping ("/search-post")
+	@PostMapping ("/search-post") //検索機能
 	public String search(@ModelAttribute SearchEditForm searchEditForm, Model model) {
 
 		SearchEdit searchEdit = new SearchEdit(searchEditForm.getSearchUserId(), searchEditForm.getSearchDate());
@@ -57,4 +58,28 @@ public class SearchEditController {
 		
 		return "search";
 	}
+	
+	@PostMapping("/search-edit") // 編集機能
+	public String edit(@ModelAttribute RegistForm registForm,
+			@ModelAttribute SearchEditForm searchEditForm, Model model) {
+		
+		Regist edit = new Regist();
+//		edit.setUserId(registForm.getUserId()) ;
+		edit.setDate(registForm.getDate());
+		edit.setWorkStatus(registForm.getWorkStatus());
+		edit.setClockIn(registForm.getClockIn());
+		edit.setClockOut(registForm.getClockOut());
+		edit.setActualWorkTime(registForm.getActualWorkTime());
+		edit.setBreakTime(registForm.getBreakTime());
+		edit.setCumOverTime(registForm.getCumOverTime());
+		edit.setNote(registForm.getNote());
+		
+//		service.update(edit);
+		
+		searchEditService.update(edit);
+		
+		return "search"; //search-editへ戻るよ
+	}
+	
+	
 }
