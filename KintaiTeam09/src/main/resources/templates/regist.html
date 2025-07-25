@@ -40,12 +40,6 @@
 			
 		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
 
-			<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
-<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
-			<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
-<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
-		
-			
 		
 			    	
 			
@@ -65,6 +59,15 @@
                 </thead>
                 <tbody>
                     <tr>
+						<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
+			<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
+						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
+			<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
+					
+												
+						
+						<!-- エラーメッセージの表示日付重複 -->
+						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                         <td>
 
                             <input type="text" th:field="*{userId}" name="employee_code" readonly>
@@ -129,6 +132,10 @@
                 <button type="submit" class="submit-button">登録</button>
             </div>
         </form>
+		
+		
+		
+		
 
         </div>
 
