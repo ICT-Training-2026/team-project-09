@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class SearchEdit {
 	private String searchUserId;
 	private LocalDate searchDate;
+	
 }

@@ -36,13 +36,10 @@
 <!--            <div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>-->
 <!--            <div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 <!--            <div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
+		<div th:text="'残り有給休暇日数:' + ${numPaidHoliday} + '日'" style= "text-align:right"></div>
 
 			
 		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
-
-		
-			    	
-			
 			
             <table>
                 <thead>
@@ -53,7 +50,7 @@
                         <th>出勤時間</th>
                         <th>退勤時間</th>
                         <th>休憩時間(分)</th>
-                        <th>累積超過時間(分)</th>
+                        <th>今月の累積超過時間</th>
                         <th>備考</th>
                     </tr>
                 </thead>
@@ -71,8 +68,8 @@
 						<!-- エラーメッセージの表示日付重複 -->
 						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                         <td>
-
-                            <input type="text" th:field="*{userId}" name="employee_code" readonly>
+                            <input type="hidden" th:field="*{userId}" name="employee_code">
+							<div th:text="*{userId}"></div>
                             <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
                         </td>
 
@@ -123,7 +120,11 @@
                         </td>
 
 
-                        <td><input type="text" th:field="*{cumOverTime}" name="total_hours"></td>
+                        <td>
+							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">
+							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>
+						</td>
+						
                         
                         <td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
 

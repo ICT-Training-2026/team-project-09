@@ -50,7 +50,40 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 		regist.setCumOverTime((BigDecimal)one.get("cum_overtime"));
 		regist.setNote((String)one.get("note"));
 		
-		
 		return regist;
 	}
+	
+	@Override
+	public void update(Regist edit) {
+		
+//		System.out.println("updateメソッド呼び出し完了(インフラ層)");
+
+//		String sql =
+//				" UPDATE                     " + 
+//				"   attend_info              " + 
+//				" SET                        " + 
+//				"   date = ? ,               " + 
+//				"   work_status_code = ? ,   " + 
+//				"   clock_in = ? ,           " + 
+//				"   clock_out = ?            " + 
+//				"   actual_worktime = ? ,    " +
+//				"   breaktime = ? ,          " +
+//				"   cum_overtime = ? ,       " +
+//				"   note = ? ,               " +
+//				" WHERE                      " + 
+//				"   user_code = ?            ";
+		
+//		jdbcTemplate.update(sql,
+//				searchEdit.getDate(),
+//				searchEdit.getWorkStatus(),
+//				searchEdit.getClockIn(),
+//				searchEdit.getClockOut(),
+//				searchEdit.getActualWorkTime(), //大文字でないとエラーになる？
+//				searchEdit.getBreakTime(),
+//				searchEdit.getCumOverTime(), //大文字でないとエラーになる？
+//				searchEdit.getNote() //大文字でないとエラーになる？
+//		);
+		
+	}
+	
 }
