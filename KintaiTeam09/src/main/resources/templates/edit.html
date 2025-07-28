@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>regist</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/common_table_styles.css}">
+  <link rel="stylesheet" th:href="@{/css/regist.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+
+    <div class="main-container">
+        <header>
+            <h1>勤怠管理</h1>
+            <div class="top-right-buttons">
+                <div class="button-group">
+                    <a href="/topmenu" class="icon-circle"><i class="fas fa-house"></i></a>
+                    <span class="button-label">トップメニュー</span>
+                </div>
+                <div class="button-group">
+					<form th:action="@{/logout}" method="post">
+						<button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+						<span class="button-label">ログアウト</span>
+					</form>
+                </div>
+            </div>
+        </header>
+
+<!--        <form th:action="@{/regist-post}" th:object="${registForm}" method="POST">-->
+<!--            <div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>-->
+<!--            <div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
+<!--            <div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
+
+			
+		<form th:action="@{/confirm-edit}" th:object="${registForm}" method="POST">
+
+		
+			    	
+			
+			
+            <table>
+                <thead>
+                    <tr>
+                        <th>社員コード</th>
+                        <th>日付</th>
+                        <th>勤怠区分</th>
+                        <th>出勤時間</th>
+                        <th>退勤時間</th>
+                        <th>休憩時間(分)</th>
+                        <th>今月の累積超過時間</th>
+                        <th>備考</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+						<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
+			<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
+						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
+			<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
+					
+												
+						
+						<!-- エラーメッセージの表示日付重複 -->
+						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+                        <td>
+                            <input type="hidden" th:field="*{userId}" name="employee_code">
+							<div th:text="*{userId}"></div>
+                            <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
+                        </td>
+
+                        <td>
+                            <input type="date" th:field="*{date}" name="date">
+                            <div th:if="${#fields.hasErrors('date') and !hasErrors}" th:errors="*{date}" style="color: red;"></div>
+                        </td>
+
+                        <td>
+                            <select th:field="*{workStatus}" name="work_type" onchange="toggleTimeFields(this.value)">
+                                <option value="1">出勤</option>
+                                <option value="2">振出</option>
+                                <option value="3">年休</option>
+                                <option value="4">休日</option>
+                                <option value="5">欠勤</option>
+                            </select>
+                            <div th:if="${#fields.hasErrors('workStatus') and !hasErrors}" th:errors="*{workStatus}" style="color: red;"></div>
+                        </td>
+
+<!--                        <td>-->
+<!--                            <input type="time" th:field="*{clockInTime}" name="start_time" id="clockInTime">-->
+<!--                            <div th:if="${#fields.hasErrors('clockInTime') and !hasErrors}" th:errors="*{clockInTime}" style="color: red;"></div>-->
+<!--                        </td>-->
+
+<!--                        <td>-->
+<!--                            <input type="time" th:field="*{clockOutTime}" name="end_time" id="clockOutTime">-->
+<!--                            <div th:if="${#fields.hasErrors('clockOutTime') and !hasErrors}" th:errors="*{clockOutTime}" style="color: red;"></div>-->
+<!--                        </td>-->
+
+						
+						<td>
+						    <input type="time" th:field="*{clockInTime}" name="start_time" id="clockInTime">
+						    <div th:if="${#fields.hasErrors('clockInTime') and !hasErrors}" th:errors="*{clockInTime}" style="color: red;"></div>
+						</td>
+
+						<td>
+						    <input type="time" th:field="*{clockOutTime}" name="end_time" id="clockOutTime">
+						    <div th:if="${#fields.hasErrors('clockOutTime') and !hasErrors}" th:errors="*{clockOutTime}" style="color: red;"></div>
+						</td>						
+						
+
+                        <!--<td><input type="text" th:field="*{actualWorkTime}" name="work_hours" placeholder="例:420"></td>-->
+                        
+                        <td>
+                            <input type="text" th:field="*{breakTime}" name="break_time" placeholder="例:60">
+                            <div th:if="${#fields.hasErrors('breakTime') and !hasErrors}" th:errors="*{breakTime}" style="color: red;"></div>
+                        </td>
+
+
+                        <td>
+							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">
+							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>
+						</td>
+                        
+                        <td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="submit-button-container">
+                <button type="submit" class="submit-button">更新</button>
+            </div>
+        </form>
+		
+		
+		
+		
+
+        </div>
+
+    <script>
+        function toggleTimeFields(workStatus) {
+            const clockInTime = document.getElementById('clockInTime');
+            const clockOutTime = document.getElementById('clockOutTime');
+            if (workStatus == '2' || workStatus == '3' || workStatus == '4' || workStatus == '5') {
+                clockInTime.disabled = true;
+                clockOutTime.disabled = true;
+            } else {
+                clockInTime.disabled = false;
+                clockOutTime.disabled = false;
+            }
+        }
+
+        // ページロード時に初期のworkStatusに基づいてフィールドの有効/無効を設定
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const workStatusSelect = document.querySelector('select[name="work_type"]');
+            if (workStatusSelect) {
+                toggleTimeFields(workStatusSelect.value);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+
+
