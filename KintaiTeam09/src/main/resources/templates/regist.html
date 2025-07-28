@@ -71,12 +71,26 @@
 													
 						
 						<!-- エラーメッセージの表示日付重複 -->
+						
+						<div th:if="${errorMessages != null}">
+						    <ul>
+						        <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}" style="color:red;"></li>
+						    </ul>
+						</div>
+						
+						
 						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+
+
+
+
                         <td>
                             <input type="hidden" th:field="*{userId}" name="employee_code">
 							<div th:text="*{userId}"></div>
                             <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
                         </td>
+						
+						
 
                         <td>
                             <input type="date" th:field="*{date}" name="date">
@@ -132,6 +146,8 @@
 						
                         
                         <td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
+						
+						<input type="hidden" th:field="*{annualLeaveDays}" name="paidHoliday">
 
                     </tr>
                 </tbody>
@@ -141,7 +157,6 @@
                 <button type="submit" class="submit-button">登録</button>
             </div>
         </form>
-		
 		
 		
 		
