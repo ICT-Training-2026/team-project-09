@@ -168,6 +168,7 @@ tbody td:nth-child(9) input {
   justify-content: center;
   gap: 30px;
   margin-top: 20px;
+  border: none;
 }
 
 .icon-button {
@@ -180,6 +181,7 @@ tbody td:nth-child(9) input {
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
+  border: none;
   cursor: pointer;
 }
 

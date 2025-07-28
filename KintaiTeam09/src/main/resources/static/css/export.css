@@ -15,7 +15,7 @@ main {
 /* ===== テーブル部分 ===== */
 .table-button-wrapper {
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 1px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -124,7 +124,7 @@ select {
 }
 
 .square-button {
-  padding: 10px 12px;
+  padding: 10px 20px;
   background-color: #e6fcff;
   color: #808080;
   border: none;
@@ -137,6 +137,7 @@ select {
   font-size: 16px;
   font-weight: bold;
   margin-left: 20px;
+  white-space: nowrap;
 }
 
 .square-button:hover {
@@ -160,7 +161,7 @@ thead {
 .input-table-wrapper {
   display: flex;
   align-items: center;
-  gap: 20px; /* テーブルとボタンの間隔 */
+  gap: 5px; /* テーブルとボタンの間隔 */
 }
 
 /* 照会ボタンのサイズをテーブル高さに揃える（任意調整） */
@@ -176,4 +177,12 @@ thead {
 
 .inquiry-button {
   white-space: nowrap; /* 改行を禁止 */
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* ボタン間の隙間 */
+  margin-top: 10px;
 }

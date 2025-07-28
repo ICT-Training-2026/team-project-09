@@ -12,47 +12,68 @@
     <header>
         <h1>勤怠管理</h1>
         <div class="top-right-buttons">
-            <div class="button-group">
-
-                <button href="/top_menu" class="icon-circle"><i class="fas fa-house"></i></button>
-
-                <span class="button-label">トップメニュー</span>
-            </div>
-            <div class="button-group">
-				<form th:action="@{/logout}" method="post">
-					<button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
-					<span class="button-label">ログアウト</span>
-				</form> 
-            </div>
+			<div class="button-group">
+			                    <a href="/topmenu" class="icon-circle"><i class="fas fa-house"></i></a>
+			                    <span class="button-label">トップメニュー</span>
+			                </div>
+							<div class="button-group">
+												<form th:action="@{/logout}" method="post">
+													<button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+													<span class="button-label">ログアウト</span>
+												</form>
+							                </div>
         </div>
+		
     </header>
 
     <main>
+		<form th:action="@{/export-post}" th:object="${exportForm}" method="post">
+			<div th:if="${#fields.hasErrors('userId') or #fields.hasErrors('month')}"
+			     style="position: fixed; top: 120px; left: 0; color: red; padding: 0 10px; text-align: left; background-color: #F5F5F5; z-index: 9999;">
+			    <ul style="list-style: none; margin: 0; padding: 0;">
+			        <li th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></li>
+			        <li th:if="${#fields.hasErrors('month')}" th:errors="*{month}"></li>
+			    </ul>
+			</div>
         <div class="content-wrapper">
             <div class="table-button-wrapper">
                 <div class="input-table-wrapper">
-					<form th:action="@{/export-post}" th:object="${exportForm}" method="post">
+					
+						
 	                    <table class="info-table">
 	                        <tr>
 	                            <td><label for="employeeCode">社員コード</label></td>
 	                            <td><label for="month">年/月</label></td>
 	                        </tr>
 	                        <tr>
-	                            <td><input type="text" th:field="*{userId}" id="employeeCode"></td>
-	                            <td><input type="month" th:field="*{month}" id="month" name="month"></td>
+	                            <td>
+									<input type="text" th:field="*{userId}" id="employeeCode">
+								</td>
+	                            <td>
+									<input type="month" th:field="*{month}" id="month" name="month">
+								</td>
 	                        </tr>
 	                    </table>
+						
 						<button type="submit" class="square-button">
-							<i class="fa-solid fa-download"></i> 照会
+							 照会
 						</button>
-					</form>
-                </div>
+						
+						</div>
             </div>
+			<div th:if="${noData}" style="color: red; margin-top: 0px;">
+									    該当するデータがありません
+									</div>
+								</form>
 
-            <div class="textbox-button-wrapper">
-                <input type="text" id="textbox" name="textbox" class="textbox" readonly>
-                <button class="square-button"><i class="fa-solid fa-download"></i></button>
-            </div>
+
+								<div th:if="${registList != null and #lists.size(registList) > 0}" style="margin-top: 10px;">
+								    <form th:action="@{/export/download}" method="get">
+								        <input type="hidden" name="userId" th:value="${exportForm.userId}">
+								        <input type="hidden" name="month" th:value="${exportForm.month}">
+								        <button type="submit" class="square-button"><i class="fa-solid fa-download"></i></button>
+								    </form>
+								</div>
         </div>
     </main>
 </body>
