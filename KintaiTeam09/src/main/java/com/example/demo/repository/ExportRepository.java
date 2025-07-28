@@ -8,4 +8,6 @@ import com.example.demo.entity.Export;
 public interface ExportRepository {
 //    List<Regist> search(Export export);
 	List<Map<String, Object>> search(Export export);
+	
+	List<Map<String, Object>> findByMonthForAllUsers(String month);
 }
