@@ -17,7 +17,11 @@ import lombok.Data;
 
 @Data
 public class RegistForm {
-
+	
+//    // バリデーションの順序を定義
+////    @GroupSequence({Default.class, BasicChecks.class, AdvancedChecks.class})
+//    public interface ValidationSequence {}
+    
     @NotEmpty(message = "社員IDは必須です")
     private String userId;
     
@@ -40,7 +44,7 @@ public class RegistForm {
     private LocalDateTime clockOut;
     
 //    追加7/25
-    private Integer annualLeaveDays; // 年休日数
+    private BigDecimal annualLeaveDays; // 年休日数
     private boolean hasTakenFurikae; // 振出を取得したかどうか
 
 
@@ -62,8 +66,6 @@ public class RegistForm {
     // 備考（ユーザが入力）
     @Size(max = 100, message = "備考は100文字以内で入力してください")
     private String note;
-    
-
     
     @AssertTrue(message = "出勤時間は必須です")
     public boolean isClockInTimeValid() {
@@ -162,7 +164,7 @@ public class RegistForm {
         return workMinutes.compareTo(BigDecimal.valueOf(240)) >= 0 || breakTime.compareTo(BigDecimal.valueOf(60)) < 0;
     }
 
-    @AssertTrue(message = "実労働時間が8時間を超えています")
+    @AssertTrue(message = "実労働時間が8時間を超えています", groups = BasicChecks.class)
     public boolean isActualWorkTimeNotExceedingEightHours() {
         if (clockInTime == null || clockOutTime == null || (workStatus.intValue() != 1 && workStatus.intValue() != 2)) {
             return true;
@@ -184,13 +186,49 @@ public class RegistForm {
         return hasTakenFurikae;
     }
 
+//    @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
+//    public boolean isAnnualLeaveValid() {
+//        if (workStatus == null || workStatus.intValue() != 4) { // 年休の場合のみチェック
+//            return true;
+//        }
+//
+//		return annualLeaveDays > 0;
+//    }
+    
+    
+    
+//    public BigDecimal getAnnualLeaveDays() {
+//        return annualLeaveDays;
+//    }
+//
+//    public void setAnnualLeaveDays(BigDecimal annualLeaveDays) {
+//        this.annualLeaveDays = annualLeaveDays;
+//    }
+    
+    
     @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
     public boolean isAnnualLeaveValid() {
         if (workStatus == null || workStatus.intValue() != 4) { // 年休の場合のみチェック
             return true;
         }
-        return annualLeaveDays > 0;
+        if (this.annualLeaveDays == null) {
+        	System.out.println("ああああ");
+            // annualLeaveDaysがnullの場合の処理を追加
+            // 例えば、エラーログを記録する、デフォルト値を設定するなど
+            return false; // バリデーション失敗
+        }
+        
+        System.out.println(annualLeaveDays.compareTo(BigDecimal.ZERO));
+        return annualLeaveDays.compareTo(BigDecimal.ZERO) == 1;
     }
+    
+    
+    
+    
+    
+    
+    
+
 
     @AssertTrue(message = "勤務時間および休憩時間は設定しないでください")
     public boolean isNoWorkTimeRequired() {
@@ -219,22 +257,38 @@ public class RegistForm {
 	
 	// 労働時間を算出するメソッド
 	public void culcWorkTime() {
-		long minutesWorkTimeLong = Duration.between(this.clockIn, this.clockOut).toMinutes();
-		BigDecimal minutesWorkTime = BigDecimal.valueOf(minutesWorkTimeLong);
-		this.workTime = minutesWorkTime;
+		if (this.workStatus.intValue() == 1 || this.workStatus.intValue() == 2) {
+			long minutesWorkTimeLong = Duration.between(this.clockIn, this.clockOut).toMinutes();
+			BigDecimal minutesWorkTime = BigDecimal.valueOf(minutesWorkTimeLong);
+			this.workTime = minutesWorkTime;
+		} else {
+			this.workTime = BigDecimal.valueOf(0);
+		}
+
 	}
 
 	// 実労働時間を算出するメソッド
 	public void culcActualWorkTime() {
-		this.actualWorkTime = this.workTime.subtract(this.breakTime);
+		if (this.workStatus.intValue() == 1 || this.workStatus.intValue() == 2) {
+			this.actualWorkTime = this.workTime.subtract(this.breakTime);
+		} else {
+			this.actualWorkTime = BigDecimal.valueOf(0);
+		}
 	}
-	
+
 	// 超過時間を算出するメソッド
 	public void culcOverTime() {
-		this.overTime = this.actualWorkTime.subtract(this.regularTime);
+		if (this.workStatus.intValue() == 1 || this.workStatus.intValue() == 2) {
+			this.overTime = this.actualWorkTime.subtract(this.regularTime);
+		} else {
+			this.overTime = BigDecimal.valueOf(0);
+		}
+
 	}
 	
+	
 }
+	
     
     
 

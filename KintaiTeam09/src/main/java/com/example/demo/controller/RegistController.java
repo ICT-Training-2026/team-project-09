@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -46,6 +48,8 @@ public class RegistController {
 			BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
 			// 残り有給休暇日数を取得
 			BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
+			System.out.println("有給残り:" + numPaidHoliday);
+			registForm.setAnnualLeaveDays(numPaidHoliday);
 			
 			
 			// 初期値のセット
@@ -63,6 +67,9 @@ public class RegistController {
 		}
 		
 	}
+    
+    
+    
 	
 	@GetMapping("/success-page") // このメソッドを追加
 	public String showSuccessPage() {
@@ -80,6 +87,7 @@ public class RegistController {
 		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
 		// 残り有給休暇日数を取得
 		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
+		registForm.setAnnualLeaveDays(numPaidHoliday);
 
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
@@ -90,14 +98,21 @@ public class RegistController {
 	        
 	     // --- ここから追加・修正 ---
 //	        System.out.println("--- BindingResult Errors ---");
+	     // コントローラー内のコード
+	        List<String> errorMessages = new ArrayList<>();
 	        for (ObjectError error : result.getAllErrors()) {
-	        	System.out.println(error);
+	            System.out.println(error);
 	            System.out.println("  Message: " + error.getDefaultMessage());
-	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
-	            model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
-    			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
-    			model.addAttribute("numPaidHoliday", numPaidHoliday);
+	            errorMessages.add(error.getDefaultMessage());
 	        }
+	        
+	        //アルファベット順にソート
+	        errorMessages.sort(String::compareTo);
+
+	        modelAndView.addObject("errorMessages", errorMessages);
+	        model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+	        model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+	        model.addAttribute("numPaidHoliday", numPaidHoliday);
 //	        System.out.println("--------------------------");
 	        // --- ここまで追加・修正 ---
 
