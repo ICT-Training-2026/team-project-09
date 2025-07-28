@@ -8,4 +8,7 @@ import com.example.demo.entity.Export;
 public interface ExportService {
 //    List<Regist> searchAttendInfo(Export export);
 	List<Map<String, Object>> searchAttendInfo(Export export);
+	// ExportService に追加
+	Map<String, List<Map<String, Object>>> searchAllUsersAttendInfo(String month);
+
 }
