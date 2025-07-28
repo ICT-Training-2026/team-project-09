@@ -56,12 +56,19 @@
                 </thead>
                 <tbody>
                     <tr>
+	
+										
 						<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
+						<div th:if="${errorMessages}" style="color: red; margin-bottom: 10px;">
+							<ul>
+								<li th:each="errorMessage:${errorMessages}" th:text="${errorMessage}"></li>
+							</ul>
+						</div>
 			<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
-						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
+<!--						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>-->
 			<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 					
-												
+													
 						
 						<!-- エラーメッセージの表示日付重複 -->
 						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
@@ -80,9 +87,10 @@
                             <select th:field="*{workStatus}" name="work_type" onchange="toggleTimeFields(this.value)">
                                 <option value="1">出勤</option>
                                 <option value="2">振出</option>
-                                <option value="3">年休</option>
-                                <option value="4">休日</option>
-                                <option value="5">欠勤</option>
+								<option value="3">振休</option>
+                                <option value="4">年休</option>
+                                <option value="5">休日</option>
+                                <option value="6">欠勤</option>
                             </select>
                             <div th:if="${#fields.hasErrors('workStatus') and !hasErrors}" th:errors="*{workStatus}" style="color: red;"></div>
                         </td>
@@ -144,7 +152,7 @@
         function toggleTimeFields(workStatus) {
             const clockInTime = document.getElementById('clockInTime');
             const clockOutTime = document.getElementById('clockOutTime');
-            if (workStatus == '2' || workStatus == '3' || workStatus == '4' || workStatus == '5') {
+            if (workStatus == '3' || workStatus == '4' || workStatus == '5' || workStatus == '6') {
                 clockInTime.disabled = true;
                 clockOutTime.disabled = true;
             } else {
@@ -165,5 +173,4 @@
 </body>
 
 </html>
-
 
