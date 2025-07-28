@@ -36,10 +36,13 @@
 <!--            <div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>-->
 <!--            <div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 <!--            <div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
-		<div th:text="'残り有給休暇日数:' + ${numPaidHoliday} + '日'" style= "text-align:right"></div>
 
 			
-		<form th:action="@{/regist-post}" th:object="${registForm}" method="POST">
+		<form th:action="@{/confirm-edit}" th:object="${registForm}" method="POST">
+
+		
+			    	
+			
 			
             <table>
                 <thead>
@@ -56,41 +59,20 @@
                 </thead>
                 <tbody>
                     <tr>
-	
-										
 						<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
-						<div th:if="${errorMessages}" style="color: red; margin-bottom: 10px;">
-							<ul>
-								<li th:each="errorMessage:${errorMessages}" th:text="${errorMessage}"></li>
-							</ul>
-						</div>
 			<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
-<!--						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>-->
+						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
 			<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 					
-													
+												
 						
 						<!-- エラーメッセージの表示日付重複 -->
-						
-						<div th:if="${errorMessages != null}">
-						    <ul>
-						        <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}" style="color:red;"></li>
-						    </ul>
-						</div>
-						
-						
 						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
-
-
-
-
                         <td>
                             <input type="hidden" th:field="*{userId}" name="employee_code">
 							<div th:text="*{userId}"></div>
                             <div th:if="${#fields.hasErrors('userId') and !hasErrors}" th:errors="*{userId}" style="color: red;"></div>
                         </td>
-						
-						
 
                         <td>
                             <input type="date" th:field="*{date}" name="date">
@@ -101,10 +83,9 @@
                             <select th:field="*{workStatus}" name="work_type" onchange="toggleTimeFields(this.value)">
                                 <option value="1">出勤</option>
                                 <option value="2">振出</option>
-								<option value="3">振休</option>
-                                <option value="4">年休</option>
-                                <option value="5">休日</option>
-                                <option value="6">欠勤</option>
+                                <option value="3">年休</option>
+                                <option value="4">休日</option>
+                                <option value="5">欠勤</option>
                             </select>
                             <div th:if="${#fields.hasErrors('workStatus') and !hasErrors}" th:errors="*{workStatus}" style="color: red;"></div>
                         </td>
@@ -143,20 +124,18 @@
 							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">
 							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>
 						</td>
-						
                         
                         <td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
-						
-						<input type="hidden" th:field="*{annualLeaveDays}" name="paidHoliday">
 
                     </tr>
                 </tbody>
             </table>
 
             <div class="submit-button-container">
-                <button type="submit" class="submit-button">登録</button>
+                <button type="submit" class="submit-button">更新</button>
             </div>
         </form>
+		
 		
 		
 		
@@ -167,7 +146,7 @@
         function toggleTimeFields(workStatus) {
             const clockInTime = document.getElementById('clockInTime');
             const clockOutTime = document.getElementById('clockOutTime');
-            if (workStatus == '3' || workStatus == '4' || workStatus == '5' || workStatus == '6') {
+            if (workStatus == '2' || workStatus == '3' || workStatus == '4' || workStatus == '5') {
                 clockInTime.disabled = true;
                 clockOutTime.disabled = true;
             } else {
@@ -188,4 +167,5 @@
 </body>
 
 </html>
+
 

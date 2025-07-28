@@ -98,11 +98,13 @@ public class RegistController {
 	        
 	     // --- ここから追加・修正 ---
 //	        System.out.println("--- BindingResult Errors ---");
-	     // コントローラー内のコード
+
+	        // バリデーションのエラーメッセージを全て取得
 	        List<String> errorMessages = new ArrayList<>();
 	        for (ObjectError error : result.getAllErrors()) {
 	            System.out.println(error);
 	            System.out.println("  Message: " + error.getDefaultMessage());
+
 	            errorMessages.add(error.getDefaultMessage());
 	        }
 	        
@@ -113,8 +115,15 @@ public class RegistController {
 	        model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
 	        model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
 	        model.addAttribute("numPaidHoliday", numPaidHoliday);
+
 //	        System.out.println("--------------------------");
 	        // --- ここまで追加・修正 ---
+	        
+	        
+	        model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+			model.addAttribute("numPaidHoliday", numPaidHoliday);
+	        
 
 	        if (errorCount > 1) { // 複数エラーがある場合
 	        	modelAndView.addObject("hasErrors", true);
@@ -153,8 +162,10 @@ public class RegistController {
 
             return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 			
-
+	
+//			registService.add(regist);
+//
+//			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 	    }
 	}
-
-    }
+}
