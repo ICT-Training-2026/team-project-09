@@ -61,10 +61,20 @@ public class RegistRepositoryImpl implements RegistRepository {
 				regist.getOverTime(),
 				regist.getOverTime().add(regist.getCumOverTime()),
 				regist.getNote());
+		
+//		System.out.println("勤怠区分コード:" + regist.getWorkStatus());
+		if (regist.getWorkStatus().compareTo(BigDecimal.valueOf(3)) == 0) {
+			String sqlUpdate = 
+					" UPDATE employees " + 
+					" SET num_paid_holiday = num_paid_holiday - 1 " + 
+					" WHERE user_code = ? ";
+			jdbcTemplate.update(sqlUpdate,regist.getUserId());
+		}
 
 	}
 	
 
+	// 累積超過時間を取得するメソッド
 	@Override
 	public BigDecimal loadCumOverTime(String userId, int month) {
 		String sql = "SELECT cum_overtime " +
@@ -82,6 +92,20 @@ public class RegistRepositoryImpl implements RegistRepository {
 			return overTime;
 		}
 
+	}
+	
+	// 残り有給休暇日数を取得するメソッド
+	public BigDecimal loadNumPaidHoliday(String userId) {
+		
+		String sql = "SELECT num_paid_holiday " +
+				" FROM employees" +
+				" WHERE user_code = ? ";
+		
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
+		Map<String, Object> one = list.get(0);
+		BigDecimal numPaidHoliday = (BigDecimal) one.get("num_paid_holiday");
+		
+		return numPaidHoliday;
 	}
 	
 	

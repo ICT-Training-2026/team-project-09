@@ -44,6 +44,9 @@ public class RegistController {
 			// 入力日の月、その月の累積超過時間を取得
 			int currentMonth = LocalDate.now().getMonthValue();
 			BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
+			// 残り有給休暇日数を取得
+			BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
+			
 			
 			// 初期値のセット
 			registForm.setUserId(loginUser);
@@ -52,6 +55,7 @@ public class RegistController {
 			registForm.setCumOverTime(cumOverTime);
 			model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
 			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+			model.addAttribute("numPaidHoliday", numPaidHoliday);
 			
 			return "regist"; //regist.html(仮称)を表示
 		} else {
@@ -74,7 +78,8 @@ public class RegistController {
 		// 入力日の月、その月の累積超過時間を取得
 		int currentMonth = LocalDate.now().getMonthValue();
 		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
-		System.out.println("cumover:" + cumOverTime);
+		// 残り有給休暇日数を取得
+		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
 
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
@@ -91,6 +96,7 @@ public class RegistController {
 	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
 	            model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
     			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+    			model.addAttribute("numPaidHoliday", numPaidHoliday);
 	        }
 //	        System.out.println("--------------------------");
 	        // --- ここまで追加・修正 ---
@@ -132,10 +138,8 @@ public class RegistController {
 
             return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 			
-	
-//			registService.add(regist);
-//
-//			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
+
 	    }
 	}
-}
+
+    }

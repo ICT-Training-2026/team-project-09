@@ -1,5 +1,9 @@
 package com.example.demo.form;
 
-public class ExportForm {
+import lombok.Data;
 
+@Data
+public class ExportForm {
+    private String userId;
+    private String month;
 }

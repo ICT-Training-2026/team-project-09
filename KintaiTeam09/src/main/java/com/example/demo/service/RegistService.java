@@ -10,4 +10,6 @@ public interface RegistService {
 	void add(Regist regist);
 	// 累積超過時間を取得するメソッド（サービス層）
 	BigDecimal loadCumOverTime(String userId, int month);
+	// 残り有給休暇日数を取得するメソッド（サービス層）
+	BigDecimal loadNumPaidHoliday(String userId);
 }
