@@ -26,10 +26,8 @@
   <!--<div class="greeting">こんにちは^^</div>-->
   
   <p th:text="'社員ID:' + ${session.userId}">社員ID</p>
-<!--  <p th:text="'社員ID:' + ${userId}">社員ID</p>-->
-<!--  <p th:text="'氏名:' + ${name}">氏名</p>-->
-<!--  <p th:text="'部署ID:' + ${departmentCode}">部署ID</p>-->
-<!--  <p th:text="'残り有給日数:' + ${numPaidHoliday}">残り有給日数</p>-->
+  <p th:text="'部署:' + ${session.departmentName}">部署</p>
+
 
 	<div class="menu">
 		<!-- 登録ボタン -->
@@ -58,7 +56,7 @@
     </button>
 
     <!-- エクスポートボタン -->
-    <button onclick="location.href='/export'" class="button">
+    <button onclick="location.href='/export'"  th:if="${session.departmentName}=='総務'" class="button">
       <div class="icon">
         <!-- エクスポートアイコン -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
