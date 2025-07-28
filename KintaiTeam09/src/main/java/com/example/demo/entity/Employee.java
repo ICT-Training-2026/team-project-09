@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,10 @@ public class Employee {
 	private String pass;
 	private String mail;
 	private String name;
-	private Integer departmentCode;
-	private Integer numPaidHoliday;
+	private BigDecimal departmentCode;
+	private String departmentName;
+	private BigDecimal numPaidHoliday;
+	private Integer birthMonth;
+	private Integer birthDay;
 	
 }

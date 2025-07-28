@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,6 @@ public class LoginRepositoryImpl implements LoginRepository {
     public boolean findByUserId(Login login) {
 		boolean resultUser = login.getUserId().equals("user002");
 		boolean resultPass = login.getPass().equals("5678");
-//		boolean resultUser = login.getUserId().equals("test_user");
-//		boolean resultPass = login.getPass().equals("test");
 		boolean result = resultUser && resultPass;
 		
         System.out.println(login.getUserId());
@@ -39,22 +38,11 @@ public class LoginRepositoryImpl implements LoginRepository {
 	
 	@Override
 	public Employee loadAccoundInfo(Login login) {      
-		// DB接続あり
-        String sql = "SELECT user_code, password, mail_address, name, department_code, num_paid_holiday FROM employees WHERE user_code = ? AND password = ?";
-//		String sql = "SELECT user_code, password, mail_address, name, department_code, num_paid_holiday FROM employees WHERE user_code = 'test_user' AND password = 'test'";
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, login.getUserId(), login.getPass());
-//		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+        String sqlEmp = "SELECT user_code, password, mail_address, name, " +
+        		     "department_code, num_paid_holiday, birth_month, birth_day" +
+        		     " FROM employees WHERE user_code = ? AND password = ?";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlEmp, login.getUserId(), login.getPass());
 		
-//		// DB接続なし（テスト実装、仮のリストを作成）
-//        List<Map<String, Object>> list = new ArrayList<>();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("user_code", "user002");
-//        map.put("password", "5678");
-//        map.put("mail_address", "user002@example.com");
-//        map.put("name", "ユーザ2");
-//        map.put("department_code", 3);
-//        map.put("num_paid_holiday", 15);
-//        list.add(map);
         
         if (list.isEmpty()) {
             return null;
@@ -66,8 +54,16 @@ public class LoginRepositoryImpl implements LoginRepository {
         employee.setPass((String) one.get("password"));
         employee.setMail((String) one.get("mail_address"));
         employee.setName((String) one.get("name"));
-//        employee.setDepartmentCode((int) one.get("department_code"));
-//        employee.setNumPaidHoliday((int) one.get("num_paid_holiday"));
+        employee.setDepartmentCode((BigDecimal) one.get("department_code"));
+        employee.setNumPaidHoliday((BigDecimal) one.get("num_paid_holiday"));
+        employee.setBirthMonth((int) one.get("birth_month"));
+        employee.setBirthDay((int) one.get("birth_day"));
+        
+        String sqlDep = "SELECT department FROM department WHERE department_code = ?";
+        List<Map<String, Object>> listDep = jdbcTemplate.queryForList(sqlDep, (BigDecimal) one.get("department_code"));
+        Map<String, Object> oneDep = listDep.get(0);
+//        System.out.println((String) oneDep.get("department"));
+        employee.setDepartmentName((String) oneDep.get("department"));
     	
     	return employee;
     }

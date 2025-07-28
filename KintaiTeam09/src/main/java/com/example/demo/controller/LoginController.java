@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,30 +42,25 @@ public class LoginController {
 		// 仮ログイン用
 		boolean result = loginService.execute(login);
 
-
-		// ログイン処理の成否によって処理を分岐
-		//        if (result) { // ログイン成功時
-		//            // Modelにユーザー情報を追加
-		//        	model.addAttribute("userId", employee.getUserId());
-		//        	model.addAttribute("name", employee.getName());
-		//        	model.addAttribute("departmentCode", employee.getDepartmentCode());
-		//        	model.addAttribute("numPaidHoliday", employee.getNumPaidHoliday());
-		//            return "top_menu";
-		//        } else { // ログイン失敗時
-		//            model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
-		//            return "login";
-		//        }
 		
 		// DB上のユーザ or (ID:user002, pass:5678)でログイン可能
 		if (employee != null) { // ログイン成功時
-			// Modelにユーザー情報を追加
-			model.addAttribute("userId", employee.getUserId());
-			model.addAttribute("name", employee.getName());
-//			model.addAttribute("departmentCode", employee.getDepartmentCode());
-//			model.addAttribute("numPaidHoliday", employee.getNumPaidHoliday());
+			// 現在の日付を取得
+	        LocalDate today = LocalDate.now();
+	        // 月と日をint型の変数に格納
+	        int month = today.getMonthValue();
+	        int day = today.getDayOfMonth();
 			// セッションにユーザIDを保存
 			session.setAttribute("userId",userId);
-			return "top_menu";
+			session.setAttribute("departmentName",employee.getDepartmentName());
+			
+			// 誕生日のユーザは特別ページに遷移
+			if (employee.getBirthMonth() == month && employee.getBirthDay() == day) {
+				System.out.println("誕生日おめでとう！");
+				return "top_menu";
+			} else {
+				return "top_menu";
+			}
 		} else if (result) {
 			model.addAttribute("userId", "user002");
 			model.addAttribute("name", "仮ログイン用ユーザ");
