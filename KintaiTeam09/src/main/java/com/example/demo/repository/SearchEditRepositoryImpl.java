@@ -31,7 +31,7 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 		
 		// 本実装
 		String sql = " SELECT * FROM attend_info " +
-				" WHERE user_code=? AND date=? ";
+					 " WHERE user_code=? AND date=? ";
 		
 		List<Map<String, Object>> list = 
 				jdbcTemplate.queryForList(
@@ -54,35 +54,49 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 	}
 	
 	@Override
-	public void update(Regist edit) {
+	public void update(Regist edit) { // データベース更新
 		
-//		System.out.println("updateメソッド呼び出し完了(インフラ層)");
+		System.out.println("updateメソッド呼び出し完了(インフラ層)");
+//		System.out.println(edit.getDate());
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		String formattedDate = sdf.format(edit.getDate());
+		
 
-//		String sql =
-//				" UPDATE                     " + 
-//				"   attend_info              " + 
-//				" SET                        " + 
-//				"   date = ? ,               " + 
-//				"   work_status_code = ? ,   " + 
-//				"   clock_in = ? ,           " + 
-//				"   clock_out = ?            " + 
-//				"   actual_worktime = ? ,    " +
-//				"   breaktime = ? ,          " +
-//				"   cum_overtime = ? ,       " +
-//				"   note = ? ,               " +
-//				" WHERE                      " + 
-//				"   user_code = ?            ";
+		String sql =
+				" UPDATE                     " + 
+				"   attend_info              " + 
+				" SET                        " + 
+				"   work_status_code = ? ,   " + 
+				"   clock_in = ? ,           " + 
+				"   clock_out = ? ,          " + 
+				"   worktime = ? ,           " + // ←試しに追加した
+				"   breaktime = ? ,          " + // ←試しに追加した
+				"   actual_worktime = ? ,    " +
+				"   overtime = ? ,           " + // ←試しに追加した
+				"   cum_overtime = ? ,       " +
+				"   note = ?                 " +
+				" WHERE                      " + 
+				"   user_code = ?            " +
+				" AND date = ?               " ;
 		
-//		jdbcTemplate.update(sql,
-//				searchEdit.getDate(),
-//				searchEdit.getWorkStatus(),
-//				searchEdit.getClockIn(),
-//				searchEdit.getClockOut(),
-//				searchEdit.getActualWorkTime(), //大文字でないとエラーになる？
-//				searchEdit.getBreakTime(),
-//				searchEdit.getCumOverTime(), //大文字でないとエラーになる？
-//				searchEdit.getNote() //大文字でないとエラーになる？
-//		);
+
+		
+		jdbcTemplate.update(sql,
+				edit.getWorkStatus(),
+				edit.getClockIn(),
+				edit.getClockOut(),
+				edit.getWorkTime(), // ←試しに追加した
+				edit.getBreakTime(), // ←試しに追加した
+				edit.getActualWorkTime(),
+				edit.getOverTime(), // ←試しに追加した
+				edit.getCumOverTime(),
+				edit.getNote(),
+				edit.getUserId(),
+				edit.getDate()
+
+		);
+		
+
 		
 	}
 	

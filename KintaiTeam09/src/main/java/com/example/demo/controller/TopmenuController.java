@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.example.demo.form.RegistForm;
 import com.example.demo.form.SearchEditForm;
 
 @Controller
@@ -17,7 +18,7 @@ public class TopmenuController {
 //    }
 
 	@GetMapping("/search")
-    public String search(@ModelAttribute SearchEditForm searchEditForm,
+    public String search(@ModelAttribute RegistForm registForm,@ModelAttribute SearchEditForm searchEditForm,
     		HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			// 初期値のセット

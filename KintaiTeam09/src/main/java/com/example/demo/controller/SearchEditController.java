@@ -29,7 +29,7 @@ public class SearchEditController {
 //	}
 	
 	@PostMapping ("/search-post") //検索機能
-	public String search(@ModelAttribute SearchEditForm searchEditForm, Model model) {
+	public String search(@ModelAttribute RegistForm registForm, @ModelAttribute SearchEditForm searchEditForm, Model model) {
 
 		SearchEdit searchEdit = new SearchEdit(searchEditForm.getSearchUserId(), searchEditForm.getSearchDate());
 		Regist regist = searchEditService.searchAttendInfo(searchEdit);
@@ -56,30 +56,77 @@ public class SearchEditController {
 		model.addAttribute("cumOverTime", regist.getCumOverTime());
 		model.addAttribute("note", regist.getNote());
 		
+		registForm.setUserId(regist.getUserId());
+		registForm.setDate(regist.getDate());
+		registForm.setWorkStatus(regist.getWorkStatus());
+		registForm.setClockInTime(regist.getClockInTime());
+		registForm.setClockOutTime(regist.getClockOutTime());
+		registForm.setActualWorkTime(regist.getActualWorkTime());
+		registForm.setBreakTime(regist.getBreakTime());
+		registForm.setCumOverTime(regist.getCumOverTime());
+		registForm.setNote(regist.getNote());
+		
 		return "search";
 	}
 	
-	@PostMapping("/search-edit") // 編集機能
+	@PostMapping("/search-edit") // 編集画面へ遷移
 	public String edit(@ModelAttribute RegistForm registForm,
 			@ModelAttribute SearchEditForm searchEditForm, Model model) {
 		
-		Regist edit = new Regist();
+		registForm.combineDateTime();
+	    registForm.culcWorkTime();
+	    registForm.culcActualWorkTime();
+	    registForm.culcOverTime();
+		
+//		Regist edit = new Regist();
 //		edit.setUserId(registForm.getUserId()) ;
+//		edit.setDate(registForm.getDate());
+//		edit.setWorkStatus(registForm.getWorkStatus());
+//		edit.setClockIn(registForm.getClockIn());
+//		edit.setClockOut(registForm.getClockOut());
+//		edit.setWorkTime(registForm.getWorkTime());
+//		edit.setActualWorkTime(registForm.getActualWorkTime());
+//		edit.setBreakTime(registForm.getBreakTime());
+//		edit.setOverTime(registForm.getOverTime());
+//		edit.setCumOverTime(registForm.getCumOverTime());
+//		edit.setNote(registForm.getNote());
+		
+		
+//		service.update(edit);
+		
+//		searchEditService.update(edit);
+		
+		return "edit"; //searchへ戻るyo!!!
+	}
+	
+	@PostMapping("/confirm-edit") // 編集内容を送信
+	public String confirmEdit(@ModelAttribute RegistForm registForm) {
+		
+		registForm.combineDateTime();
+	    registForm.culcWorkTime();
+	    registForm.culcActualWorkTime();
+	    registForm.culcOverTime();
+		
+		Regist edit = new Regist();
+		edit.setUserId(registForm.getUserId()) ;
 		edit.setDate(registForm.getDate());
 		edit.setWorkStatus(registForm.getWorkStatus());
 		edit.setClockIn(registForm.getClockIn());
 		edit.setClockOut(registForm.getClockOut());
+		edit.setWorkTime(registForm.getWorkTime());
 		edit.setActualWorkTime(registForm.getActualWorkTime());
 		edit.setBreakTime(registForm.getBreakTime());
+		edit.setOverTime(registForm.getOverTime());
 		edit.setCumOverTime(registForm.getCumOverTime());
 		edit.setNote(registForm.getNote());
 		
-//		service.update(edit);
-		
 		searchEditService.update(edit);
 		
-		return "search"; //search-editへ戻るよ
+		return "success-page";
+		
+	}
+	
 	}
 	
 	
-}
+
