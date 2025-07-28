@@ -59,8 +59,13 @@
 	
 										
 						<div th:if="${hasErrors}" style="color: red; margin-bottom: 10px;">エラー箇所が複数あります</div>
+						<div th:if="${errorMessages}" style="color: red; margin-bottom: 10px;">
+							<ul>
+								<li th:each="errorMessage:${errorMessages}" th:text="${errorMessage}"></li>
+							</ul>
+						</div>
 			<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
-						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>
+<!--						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>-->
 			<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
 					
 													
@@ -168,5 +173,4 @@
 </body>
 
 </html>
-
 

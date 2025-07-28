@@ -63,7 +63,7 @@ public class RegistRepositoryImpl implements RegistRepository {
 				regist.getNote());
 		
 //		System.out.println("勤怠区分コード:" + regist.getWorkStatus());
-		if (regist.getWorkStatus().compareTo(BigDecimal.valueOf(3)) == 0) {
+		if (regist.getWorkStatus().compareTo(BigDecimal.valueOf(4)) == 0) {
 			String sqlUpdate = 
 					" UPDATE employees " + 
 					" SET num_paid_holiday = num_paid_holiday - 1 " + 

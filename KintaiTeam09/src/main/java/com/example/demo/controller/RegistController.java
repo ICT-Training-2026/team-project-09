@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -90,16 +92,23 @@ public class RegistController {
 	        
 	     // --- ここから追加・修正 ---
 //	        System.out.println("--- BindingResult Errors ---");
+	        // バリデーションのエラーメッセージを全て取得
+	        List<String> errorMessages = new ArrayList<>();
 	        for (ObjectError error : result.getAllErrors()) {
 	        	System.out.println(error);
 	            System.out.println("  Message: " + error.getDefaultMessage());
-	            modelAndView.addObject("errorMessage", error.getDefaultMessage());
-	            model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
-    			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
-    			model.addAttribute("numPaidHoliday", numPaidHoliday);
-	        }
+//	            modelAndView.addObject(attributeName, error.getDefaultMessage());
+	            errorMessages.add(error.getDefaultMessage());
+	            }
+	        modelAndView.addObject("errorMessages", errorMessages);
 //	        System.out.println("--------------------------");
 	        // --- ここまで追加・修正 ---
+	        
+	        
+	        model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+			model.addAttribute("numPaidHoliday", numPaidHoliday);
+	        
 
 	        if (errorCount > 1) { // 複数エラーがある場合
 	        	modelAndView.addObject("hasErrors", true);
@@ -138,8 +147,10 @@ public class RegistController {
 
             return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 			
-
+	
+//			registService.add(regist);
+//
+//			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 	    }
 	}
-
-    }
+}
