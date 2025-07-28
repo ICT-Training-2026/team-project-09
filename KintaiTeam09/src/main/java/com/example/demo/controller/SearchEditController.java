@@ -122,7 +122,7 @@ public class SearchEditController {
 		
 		searchEditService.update(edit);
 		
-		return "success-page";
+		return "edit-success-page";
 		
 	}
 	
