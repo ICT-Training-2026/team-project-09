@@ -73,7 +73,7 @@ public class RegistController {
 	
 	@GetMapping("/success-page") // このメソッドを追加
 	public String showSuccessPage() {
-	    return "success-page"; // templates/success-page.html を返す
+	    return "regist_complete"; // templates/success-page.html を返す
 	}
 
 	@PostMapping("/regist-post")
