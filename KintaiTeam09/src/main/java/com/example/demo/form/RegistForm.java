@@ -71,10 +71,12 @@ public class RegistForm {
     @NotNull(message = "勤怠区分は必須です")
     private BigDecimal workStatus;
     
+
     // 出勤時刻（ユーザが入力）
 //    @DateTimeFormat(pattern = "HH:mm")
     @NotNull(message = "出勤時間は必須です")
     private LocalTime clockInTime;
+
 
     // 退勤時刻（ユーザが入力）
 //    @DateTimeFormat(pattern = "HH:mm")

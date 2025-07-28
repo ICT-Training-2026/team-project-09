@@ -1,5 +1,11 @@
 package com.example.demo.service;
 
-public class ExportService {
+import java.util.List;
+import java.util.Map;
 
+import com.example.demo.entity.Export;
+
+public interface ExportService {
+//    List<Regist> searchAttendInfo(Export export);
+	List<Map<String, Object>> searchAttendInfo(Export export);
 }
