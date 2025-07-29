@@ -68,8 +68,6 @@ public class RegistController {
 		
 	}
     
-    
-    
 	
 	@GetMapping("/success-page") // このメソッドを追加
 	public String showSuccessPage() {

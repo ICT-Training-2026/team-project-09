@@ -35,18 +35,14 @@ public class SearchEditController {
 	private final SearchEditService searchEditService;
 	private final RegistService registService;
 
-	//	@GetMapping ("/search-display")
-	//	public String searchDisplay() {
-
-	//		return "search-display";
-	//	}
-
+	// 編集完了画面へ遷移
 	@GetMapping("/edit-success-page")
 	public String showSuccessPage() {
 		return "edit_complete";
 	}
 
-	// 検索クエリ(ユーザID,日付)を送信し、該当する勤怠情報を取得
+	// 検索画面→検索画面へ遷移
+	// 検索クエリ(ユーザID,日付)を送信し、該当する勤怠情報を取得&表示
 	@PostMapping("/search-post")
 	public String search(@ModelAttribute RegistForm registForm, @ModelAttribute SearchEditForm searchEditForm,
 			Model model) {
@@ -83,7 +79,9 @@ public class SearchEditController {
 		return "search";
 	}
 
-	@PostMapping("/search-edit") // 編集画面へ遷移
+	// 検索画面→編集画面へ遷移
+	// 検索画面で表示した勤怠情報を編集画面に送信し、初期値にセット
+	@PostMapping("/search-edit") 
 	public String edit(@ModelAttribute RegistForm registForm,
 			@ModelAttribute SearchEditForm searchEditForm, HttpSession session, Model model) {
 
@@ -108,7 +106,9 @@ public class SearchEditController {
 		return "edit"; //searchへ戻るyo!!!
 	}
 
-	@PostMapping("/confirm-edit") // 編集内容を送信
+	// 編集画面→編集完了画面へ遷移
+	// 編集内容をDBに反映
+	@PostMapping("/confirm-edit") 
 	public ModelAndView confirmEdit(@Validated @ModelAttribute RegistForm registForm,
 			BindingResult result, HttpSession session) {
 		// ログイン中のユーザID取得
