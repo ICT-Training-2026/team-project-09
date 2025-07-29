@@ -72,10 +72,10 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 				"   work_status_code = ? ,   " + 
 				"   clock_in = ? ,           " + 
 				"   clock_out = ? ,          " + 
-				"   worktime = ? ,           " + // ←試しに追加した
-				"   breaktime = ? ,          " + // ←試しに追加した
+				"   worktime = ? ,           " +
+				"   breaktime = ? ,          " +
 				"   actual_worktime = ? ,    " +
-				"   overtime = ? ,           " + // ←試しに追加した
+				"   overtime = ? ,           " +
 				"   cum_overtime = ? ,       " +
 				"   note = ?                 " +
 				" WHERE                      " + 
@@ -88,10 +88,10 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 				edit.getWorkStatus(),
 				edit.getClockIn(),
 				edit.getClockOut(),
-				edit.getWorkTime(), // ←試しに追加した
-				edit.getBreakTime(), // ←試しに追加した
+				edit.getWorkTime(),
+				edit.getBreakTime(),
 				edit.getActualWorkTime(),
-				edit.getOverTime(), // ←試しに追加した
+				edit.getOverTime(),
 				edit.getCumOverTime(),
 				edit.getNote(),
 				edit.getUserId(),

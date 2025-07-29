@@ -69,7 +69,7 @@ public class SearchEditController {
 		registForm.setActualWorkTime(regist.getActualWorkTime());
 		registForm.setBreakTime(regist.getBreakTime());
 		registForm.setCumOverTime(regist.getCumOverTime());
-		registForm.setNote(regist.getNote());
+		registForm.setNote(regist.getNote()); //これらでデータをわたす
 		
 		return "search";
 	}
