@@ -2,6 +2,7 @@ package com.example.demo.form;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 //import java.time.LocalDate;
@@ -253,6 +254,64 @@ public class RegistForm {
         return clockInTime == null && clockOutTime == null && breakTime == null ;
     } 
     
+    
+    //未来の日付指定、平日・土休日の指定
+    @AssertTrue(message = "未来の日付は指定できません（出勤・振出の場合）")
+    public boolean isDateNotInFutureForAttendance() {
+        if (date == null) {
+            return true; // 日付がnullの場合は他のバリデーションで処理されるため、ここではtrue
+        }
+        // workStatusが「振休」「年休」「休日」「欠勤」の場合はスキップ
+        if (workStatus != null && (workStatus.intValue() == 3 || workStatus.intValue() == 4 || workStatus.intValue() == 5 || workStatus.intValue() == 6)) {
+            return true;
+        }
+
+        // 現在の日付と比較
+        LocalDate today = LocalDate.now();
+        return date.toLocalDate().isBefore(today) || date.toLocalDate().isEqual(today);
+    }
+    
+
+    @AssertTrue(message = "出勤・欠勤は平日のみ指定可能です")
+    public boolean isAttendanceOrAbsenceOnWeekday() {
+        if (date == null || workStatus == null) {
+            return true; // 日付または勤怠区分がnullの場合はスキップ
+        }
+
+        // 勤怠区分が「出勤 (1)」または「欠勤 (6)」の場合
+        if (workStatus.intValue() == 1 || workStatus.intValue() == 4 || workStatus.intValue() == 6) {
+            LocalDate localDate = date.toLocalDate();
+            DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+            // 土日ではないことを確認
+            return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY;
+            // TODO: 祝日判定が必要な場合はここにロジックを追加
+            // return !isHoliday(localDate); // 例: isHoliday() メソッドを別途実装
+        }
+        return true; // その他の勤怠区分は常にtrue
+    }
+
+    @AssertTrue(message = "休日は土日祝のみ指定可能です")
+    public boolean isHolidayOnWeekendOrPublicHoliday() {
+        if (date == null || workStatus == null) {
+            return true; // 日付または勤怠区分がnullの場合はスキップ
+        }
+
+        // 勤怠区分が「休日 (5)」の場合
+        if (workStatus.intValue() == 5) {
+            LocalDate localDate = date.toLocalDate();
+            DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+            // 土日であるかを確認
+            boolean isWeekend = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
+            // TODO: 祝日判定が必要な場合はここにロジックを追加
+            // boolean isPublicHoliday = isHoliday(localDate); // 例: isHoliday() メソッドを別途実装
+
+            // return isWeekend || isPublicHoliday;
+            return isWeekend; // 現時点では土日のみ
+        }
+        return true; // その他の勤怠区分は常にtrue
+    }
+    
+        
 
     
     // 各種メソッド
