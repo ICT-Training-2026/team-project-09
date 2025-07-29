@@ -64,19 +64,7 @@
 								<li th:each="errorMessage:${errorMessages}" th:text="${errorMessage}"></li>
 							</ul>
 						</div>
-			<!--			<div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" style="color: red; margin-bottom: 5px;"></div>-->
-<!--						<div th:if="${#fields.hasErrors()}" th:text="${errorMessage}" style="color: red; margin-bottom: 5px;"></div>-->
-			<!--			<div th:if="${#fields.hasErrors('clockInTime')}" th:errors="*{clockInTime}" style="color: red; margin-bottom: 5px;"></div>-->
-					
-													
-						
-						<!-- エラーメッセージの表示日付重複 -->
-						
-						<div th:if="${errorMessages != null}">
-						    <ul>
-						        <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}" style="color:red;"></li>
-						    </ul>
-						</div>
+
 						
 						
 						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>

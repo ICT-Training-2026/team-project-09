@@ -12,4 +12,7 @@ public interface RegistRepository {
 	BigDecimal loadCumOverTime(String userId, int month);
 	// 残り有給休暇日数を取得するメソッド（インフラ層）
 	BigDecimal loadNumPaidHoliday(String userId);
+	
+	int loadNumHurikyu(String userId);
+	int loadNumHurisyutsu(String userId);
 }

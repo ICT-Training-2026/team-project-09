@@ -13,6 +13,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.Data;
 
 @Data
@@ -45,7 +48,12 @@ public class RegistForm {
     
 //    追加7/25
     private BigDecimal annualLeaveDays; // 年休日数
-    private boolean hasTakenFurikae; // 振出を取得したかどうか
+    
+
+    private static final Logger logger = LoggerFactory.getLogger(RegistForm.class);
+    private Integer hurisyutsuCount;
+    private Integer hurikyuCount;
+    	
 
 
     // 労働時間（culcWorktimeメソッドで自動算出）
@@ -164,7 +172,7 @@ public class RegistForm {
         return workMinutes.compareTo(BigDecimal.valueOf(240)) >= 0 || breakTime.compareTo(BigDecimal.valueOf(60)) < 0;
     }
 
-    @AssertTrue(message = "実労働時間が8時間を超えています", groups = BasicChecks.class)
+    @AssertTrue(message = "実労働時間が8時間を超えています")
     public boolean isActualWorkTimeNotExceedingEightHours() {
         if (clockInTime == null || clockOutTime == null || (workStatus.intValue() != 1 && workStatus.intValue() != 2)) {
             return true;
@@ -175,35 +183,43 @@ public class RegistForm {
     }
     
 
-    
 
-    // バリデーションメソッド（振休・休日・年休・欠勤）
+
+//	private RegistRepository registRepositoryImpl;
+//
+//    public void RegistForm(RegistRepository registRepository) {
+//        this.registRepositoryImpl = registRepository;
+//    }
+//    
+//    // 振休を取得できるかどうかを判断するメソッド●
+//    @AssertTrue(message = "振出を取得していない場合、振休を申請することはできません")
+//    public boolean isHurikyuValid() {
+//        int hurikaeCount = registRepositoryImpl.getHurisyutsuCount(userId);
+//        int hurikyuCount = registRepositoryImpl.getHurikyuuCount(userId);
+//        return hurikaeCount > hurikyuCount;
+//    }
+    
     @AssertTrue(message = "振出を取得していない場合、振休を申請することはできません")
-    public boolean isFurikaeValid() {
-        if (workStatus == null || workStatus.intValue() != 3) { // 振休の場合のみチェック
-            return true;
+    public boolean isHurikyuValid() {
+        // 勤怠区分が振休 (workStatus == 3) の場合のみチェック
+        if (workStatus == null || workStatus.intValue() != 3) {
+            return true; // 振休でない場合はバリデーションをスキップ
         }
-        return hasTakenFurikae;
-    }
+        // nullチェックを追加
+        if (hurisyutsuCount == null || hurikyuCount == null) {
+            logger.debug("振出カウント: {}", hurisyutsuCount);
+            logger.debug("振休カウント: {}", hurikyuCount);
+            System.out.println(hurisyutsuCount);
+            System.out.println(hurikyuCount);
+            return false; // データが設定されていない場合はエラー
+        }
+        logger.debug("振出カウント: {}", hurisyutsuCount);
+        logger.debug("振休カウント: {}", hurikyuCount);
 
-//    @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
-//    public boolean isAnnualLeaveValid() {
-//        if (workStatus == null || workStatus.intValue() != 4) { // 年休の場合のみチェック
-//            return true;
-//        }
-//
-//		return annualLeaveDays > 0;
-//    }
+        return hurisyutsuCount > hurikyuCount;
+    }
     
     
-    
-//    public BigDecimal getAnnualLeaveDays() {
-//        return annualLeaveDays;
-//    }
-//
-//    public void setAnnualLeaveDays(BigDecimal annualLeaveDays) {
-//        this.annualLeaveDays = annualLeaveDays;
-//    }
     
     
     @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
@@ -212,9 +228,6 @@ public class RegistForm {
             return true;
         }
         if (this.annualLeaveDays == null) {
-        	System.out.println("ああああ");
-            // annualLeaveDaysがnullの場合の処理を追加
-            // 例えば、エラーログを記録する、デフォルト値を設定するなど
             return false; // バリデーション失敗
         }
         
@@ -288,7 +301,3 @@ public class RegistForm {
 	
 	
 }
-	
-    
-    
-

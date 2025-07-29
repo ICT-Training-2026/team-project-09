@@ -37,4 +37,22 @@ public class RegistServiceImpl implements RegistService {
 		BigDecimal numPaidHoliday = registRepository.loadNumPaidHoliday(userId);
 		return numPaidHoliday;
 	}
+	
+	
+	// 振出を取得するメソッド
+	@Override
+	public int loadNumHurikyu(String userId) {
+		int numHurikyu = registRepository.loadNumHurikyu(userId);
+		return numHurikyu;
+	}
+	
+	// 振休を取得するメソッド
+	@Override
+	public int loadNumHurisyutsu(String userId) {
+		int numHurisyutsu = registRepository.loadNumHurisyutsu(userId);
+		return numHurisyutsu;
+	}
+	
+	
+	
 }
