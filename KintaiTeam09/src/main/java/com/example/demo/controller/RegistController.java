@@ -132,13 +132,6 @@ public class RegistController {
 	        model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
 	        model.addAttribute("numPaidHoliday", numPaidHoliday);
 
-//	        System.out.println("--------------------------");
-	        // --- ここまで追加・修正 ---
-	        
-	        
-	        model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
-			model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
-			model.addAttribute("numPaidHoliday", numPaidHoliday);
 	        
 
 	        if (errorCount > 1) { // 複数エラーがある場合
@@ -167,6 +160,10 @@ public class RegistController {
 			regist.setOverTime(registForm.getOverTime());
 			regist.setCumOverTime(registForm.getCumOverTime());
 			regist.setNote(registForm.getNote());
+			
+			model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
+	        model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
+	        model.addAttribute("numPaidHoliday", numPaidHoliday);
 			
             try {
                 registService.add(regist);

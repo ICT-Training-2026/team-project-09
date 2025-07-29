@@ -26,7 +26,6 @@ public class RegistForm {
     @NotEmpty(message = "社員IDは必須です")
     private String userId;
     
-
     // 日付（ユーザが入力）
     @NotNull(message = "日付は必須です")
     private Date date;
@@ -34,18 +33,19 @@ public class RegistForm {
     // 勤怠区分（ユーザが入力）
     @NotNull(message = "勤怠区分は必須です")
     private BigDecimal workStatus;
-    
     private BigDecimal workStatusTemp;
+    
+    // 編集前の勤怠区分コードを格納
     
     private LocalTime clockInTime;
     private LocalTime clockOutTime;
 
-    private BigDecimal breakTime;  // BigDecimalに変更
+    private BigDecimal breakTime;
 
+    //出退勤時刻（combineDateTimeメソッドで"日付+時刻"形式に変換）
     private LocalDateTime clockIn;
-    //退勤時刻（combineDateTimeメソッドで"日付+時刻"形式に変換）
     private LocalDateTime clockOut;
-    
+
 //    追加7/25
     private BigDecimal annualLeaveDays; // 年休日数
     
@@ -67,9 +67,11 @@ public class RegistForm {
     
     // 超過時間
     private BigDecimal overTime;
+    // 編集前の超過時間を格納
     
     // 累計超過時間
     private BigDecimal cumOverTime;  // BigDecimalに変更
+    
     
     // 備考（ユーザが入力）
     @Size(max = 100, message = "備考は100文字以内で入力してください")
@@ -362,12 +364,6 @@ public class RegistForm {
 		}
 
 	}
-	
-	// テスト実装
-	public void displayTest() {
-		System.out.println("振出日数(フォーム内):" + this.hurisyutsuCount);
-		System.out.println("振休日数(フォーム内):" + this.hurikyuCount);
-	}
-	
+
 	
 }
