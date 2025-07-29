@@ -15,22 +15,11 @@ public class DeleteRepositoryImpl implements DeleteRepository {
 	private final JdbcTemplate jdbcTemplate;
 	
 	@Override
-	public void delete(Regist delete) {
+	public void delete(Regist delete) { // 削除処理のSQL
 		
 		String sql =
 				 
 				" DELETE                     " + 
-//				"   user_code = ? ,          " + 
-//				"   date = ? ,               " + 
-//				"   work_status_code = ? ,   " + 
-//				"   clock_in = ? ,           " + 
-//				"   clock_out = ? ,          " + 
-//				"   worktime = ? ,           " +
-//				"   breaktime = ? ,          " +
-//				"   actual_worktime = ? ,    " +
-//				"   overtime = ? ,           " +
-//				"   cum_overtime = ? ,       " +
-//				"   note = ?                 " +
 				" FROM                       " + 
 				"   attend_info              " +
 				" WHERE                      " + 
@@ -40,19 +29,8 @@ public class DeleteRepositoryImpl implements DeleteRepository {
 
 		
 		jdbcTemplate.update(sql,
-//				delete.getWorkStatus(),
-//				delete.getClockIn(),
-//				delete.getClockOut(),
-//				delete.getWorkTime(),
-//				delete.getBreakTime(),
-//				delete.getActualWorkTime(),
-//				delete.getOverTime(),
-//				delete.getCumOverTime(),
-//				delete.getNote(),
-//				delete.getUserId(),
-//				delete.getDate()
-				delete.getUserId(),
-				delete.getDate()
+				delete.getUserId(), // sqlのパラメータに対応する項目
+				delete.getDate() // sqlのパラメータに対応する項目
 				
 
 		);

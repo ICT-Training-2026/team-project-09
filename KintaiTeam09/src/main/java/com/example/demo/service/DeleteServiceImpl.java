@@ -19,7 +19,7 @@ public class DeleteServiceImpl implements DeleteService {
 	@Override
 	public void delete(Regist delete) {
 		
-		deleteRepository.delete(delete);
+		deleteRepository.delete(delete); // deleteメソッドを呼び出し
 	}
 
 }

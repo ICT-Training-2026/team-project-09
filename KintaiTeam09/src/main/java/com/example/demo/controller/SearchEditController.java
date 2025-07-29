@@ -127,7 +127,7 @@ public class SearchEditController {
 		
 		searchEditService.update(edit);
 		
-		return "edit-success-page";
+		return "edit-success-page"; // 編集成功ページへ遷移
 		
 	}
 	

@@ -14,7 +14,7 @@ public class CommonController {
 		if (session.getAttribute("userId") != null) {
 			return "top_menu"; // メニュー画面に遷移
 		} else {
-			return "redirect:/login";
+			return "redirect:/login"; // ログイン画面にリダイレクト
 		}
 		
 	}
