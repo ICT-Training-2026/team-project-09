@@ -34,6 +34,11 @@ public class SearchEditController {
 		SearchEdit searchEdit = new SearchEdit(searchEditForm.getSearchUserId(), searchEditForm.getSearchDate());
 		Regist regist = searchEditService.searchAttendInfo(searchEdit);
 		
+		if (regist==null) {
+			model.addAttribute("searchErrorMessage", "該当する勤務データがありません");
+			return "Search";
+		}
+		
 		// 仮実装
 		System.out.println("社員ID:" + regist.getUserId());
 		System.out.println("日付:" + regist.getDate());
@@ -129,4 +134,3 @@ public class SearchEditController {
 	}
 	
 	
-

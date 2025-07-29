@@ -56,8 +56,15 @@ public class LoginRepositoryImpl implements LoginRepository {
         employee.setName((String) one.get("name"));
         employee.setDepartmentCode((BigDecimal) one.get("department_code"));
         employee.setNumPaidHoliday((BigDecimal) one.get("num_paid_holiday"));
-        employee.setBirthMonth((int) one.get("birth_month"));
-        employee.setBirthDay((int) one.get("birth_day"));
+        
+		if (one.get("birth_month") != null && one.get("birth_day") != null) {
+			employee.setBirthMonth((int) one.get("birth_month"));
+			employee.setBirthDay((int) one.get("birth_day"));
+		} else {
+			employee.setBirthMonth(0);
+			employee.setBirthDay(0);
+		}
+        
         
         String sqlDep = "SELECT department FROM department WHERE department_code = ?";
         List<Map<String, Object>> listDep = jdbcTemplate.queryForList(sqlDep, (BigDecimal) one.get("department_code"));
