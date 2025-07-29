@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.Regist;
 import com.example.demo.form.RegistForm;
 import com.example.demo.service.RegistService;
+import com.example.demo.validation.ValidatorImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +32,9 @@ public class RegistController {
 	
 	@Autowired
     private final RegistService registService;
+	
+	private final ValidatorImpl validatorImpl;
+	
 
     @GetMapping("/regist")
 	public String regist(@ModelAttribute RegistForm registForm,
@@ -75,7 +78,7 @@ public class RegistController {
 	}
 
 	@PostMapping("/regist-post")
-	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm,
+	public ModelAndView registPost(@ModelAttribute RegistForm registForm,
 			BindingResult result,HttpSession session, Model model) {
 		ModelAndView modelAndView = new ModelAndView("regist");
 		
@@ -84,6 +87,7 @@ public class RegistController {
 		// 入力日の月、その月の累積超過時間を取得
 		int currentMonth = LocalDate.now().getMonthValue();
 		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
+		
 		// 残り有給休暇日数を取得
 		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
 		registForm.setAnnualLeaveDays(numPaidHoliday);
@@ -92,12 +96,17 @@ public class RegistController {
 		//振出を取得●
 		int numHurisyutsu = registService.loadNumHurisyutsu(loginUser); 
 		registForm.setHurisyutsuCount(numHurisyutsu);// 新しいセッター
-		System.out.println(numHurisyutsu);
+		System.out.println("振出日数:" + numHurisyutsu);
 
         //振休を取得●
 		int numHurikyu = registService.loadNumHurikyu(loginUser);
 		registForm.setHurikyuCount(numHurikyu); // 新しいセッター
-		System.out.println(numHurikyu);
+		System.out.println("振休日数:" + numHurikyu);
+////		
+//		registForm.displayTest();
+		
+
+		validatorImpl.validate(registForm, result);
 
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();
