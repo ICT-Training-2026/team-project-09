@@ -35,18 +35,15 @@ public class SearchEditController {
 	private final SearchEditService searchEditService;
 	private final RegistService registService;
 
-	//	@GetMapping ("/search-display")
-	//	public String searchDisplay() {
-
-	//		return "search-display";
-	//	}
-
+	// 編集完了画面へ遷移
 	@GetMapping("/edit-success-page")
 	public String showSuccessPage() {
 		return "edit_complete";
 	}
 
-	@PostMapping("/search-post") //検索機能
+	// 検索画面→検索画面へ遷移
+	// 検索クエリ(ユーザID,日付)を送信し、該当する勤怠情報を取得&表示
+	@PostMapping("/search-post")
 	public String search(@ModelAttribute RegistForm registForm, @ModelAttribute SearchEditForm searchEditForm,
 			Model model) {
 
@@ -58,27 +55,15 @@ public class SearchEditController {
 			return "Search";
 		}
 
-		// 仮実装
-		System.out.println("社員ID:" + regist.getUserId());
-		System.out.println("日付:" + regist.getDate());
-		System.out.println("勤怠区分:" + regist.getWorkStatus());
-		System.out.println("出勤時刻:" + regist.getClockInTime());
-		System.out.println("退勤時刻:" + regist.getClockOutTime());
-		System.out.println("実労働時間:" + regist.getActualWorkTime());
-		System.out.println("休憩時間:" + regist.getBreakTime());
-		System.out.println("累計超過時間:" + regist.getCumOverTime());
-		System.out.println("備考:" + regist.getNote());
-
-		// 本実装
 		model.addAttribute("userId", regist.getUserId());
 		model.addAttribute("date", regist.getDate());
-//		model.addAttribute("workStatus", regist.getWorkStatus());
 		model.addAttribute("workStatus", regist.getWorkStatusName());
 		model.addAttribute("clockInTime", regist.getClockInTime());
 		model.addAttribute("clockOutTime", regist.getClockOutTime());
 		model.addAttribute("actualWorkTime", regist.getActualWorkTime());
 		model.addAttribute("breakTime", regist.getBreakTime());
-		model.addAttribute("cumOverTime", regist.getCumOverTime());
+		model.addAttribute("cumOverTimeHour", regist.getCumOverTime().intValue() / 60);
+		model.addAttribute("cumOverTimeMinutes", regist.getCumOverTime().intValue() % 60);
 		model.addAttribute("note", regist.getNote());
 
 		registForm.setUserId(regist.getUserId());
@@ -89,12 +74,14 @@ public class SearchEditController {
 		registForm.setActualWorkTime(regist.getActualWorkTime());
 		registForm.setBreakTime(regist.getBreakTime());
 		registForm.setCumOverTime(regist.getCumOverTime());
-		registForm.setNote(regist.getNote()); //これらでデータをわたす
+		registForm.setNote(regist.getNote()); 
 
 		return "search";
 	}
 
-	@PostMapping("/search-edit") // 編集画面へ遷移
+	// 検索画面→編集画面へ遷移
+	// 検索画面で表示した勤怠情報を編集画面に送信し、初期値にセット
+	@PostMapping("/search-edit") 
 	public String edit(@ModelAttribute RegistForm registForm,
 			@ModelAttribute SearchEditForm searchEditForm, HttpSession session, Model model) {
 
@@ -119,7 +106,9 @@ public class SearchEditController {
 		return "edit"; //searchへ戻るyo!!!
 	}
 
-	@PostMapping("/confirm-edit") // 編集内容を送信
+	// 編集画面→編集完了画面へ遷移
+	// 編集内容をDBに反映
+	@PostMapping("/confirm-edit") 
 	public ModelAndView confirmEdit(@Validated @ModelAttribute RegistForm registForm,
 			BindingResult result, HttpSession session) {
 		// ログイン中のユーザID取得

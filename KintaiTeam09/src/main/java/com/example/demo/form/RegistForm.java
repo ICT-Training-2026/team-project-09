@@ -13,9 +13,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import lombok.Data;
 
 @Data
@@ -50,7 +47,7 @@ public class RegistForm {
     private BigDecimal annualLeaveDays; // 年休日数
     
 
-    private static final Logger logger = LoggerFactory.getLogger(RegistForm.class);
+//    private static final Logger logger = LoggerFactory.getLogger(RegistForm.class);
     private Integer hurisyutsuCount;
     private Integer hurikyuCount;
     	
@@ -199,25 +196,30 @@ public class RegistForm {
 //        return hurikaeCount > hurikyuCount;
 //    }
     
-    @AssertTrue(message = "振出を取得していない場合、振休を申請することはできません")
-    public boolean isHurikyuValid() {
-        // 勤怠区分が振休 (workStatus == 3) の場合のみチェック
-        if (workStatus == null || workStatus.intValue() != 3) {
-            return true; // 振休でない場合はバリデーションをスキップ
-        }
-        // nullチェックを追加
-        if (hurisyutsuCount == null || hurikyuCount == null) {
-            logger.debug("振出カウント: {}", hurisyutsuCount);
-            logger.debug("振休カウント: {}", hurikyuCount);
-            System.out.println(hurisyutsuCount);
-            System.out.println(hurikyuCount);
-            return false; // データが設定されていない場合はエラー
-        }
-        logger.debug("振出カウント: {}", hurisyutsuCount);
-        logger.debug("振休カウント: {}", hurikyuCount);
-
-        return hurisyutsuCount > hurikyuCount;
-    }
+//    @AssertTrue(message = "振出を取得していない場合、振休を申請することはできません")
+//    public boolean isHurikyuValid() {
+//    	System.out.println("勤怠区分(valid):" + this.workStatus);
+//    	System.out.println("振出(valid):" + this.hurisyutsuCount);
+//        System.out.println("振休(valid):" + this.hurikyuCount);
+//        System.out.println("有給(valid):" + this.annualLeaveDays);
+//    	
+//        // 勤怠区分が振休 (workStatus == 3) の場合のみチェック
+//        if (workStatus == null || workStatus.intValue() != 3) {
+//            return true; // 振休でない場合はバリデーションをスキップ
+//        }
+//        // nullチェックを追加
+//        if (this.hurisyutsuCount == null || this.hurikyuCount == null) {
+////            logger.debug("振出カウント: {}", hurisyutsuCount);
+////            logger.debug("振休カウント: {}", hurikyuCount);
+////            System.out.println(this.hurisyutsuCount);
+////            System.out.println(this.hurikyuCount);
+//            return false; // データが設定されていない場合はエラー
+//        }
+////        logger.debug("振出カウント: {}", hurisyutsuCount);
+////        logger.debug("振休カウント: {}", hurikyuCount);
+//
+//        return hurisyutsuCount > hurikyuCount;
+//    }
     
     
     
@@ -297,6 +299,12 @@ public class RegistForm {
 			this.overTime = BigDecimal.valueOf(0);
 		}
 
+	}
+	
+	// テスト実装
+	public void displayTest() {
+		System.out.println("振出日数(フォーム内):" + this.hurisyutsuCount);
+		System.out.println("振休日数(フォーム内):" + this.hurikyuCount);
 	}
 	
 	

@@ -63,7 +63,7 @@
 			<th>退勤時間</th>
 			<th>実労働時間(分)</th>
 			<th>休憩時間(分)</th>
-			<th>累計労働時間(分)</th>
+			<th>今月の超過時間</th>
 			<th>備考</th>
 		</tr>
 	</thead>
@@ -76,7 +76,7 @@
 			<td th:text="${clockOutTime}"></td>
 			<td th:text="${actualWorkTime}"></td>
 			<td th:text="${breakTime}"></td>
-			<td th:text="${cumOverTime}"></td>
+			<td th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></td>
 			<td th:text="${note}"></td>
 		</tr>
 	</tbody>
