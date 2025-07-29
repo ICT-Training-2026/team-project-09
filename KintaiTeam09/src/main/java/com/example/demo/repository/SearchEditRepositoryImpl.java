@@ -39,16 +39,24 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 		}
 		
 		Map<String, Object> one = list.get(0);
+		
 		Regist regist = new Regist();
 		regist.setUserId((String) one.get("user_code"));
 		regist.setDate((Date) one.get("date"));
 		regist.setWorkStatus((BigDecimal)one.get("work_status_code"));
-		regist.setClockInTime(((LocalDateTime) one.get("clock_in")).toLocalTime());
-		regist.setClockOutTime(((LocalDateTime) one.get("clock_out")).toLocalTime());
+//		regist.setClockInTime(((LocalDateTime) one.get("clock_in")).toLocalTime());
+//		regist.setClockOutTime(((LocalDateTime) one.get("clock_out")).toLocalTime());
 		regist.setActualWorkTime((BigDecimal)one.get("actual_worktime"));
 		regist.setBreakTime((BigDecimal)one.get("breaktime"));
 		regist.setCumOverTime((BigDecimal)one.get("cum_overtime"));
 		regist.setNote((String)one.get("note"));
+		
+		// 出勤 or 振出の場合は出退勤時刻をセット
+		BigDecimal workStatusCode = (BigDecimal)one.get("work_status_code");
+		if (workStatusCode.intValue() == 1 &&workStatusCode.intValue() == 2) {
+			regist.setClockInTime(((LocalDateTime) one.get("clock_in")).toLocalTime());
+			regist.setClockOutTime(((LocalDateTime) one.get("clock_out")).toLocalTime());
+		}
 		
 		
 		// attend_typeテーブルから勤怠区分名を取得
