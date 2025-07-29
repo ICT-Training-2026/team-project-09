@@ -77,7 +77,8 @@ public class RegistController {
 	}
 
 	@PostMapping("/regist-post")
-	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm, BindingResult result,HttpSession session, Model model) {
+	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm,
+			BindingResult result,HttpSession session, Model model) {
 		ModelAndView modelAndView = new ModelAndView("regist");
 		
 		// ログイン中のユーザID取得
