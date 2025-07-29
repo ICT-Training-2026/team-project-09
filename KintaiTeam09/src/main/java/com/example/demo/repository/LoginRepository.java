@@ -11,9 +11,7 @@ import com.example.demo.entity.Employee;
 import com.example.demo.entity.Login;
 
 public interface LoginRepository {
-//    private final Map<String, Login> logins = new HashMap<>();
 
-    void save(Login login);
-    boolean findByUserId(Login login);
+	// DB上のユーザ情報を取得するメソッド
     Employee loadAccoundInfo(Login login);
 }

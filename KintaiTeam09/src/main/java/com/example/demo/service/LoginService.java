@@ -5,6 +5,6 @@ import com.example.demo.entity.Login;
 
 public interface LoginService {
 
-	boolean execute(Login login);
+	// DB上のユーザ情報を取得するメソッド
 	Employee loadAccoundInfo(Login login);
 }

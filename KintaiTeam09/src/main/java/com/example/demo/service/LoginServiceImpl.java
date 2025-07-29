@@ -54,23 +54,7 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
     private final LoginRepository loginRepository;
 
-    @Override
-    public boolean execute(Login login) {
-        // 仮のアカウントを保存
-        loginRepository.save(new Login("user001", "1234"));
-
-        boolean result = loginRepository.findByUserId(login);
-//        boolean result = login != null && login.getPass().equals(login.getPass());
-
-//        // 入力した値、ログイン可否をコンソールに表示
-//        System.out.println(login.getUserId());
-//        System.out.println(login.getPass());
-//        System.out.println(result);
-
-        return result;
-//        return true;
-    }
-    
+	// DB上のユーザ情報を取得するメソッド
     @Override
 	public Employee loadAccoundInfo(Login login) {
     	Employee employee = loginRepository.loadAccoundInfo(login);

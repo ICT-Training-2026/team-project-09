@@ -25,11 +25,8 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 	
 	@Override
 	public Regist searchAttendInfo(SearchEdit searchEdit) {
-		// 仮実装（検索クエリをコンソールに表示）
-		System.out.println("検索対象社員ID:" + searchEdit.getSearchUserId());
-		System.out.println("入力された日付:" + searchEdit.getSearchDate());
 		
-		// 本実装
+		// attend_infoテーブルから勤怠情報を取得
 		String sql = " SELECT * FROM attend_info " +
 					 " WHERE user_code=? AND date=? ";
 		
@@ -52,6 +49,17 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 		regist.setBreakTime((BigDecimal)one.get("breaktime"));
 		regist.setCumOverTime((BigDecimal)one.get("cum_overtime"));
 		regist.setNote((String)one.get("note"));
+		
+		
+		// attend_typeテーブルから勤怠区分名を取得
+		String sqlStatusName = " SELECT work_status FROM attend_type " +
+				               " WHERE work_status_code=?";
+		List<Map<String, Object>> listStatusName = 
+				jdbcTemplate.queryForList(
+				sqlStatusName, (BigDecimal)one.get("work_status_code")
+				);
+		Map<String, Object> oneStatusName = listStatusName.get(0);
+		regist.setWorkStatusName((String)oneStatusName.get("work_status"));
 		
 		return regist;
 	}
