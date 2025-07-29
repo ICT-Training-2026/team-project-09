@@ -24,6 +24,7 @@ import com.example.demo.form.RegistForm;
 import com.example.demo.form.SearchEditForm;
 import com.example.demo.service.RegistService;
 import com.example.demo.service.SearchEditService;
+import com.example.demo.validation.ValidatorImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +35,8 @@ public class SearchEditController {
 	@Autowired
 	private final SearchEditService searchEditService;
 	private final RegistService registService;
+	
+	private final ValidatorImpl validatorImpl;
 
 	// 編集完了画面へ遷移
 	@GetMapping("/edit-success-page")
@@ -119,6 +122,17 @@ public class SearchEditController {
 		// 残り有給休暇日数を取得
 		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
 		registForm.setAnnualLeaveDays(numPaidHoliday);
+		
+		
+		//振出を取得
+		int numHurisyutsu = registService.loadNumHurisyutsu(loginUser);
+		registForm.setHurisyutsuCount(numHurisyutsu);
+
+		//振休を取得
+		int numHurikyu = registService.loadNumHurikyu(loginUser);
+		registForm.setHurikyuCount(numHurikyu);
+		
+		validatorImpl.validate(registForm, result);
 
 		// エラーの数を取得
 		int errorCount = result.getErrorCount();

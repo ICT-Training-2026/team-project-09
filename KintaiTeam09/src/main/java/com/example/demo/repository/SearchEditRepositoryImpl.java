@@ -115,6 +115,16 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 
 		);
 		
+		//有給
+//		System.out.println("勤怠区分コード:" + regist.getWorkStatus());
+		if (edit.getWorkStatus().intValue() == 4) {
+			String sqlUpdate = 
+					" UPDATE employees " + 
+					" SET num_paid_holiday = num_paid_holiday - 1 " + 
+					" WHERE user_code = ? ";
+			jdbcTemplate.update(sqlUpdate,edit.getUserId());
+		}
+		
 
 		
 	}

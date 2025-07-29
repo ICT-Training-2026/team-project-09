@@ -96,15 +96,11 @@ public class RegistController {
 		
 		//振出を取得●
 		int numHurisyutsu = registService.loadNumHurisyutsu(loginUser); 
-		registForm.setHurisyutsuCount(numHurisyutsu);// 新しいセッター
-		System.out.println("振出日数:" + numHurisyutsu);
+		registForm.setHurisyutsuCount(numHurisyutsu);
 
         //振休を取得●
 		int numHurikyu = registService.loadNumHurikyu(loginUser);
-		registForm.setHurikyuCount(numHurikyu); // 新しいセッター
-		System.out.println("振休日数:" + numHurikyu);
-////		
-//		registForm.displayTest();
+		registForm.setHurikyuCount(numHurikyu); 
 		
 
 		validatorImpl.validate(registForm, result);
