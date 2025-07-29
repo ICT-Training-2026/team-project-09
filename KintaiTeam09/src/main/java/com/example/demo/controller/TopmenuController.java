@@ -12,10 +12,6 @@ import com.example.demo.form.SearchEditForm;
 @Controller
 public class TopmenuController {
 
-//	@GetMapping("/regist")
-//    public String regist(@ModelAttribute RegistForm registForm) {
-//        return "regist"; //regist.html(仮称)を表示
-//    }
 
 	@GetMapping("/search")
     public String search(@ModelAttribute RegistForm registForm, @ModelAttribute SearchEditForm searchEditForm,

@@ -53,7 +53,7 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 		
 		// 出勤 or 振出の場合は出退勤時刻をセット
 		BigDecimal workStatusCode = (BigDecimal)one.get("work_status_code");
-		if (workStatusCode.intValue() == 1 &&workStatusCode.intValue() == 2) {
+		if (workStatusCode.intValue() == 1 || workStatusCode.intValue() == 2) {
 			regist.setClockInTime(((LocalDateTime) one.get("clock_in")).toLocalTime());
 			regist.setClockOutTime(((LocalDateTime) one.get("clock_out")).toLocalTime());
 		}

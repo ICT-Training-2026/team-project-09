@@ -41,6 +41,10 @@ public class RegistRepositoryImpl implements RegistRepository {
         if (isDateAlreadyRegistered(regist.getUserId(), regist.getDate())) {
             throw new IllegalArgumentException("日付が重複しています");
         }
+        // 年休の場合は実労働時間を7時間(420分)にセット
+        if (regist.getWorkStatus().intValue()==4) {
+        	regist.setActualWorkTime(BigDecimal.valueOf(420));
+        }
 
 		
 		// 本実装（データベース登録処理）
