@@ -1,0 +1,223 @@
+
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #808080;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    margin-bottom: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.icon-circle:hover {
+    background-color: #9ea7aa;
+    color: white;
+    cursor: pointer;
+}
+
+.button-label {
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+}
+
+/* メインコンテナ */
+.completion-screen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* ゴミ箱の配置：画面中央 */
+.icon-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.trash-icon {
+    position: relative;
+    width: 60px;
+    height: 80px;
+}
+
+.lid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 20px;
+    background-color: #888888;
+    border-radius: 5px 5px 0 0;
+    animation: lidOpenClose 4s forwards;
+    transform-origin: left center;
+}
+
+.bin {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #888888;
+    border-radius: 0 0 10px 10px;
+}
+
+.lines {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    width: 40px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.line {
+    width: 3px;
+    height: 50px;
+    background-color: #777;
+}
+
+/* ゴミ（円） */
+.trash-item {
+    position: absolute;
+    top: 58%; /* 調整済み */
+    right: -39px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #fdfdfd 0%, #e0e0e0 100%);
+    border-radius: 50%;
+    box-shadow:
+        inset 4px 2px 4px rgba(255, 255, 255, 0.8), /* ハイライト */
+        inset -3px -2px 5px rgba(0, 0, 0, 0.1); /* 凹み影 */
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.1));
+    animation: flyToTrashArc 2s forwards ease-in-out;
+    animation-delay: 1s;
+}
+
+/* ちょっと凹凸感のあるジグザグ輪郭を擬似要素で */
+.trash-item::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow:
+        2px 0 0 #ccc,
+        4px 3px 0 #bbb,
+        1px 6px 0 #ccc,
+        5px 8px 0 #bbb,
+        0 10px 0 #ccc;
+    pointer-events: none;
+}
+
+/* メッセージ */
+.message {
+    font-size: 24px;
+    color: #808080;
+    opacity: 0;
+    margin-top: 170px;
+    animation: fadeInMessage 2s forwards;
+    animation-delay: 3.5s;
+}
+
+/* 蓋の開閉 */
+@keyframes lidOpenClose {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-45deg); }
+    75% { transform: rotate(-45deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* 放物線移動のアニメーション */
+/* 
+  X軸：画面右端から中央（ゴミ箱中央付近）へ  
+  Y軸：上下に移動し、ゴミ箱上部で頂点を作る
+*/
+@keyframes flyToTrashArc {
+    0% {
+        transform: translate(0, -450px);
+        opacity: 1;
+    }
+    40% {
+        transform: translate(calc(-50vw + -40px), -118px); /* 放物線の頂点（上昇） */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(-50vw + -40px), -112px); /* ゴミ箱の上部（着地） */
+        opacity: 0; /* 消える演出 */
+    }
+}
+
+/* メッセージのフェードイン */
+@keyframes fadeInstar {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes fadeInMessage {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+.good{
+    display: flex;
+    width: 40px;
+    height: 40px;
+}
+
+.star{
+    display: flex;
+    width: 25px;
+    height: 25px;
+    margin-top: -20px;
+}
+
+.regist_complete {
+    /* color: #808080; */
+    color: #808080;
+    text-align: center;
+    align-items: flex-end;
+
+    flex-grow: 1;
+    /* 残りの空間を全部使う */
+    display: flex;
+    justify-content: center;
+    /* 横中央 */
+    align-items: center;
+    /* 縦中央 */
+}
+
+
+.complete-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complete-row {
+  display: flex;
+align-items: center;
+  gap: 10px; /* アイコンとの間隔 */
+}
