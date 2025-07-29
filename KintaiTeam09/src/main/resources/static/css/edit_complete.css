@@ -1,0 +1,1443 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: #F5F5F5; */
+    /* background: linear-gradient(#225 60%, #437); */
+    /* background-color: #ffe4e49f; */
+	background-color: #82b4ff;
+    height: 100vh;
+    /* ビューポートの高さいっぱい */
+    display: flex;
+    flex-direction: column;
+    /* 縦方向に並べる */
+    overflow: hidden; /* スクロールを防ぐ */
+}
+
+header {
+    /* background-color: #befff08e; */
+    color: #808080;
+    padding: 10px 20px;
+    position: relative;
+    font-size: 16px;
+    text-align: left;
+
+    flex-shrink: 0;
+    /* ヘッダーの縮小防止 */
+} 
+
+header {
+    background: linear-gradient(0deg, rgba(255, 254, 218, 0), rgba(255, 254, 218, 0.648));
+    color: #f8f6f6;
+    padding: 10px 20px;
+    position: relative;
+    font-size: 16px;
+    text-align: left;
+    flex-shrink: 0; /* ヘッダーの縮小防止 */
+}
+
+/* h1{
+    text-shadow: 2px 2px 5px rgb(255, 255, 255); /* 影の設定 */
+/* } */ 
+
+.top-right-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+}
+
+.top-right-buttons a {
+    display: flex;
+    flex-direction: column;
+    /* 縦に並べる */
+    align-items: center;
+    /* 中央寄せ */
+    text-decoration: none;
+    color: #808080;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    /* 丸くする */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #808080;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 6px;
+    /* アイコンと文字の間の余白 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.icon-circle:hover {
+    background-color: #9ea7aa;
+    color: white;
+    cursor: pointer;
+}
+
+
+.button-label {
+    pointer-events: none;
+    font-size: 12px;
+
+}
+
+.button-logout {
+    background-color: white;
+}
+
+.button:hover {
+    background-color: #9ea7aa;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.complete-icon {
+    width: 50px; /* 画像の幅を指定 */
+    height: auto; /* 高さを自動調整 */
+    margin-right: 10px; /* テキストとの間に余白を追加 */
+    vertical-align: middle; /* テキストと垂直方向に中央揃え */
+}
+
+.regist_complete {
+    /* color: #808080; */
+    color: azure;
+    text-align: center;
+    align-items: flex-end;
+
+    flex-grow: 1;
+    /* 残りの空間を全部使う */
+    display: flex;
+    justify-content: center;
+    /* 横中央 */
+    align-items: center;
+    /* 縦中央 */
+}
+
+.good{
+    display: flex;
+    width: 40px;
+    height: 40px;
+}
+
+.star{
+    display: flex;
+    width: 25px;
+    height: 25px;
+    margin-top: -20px;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    /* 画面下からスタート */
+    width: 100px;
+	pointer-events: none;
+    animation-name: floatUp;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+    } 
+    
+}
+
+@keyframes firework {
+	0% { 
+		transform: translate(-50%, 60vh);
+		width: 0.5vmin;
+		opacity: 1;
+	}
+	50% { 
+		width: 0.5vmin;
+		opacity: 1;
+	}
+	80% { 
+		width: 45vmin; 
+		opacity: 0; 
+	}
+	/* ② 花火が開いた後にピカッと(再度開いて閉じる) */
+	/* 90% { 
+		width: 40vmin; 
+		opacity: 1; 
+	}
+	100% { 
+		width: 45vmin; 
+		opacity: 0; 
+	} */
+}
+.firework,
+.firework::before,
+.firework::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	aspect-ratio: 1;
+	background:
+    	/* ③ 花火の粒子を増やしてリッチに */
+    	/* ④ 花火の粒子が丸くなるようにサイズ調整(background-sizeの半分より小さいサイズに) */
+    	/* ⑤ それぞれの花火の粒子の色は全て同じに(--dot-color変数化) */
+		radial-gradient(circle, var(--dot-color) 0.2vmin, #0000 0) 50% 00%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 00% 50%,
+		radial-gradient(circle, var(--dot-color) 0.5vmin, #0000 0) 50% 99%,
+		radial-gradient(circle, var(--dot-color) 0.2vmin, #0000 0) 99% 50%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 75% 80%,
+		radial-gradient(circle, var(--dot-color) 0.5vmin, #0000 0) 80% 90%,
+		radial-gradient(circle, var(--dot-color) 0.5vmin, #0000 0) 10% 60%,
+		radial-gradient(circle, var(--dot-color) 0.2vmin, #0000 0) 31% 80%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 80% 10%,
+		radial-gradient(circle, var(--dot-color) 0.2vmin, #0000 0) 90% 23%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 45% 20%,
+		radial-gradient(circle, var(--dot-color) 0.5vmin, #0000 0) 13% 24%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 40% 50%,
+		radial-gradient(circle, var(--dot-color) 0.5vmin, #0000 0) 43% 32%,
+		radial-gradient(circle, var(--dot-color) 0.2vmin, #0000 0) 65% 55%,
+		radial-gradient(circle, var(--dot-color) 0.5vmin, #0000 0) 60% 75%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 30% 65%,
+		radial-gradient(circle, var(--dot-color) 0.3vmin, #0000 0) 80% 35%
+		;
+	/* ④ 花火の粒子が丸くなるようにサイズ調整 */
+	background-size: 1vmin 1vmin;
+	background-repeat: no-repeat;
+	animation: firework 3s infinite;
+}
+.firework::before {
+	transform: translate(-50%, -50%) rotate(25deg) !important; 
+}
+.firework::after {
+	transform: translate(-50%, -50%) rotate(-37deg) !important;
+}
+.firework:nth-of-type(1),
+.firework:nth-of-type(1)::before,
+.firework:nth-of-type(1)::after {
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(194, 246, 255);
+}
+.firework:nth-of-type(2),
+.firework:nth-of-type(2)::before,
+.firework:nth-of-type(2)::after {
+	top: 30%;
+	left: 16%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 163);
+}
+.firework:nth-of-type(3),
+.firework:nth-of-type(3)::before,
+.firework:nth-of-type(3)::after {
+	top: 10%;
+	left: 72%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 250);
+}
+.firework:nth-of-type(4),
+.firework:nth-of-type(4)::before,
+.firework:nth-of-type(4)::after {
+	top: 28%;
+	left: 32%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(206, 196, 255);
+}
+.firework:nth-of-type(5),
+.firework:nth-of-type(5)::before,
+.firework:nth-of-type(5)::after {
+	top: 32%;
+	left: 84%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(171, 255, 255);
+}
+.firework:nth-of-type(6),
+.firework:nth-of-type(6)::before,
+.firework:nth-of-type(6)::after {
+	top: 38%;
+	left: 40%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 203, 215);
+}
+.firework:nth-of-type(7),
+.firework:nth-of-type(7)::before,
+.firework:nth-of-type(7)::after {
+	top: 28%;
+	left: 64%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: pink;
+}
+.firework:nth-of-type(8),
+.firework:nth-of-type(8)::before,
+.firework:nth-of-type(8)::after {
+	top: 30%;
+	left: 56%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 248, 148);
+}
+.firework:nth-of-type(9),
+.firework:nth-of-type(9)::before,
+.firework:nth-of-type(9)::after {
+	top: 10%;
+	left: 20%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(183, 255, 243);
+}
+.firework:nth-of-type(10),
+.firework:nth-of-type(10)::before,
+.firework:nth-of-type(10)::after {
+	top: 35%;
+	left: 80%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 162);
+}
+.firework:nth-of-type(11),
+.firework:nth-of-type(11)::before,
+.firework:nth-of-type(11)::after {
+	top: 25%;
+	left: 52%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 193);
+}
+.firework:nth-of-type(12),
+.firework:nth-of-type(12)::before,
+.firework:nth-of-type(12)::after {
+	top: 13%;
+	left: 22%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(227, 207, 255);
+}
+.firework:nth-of-type(13),
+.firework:nth-of-type(13)::before,
+.firework:nth-of-type(13)::after {
+	top: 42%;
+	left: 74%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 202, 236);
+}
+.firework:nth-of-type(14),
+.firework:nth-of-type(14)::before,
+.firework:nth-of-type(14)::after {
+	top: 58%;
+	left: 60%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 174, 255);
+}
+.firework:nth-of-type(15),
+.firework:nth-of-type(15)::before,
+.firework:nth-of-type(15)::after {
+	top: 27%;
+	left: 68%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(251, 255, 192);
+}
+.firework:nth-of-type(16),
+.firework:nth-of-type(16)::before,
+.firework:nth-of-type(16)::after {
+	top: 40%;
+	left: 26%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 216, 185);
+}
+.firework:nth-of-type(17),
+.firework:nth-of-type(17)::before,
+.firework:nth-of-type(17)::after {
+    top: 47%;
+	left: 53%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(194, 246, 255);
+}
+.firework:nth-of-type(18),
+.firework:nth-of-type(18)::before,
+.firework:nth-of-type(18)::after {
+	top: 76%;
+	left: 74%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 163);
+}
+.firework:nth-of-type(19),
+.firework:nth-of-type(19)::before,
+.firework:nth-of-type(19)::after {
+	top: 17%;
+	left: 82%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 250);
+}
+.firework:nth-of-type(20),
+.firework:nth-of-type(20)::before,
+.firework:nth-of-type(20)::after {
+	top: 57%;
+	left: 12%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(206, 196, 255);
+}
+.firework:nth-of-type(21),
+.firework:nth-of-type(21)::before,
+.firework:nth-of-type(21)::after {
+	top: 68%;
+	left: 25%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(171, 255, 255);
+}
+.firework:nth-of-type(22),
+.firework:nth-of-type(22)::before,
+.firework:nth-of-type(22)::after {
+	top: 42%;
+	left: 80%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 203, 215);
+}
+.firework:nth-of-type(23),
+.firework:nth-of-type(23)::before,
+.firework:nth-of-type(23)::after {
+	top: 37%;
+	left: 90%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: pink;
+}
+.firework:nth-of-type(24),
+.firework:nth-of-type(24)::before,
+.firework:nth-of-type(24)::after {
+	top: 23%;
+	left: 76%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 248, 148);
+}
+.firework:nth-of-type(25),
+.firework:nth-of-type(25)::before,
+.firework:nth-of-type(25)::after {
+	top: 46%;
+	left: 42%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(183, 255, 243);
+}
+.firework:nth-of-type(26),
+.firework:nth-of-type(26)::before,
+.firework:nth-of-type(26)::after {
+	top: 54%;
+	left: 75%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 162);
+}
+.firework:nth-of-type(27),
+.firework:nth-of-type(27)::before,
+.firework:nth-of-type(27)::after {
+	top: 38%;
+	left: 32%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 193);
+}
+.firework:nth-of-type(28),
+.firework:nth-of-type(28)::before,
+.firework:nth-of-type(28)::after {
+	top: 32%;
+	left: 57%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(227, 207, 255);
+}
+.firework:nth-of-type(29),
+.firework:nth-of-type(29)::before,
+.firework:nth-of-type(29)::after {
+	top: 14%;
+	left: 54%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 202, 236);
+}
+.firework:nth-of-type(30),
+.firework:nth-of-type(30)::before,
+.firework:nth-of-type(30)::after {
+	top: 19%;
+	left: 30%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 174, 255);
+}
+.firework:nth-of-type(31),
+.firework:nth-of-type(31)::before,
+.firework:nth-of-type(31)::after {
+	top: 56%;
+	left: 88%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(251, 255, 192);
+}
+.firework:nth-of-type(32),
+.firework:nth-of-type(32)::before,
+.firework:nth-of-type(32)::after {
+	top: 41%;
+	left: 53%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 216, 185);
+}
+.firework:nth-of-type(33),
+.firework:nth-of-type(33)::before,
+.firework:nth-of-type(33)::after {
+    top: 62%;
+	left: 13%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(194, 246, 255);
+}
+.firework:nth-of-type(34),
+.firework:nth-of-type(34)::before,
+.firework:nth-of-type(34)::after {
+	top: 26%;
+	left: 85%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 163);
+}
+.firework:nth-of-type(35),
+.firework:nth-of-type(35)::before,
+.firework:nth-of-type(35)::after {
+	top: 47%;
+	left: 23%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 250);
+}
+.firework:nth-of-type(36),
+.firework:nth-of-type(36)::before,
+.firework:nth-of-type(36)::after {
+	top: 87%;
+	left: 90%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(206, 196, 255);
+}
+.firework:nth-of-type(37),
+.firework:nth-of-type(37)::before,
+.firework:nth-of-type(37)::after {
+	top: 57%;
+	left: 10%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(171, 255, 255);
+}
+.firework:nth-of-type(38),
+.firework:nth-of-type(38)::before,
+.firework:nth-of-type(38)::after {
+	top: 82%;
+	left: 85%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 203, 215);
+}
+.firework:nth-of-type(39),
+.firework:nth-of-type(39)::before,
+.firework:nth-of-type(39)::after {
+	top: 36%;
+	left: 57%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: pink;
+}
+.firework:nth-of-type(40),
+.firework:nth-of-type(40)::before,
+.firework:nth-of-type(40)::after {
+	top: 67%;
+	left: 31%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 248, 148);
+}
+.firework:nth-of-type(41),
+.firework:nth-of-type(41)::before,
+.firework:nth-of-type(41)::after {
+	top: 49%;
+	left: 50%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(183, 255, 243);
+}
+.firework:nth-of-type(42),
+.firework:nth-of-type(42)::before,
+.firework:nth-of-type(42)::after {
+	top: 24%;
+	left: 20%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 162);
+}
+.firework:nth-of-type(43),
+.firework:nth-of-type(43)::before,
+.firework:nth-of-type(43)::after {
+	top: 34%;
+	left: 74%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 193);
+}
+.firework:nth-of-type(44),
+.firework:nth-of-type(44)::before,
+.firework:nth-of-type(44)::after {
+	top: 40%;
+	left: 43%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(227, 207, 255);
+}
+.firework:nth-of-type(45),
+.firework:nth-of-type(45)::before,
+.firework:nth-of-type(45)::after {
+	top: 68%;
+	left: 21%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 202, 236);
+}
+.firework:nth-of-type(46),
+.firework:nth-of-type(46)::before,
+.firework:nth-of-type(46)::after {
+	top: 87%;
+	left: 69%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 174, 255);
+}
+.firework:nth-of-type(47),
+.firework:nth-of-type(47)::before,
+.firework:nth-of-type(47)::after {
+	top: 30%;
+	left: 57%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(251, 255, 192);
+}
+.firework:nth-of-type(48),
+.firework:nth-of-type(48)::before,
+.firework:nth-of-type(48)::after {
+	top: 25%;
+	left: 78%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 216, 185);
+}
+.firework:nth-of-type(49),
+.firework:nth-of-type(49)::before,
+.firework:nth-of-type(49)::after {
+    top: 21%;
+	left: 24%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(194, 246, 255);
+}
+.firework:nth-of-type(50),
+.firework:nth-of-type(50)::before,
+.firework:nth-of-type(50)::after {
+	top: 69%;
+	left: 29%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 163);
+}
+.firework:nth-of-type(51),
+.firework:nth-of-type(51)::before,
+.firework:nth-of-type(51)::after {
+	top: 27%;
+	left: 60%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 250);
+}
+.firework:nth-of-type(52),
+.firework:nth-of-type(52)::before,
+.firework:nth-of-type(52)::after {
+	top: 15%;
+	left: 79%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(206, 196, 255);
+}
+.firework:nth-of-type(53),
+.firework:nth-of-type(53)::before,
+.firework:nth-of-type(53)::after {
+	top: 59%;
+	left: 70%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(171, 255, 255);
+}
+.firework:nth-of-type(54),
+.firework:nth-of-type(54)::before,
+.firework:nth-of-type(54)::after {
+	top: 50%;
+	left: 20%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 203, 215);
+}
+.firework:nth-of-type(55),
+.firework:nth-of-type(55)::before,
+.firework:nth-of-type(55)::after {
+	top: 10%;
+	left: 47%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: pink;
+}
+.firework:nth-of-type(56),
+.firework:nth-of-type(56)::before,
+.firework:nth-of-type(56)::after {
+	top: 31%;
+	left: 63%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 248, 148);
+}
+.firework:nth-of-type(57),
+.firework:nth-of-type(57)::before,
+.firework:nth-of-type(57)::after {
+	top: 23%;
+	left: 36%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(183, 255, 243);
+}
+.firework:nth-of-type(58),
+.firework:nth-of-type(58)::before,
+.firework:nth-of-type(58)::after {
+	top: 13%;
+	left: 27%;
+	animation-duration: 3.8s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 246, 162);
+}
+.firework:nth-of-type(59),
+.firework:nth-of-type(59)::before,
+.firework:nth-of-type(59)::after {
+	top: 47%;
+	left: 38%;
+	animation-duration: 4.2s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 199, 193);
+}
+.firework:nth-of-type(60),
+.firework:nth-of-type(60)::before,
+.firework:nth-of-type(60)::after {
+	top: 29%;
+	left: 89%;
+	animation-duration: 3.6s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(227, 207, 255);
+}
+.firework:nth-of-type(61),
+.firework:nth-of-type(61)::before,
+.firework:nth-of-type(61)::after {
+	top: 83%;
+	left: 12%;
+	animation-duration: 4.4s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 202, 236);
+}
+.firework:nth-of-type(62),
+.firework:nth-of-type(62)::before,
+.firework:nth-of-type(62)::after {
+	top: 56%;
+	left: 27%;
+	animation-duration: 4.1s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 174, 255);
+}
+.firework:nth-of-type(63),
+.firework:nth-of-type(63)::before,
+.firework:nth-of-type(63)::after {
+	top: 12%;
+	left: 21%;
+	animation-duration: 3.9s;
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(251, 255, 192);
+}
+.firework:nth-of-type(64),
+.firework:nth-of-type(64)::before,
+.firework:nth-of-type(64)::after {
+	top: 21%;
+	left: 12%;
+	animation-duration: 3.9s;	
+	/* ⑤ それぞれの花火の粒子の色は全て同じに */
+	--dot-color: rgb(255, 216, 185);
+}
+
+
+.confetti span {
+	position: absolute;
+	top: -10%;
+	left: 0;
+	width: 1.5vw;
+	height: 1vw;
+	background: #FFF;
+}
+
+/* add animation */
+.confetti span:nth-child(2n+1) {
+	animation: confetti-anim-1 10s 0s linear infinite;
+}
+
+.confetti span:nth-child(2n+2) {
+	animation: confetti-anim-2 10s 0s linear infinite;
+}
+
+/* side position */
+.confetti span:nth-child(1) {
+	left: 0%;
+}
+
+.confetti span:nth-child(2) {
+	left: 2%;
+}
+
+.confetti span:nth-child(3) {
+	left: 4%;
+}
+
+.confetti span:nth-child(4) {
+	left: 6%;
+}
+
+.confetti span:nth-child(5) {
+	left: 8%;
+}
+
+.confetti span:nth-child(6) {
+	left: 10%;
+}
+
+.confetti span:nth-child(7) {
+	left: 12%;
+}
+
+.confetti span:nth-child(8) {
+	left: 14%;
+}
+
+.confetti span:nth-child(9) {
+	left: 16%;
+}
+
+.confetti span:nth-child(10) {
+	left: 18%;
+}
+
+.confetti span:nth-child(11) {
+	left: 20%;
+}
+
+.confetti span:nth-child(12) {
+	left: 22%;
+}
+
+.confetti span:nth-child(13) {
+	left: 24%;
+}
+
+.confetti span:nth-child(14) {
+	left: 26%;
+}
+
+.confetti span:nth-child(15) {
+	left: 28%;
+}
+
+.confetti span:nth-child(16) {
+	left: 30%;
+}
+
+.confetti span:nth-child(17) {
+	left: 32%;
+}
+
+.confetti span:nth-child(18) {
+	left: 34%;
+}
+
+.confetti span:nth-child(19) {
+	left: 36%;
+}
+
+.confetti span:nth-child(20) {
+	left: 38%;
+}
+
+.confetti span:nth-child(21) {
+	left: 40%;
+}
+
+.confetti span:nth-child(22) {
+	left: 42%;
+}
+
+.confetti span:nth-child(23) {
+	left: 44%;
+}
+
+.confetti span:nth-child(24) {
+	left: 46%;
+}
+
+.confetti span:nth-child(25) {
+	left: 48%;
+}
+
+.confetti span:nth-child(26) {
+	left: 50%;
+}
+
+.confetti span:nth-child(27) {
+	left: 52%;
+}
+
+.confetti span:nth-child(28) {
+	left: 54%;
+}
+
+.confetti span:nth-child(29) {
+	left: 56%;
+}
+
+.confetti span:nth-child(30) {
+	left: 58%;
+}
+
+.confetti span:nth-child(31) {
+	left: 60%;
+}
+
+.confetti span:nth-child(32) {
+	left: 62%;
+}
+
+.confetti span:nth-child(33) {
+	left: 64%;
+}
+
+.confetti span:nth-child(34) {
+	left: 66%;
+}
+
+.confetti span:nth-child(35) {
+	left: 68%;
+}
+
+.confetti span:nth-child(36) {
+	left: 70%;
+}
+
+.confetti span:nth-child(37) {
+	left: 72%;
+}
+
+.confetti span:nth-child(38) {
+	left: 74%;
+}
+
+.confetti span:nth-child(39) {
+	left: 76%;
+}
+
+.confetti span:nth-child(40) {
+	left: 78%;
+}
+
+.confetti span:nth-child(41) {
+	left: 80%;
+}
+
+.confetti span:nth-child(42) {
+	left: 82%;
+}
+
+.confetti span:nth-child(43) {
+	left: 84%;
+}
+
+.confetti span:nth-child(44) {
+	left: 86%;
+}
+
+.confetti span:nth-child(45) {
+	left: 88%;
+}
+
+.confetti span:nth-child(46) {
+	left: 90%;
+}
+
+.confetti span:nth-child(47) {
+	left: 92%;
+}
+
+.confetti span:nth-child(48) {
+	left: 94%;
+}
+
+.confetti span:nth-child(49) {
+	left: 96%;
+}
+
+.confetti span:nth-child(50) {
+	left: 98%;
+}
+
+.confetti span:nth-child(51) {
+	left: 1%;
+}
+
+.confetti span:nth-child(52) {
+	left: 3%;
+}
+
+.confetti span:nth-child(53) {
+	left: 5%;
+}
+
+.confetti span:nth-child(54) {
+	left: 7%;
+}
+
+.confetti span:nth-child(55) {
+	left: 9%;
+}
+
+.confetti span:nth-child(56) {
+	left: 11%;
+}
+
+.confetti span:nth-child(57) {
+	left: 13%;
+}
+
+.confetti span:nth-child(58) {
+	left: 15%;
+}
+
+.confetti span:nth-child(59) {
+	left: 17%;
+}
+
+.confetti span:nth-child(60) {
+	left: 19%;
+}
+
+.confetti span:nth-child(61) {
+	left: 21%;
+}
+
+.confetti span:nth-child(62) {
+	left: 23%;
+}
+
+.confetti span:nth-child(63) {
+	left: 25%;
+}
+
+.confetti span:nth-child(64) {
+	left: 27%;
+}
+
+.confetti span:nth-child(65) {
+	left: 29%;
+}
+
+.confetti span:nth-child(66) {
+	left: 31%;
+}
+
+.confetti span:nth-child(67) {
+	left: 33%;
+}
+
+.confetti span:nth-child(68) {
+	left: 35%;
+}
+
+.confetti span:nth-child(69) {
+	left: 37%;
+}
+
+.confetti span:nth-child(70) {
+	left: 39%;
+}
+
+.confetti span:nth-child(71) {
+	left: 41%;
+}
+
+.confetti span:nth-child(72) {
+	left: 43%;
+}
+
+.confetti span:nth-child(73) {
+	left: 45%;
+}
+
+.confetti span:nth-child(74) {
+	left: 47%;
+}
+
+.confetti span:nth-child(75) {
+	left: 49%;
+}
+
+.confetti span:nth-child(76) {
+	left: 51%;
+}
+
+.confetti span:nth-child(77) {
+	left: 53%;
+}
+
+.confetti span:nth-child(78) {
+	left: 55%;
+}
+
+.confetti span:nth-child(79) {
+	left: 57%;
+}
+
+.confetti span:nth-child(80) {
+	left: 59%;
+}
+
+.confetti span:nth-child(81) {
+	left: 61%;
+}
+
+.confetti span:nth-child(82) {
+	left: 63%;
+}
+
+.confetti span:nth-child(83) {
+	left: 65%;
+}
+
+.confetti span:nth-child(84) {
+	left: 67%;
+}
+
+.confetti span:nth-child(85) {
+	left: 69%;
+}
+
+.confetti span:nth-child(86) {
+	left: 71%;
+}
+
+.confetti span:nth-child(87) {
+	left: 73%;
+}
+
+.confetti span:nth-child(88) {
+	left: 75%;
+}
+
+.confetti span:nth-child(89) {
+	left: 77%;
+}
+
+.confetti span:nth-child(90) {
+	left: 79%;
+}
+
+.confetti span:nth-child(91) {
+	left: 81%;
+}
+
+.confetti span:nth-child(92) {
+	left: 83%;
+}
+
+.confetti span:nth-child(93) {
+	left: 85%;
+}
+
+.confetti span:nth-child(95) {
+	left: 87%;
+}
+
+.confetti span:nth-child(96) {
+	left: 89%;
+}
+
+.confetti span:nth-child(97) {
+	left: 91%;
+}
+
+.confetti span:nth-child(98) {
+	left: 93%;
+}
+
+.confetti span:nth-child(99) {
+	left: 95%;
+}
+
+.confetti span:nth-child(100) {
+	left: 97%;
+}
+
+.confetti span:nth-child(101) {
+	left: 99%;
+}
+
+/* colors */
+.confetti span:nth-child(7n+1) {
+	background: rgb(255, 138, 138);
+}
+
+.confetti span:nth-child(7n+2) {
+	background: rgb(255, 202, 103);
+}
+
+.confetti span:nth-child(7n+3) {
+	background: rgb(255, 252, 91);
+}
+
+.confetti span:nth-child(7n+4) {
+	background: rgb(166, 255, 163);
+}
+
+.confetti span:nth-child(7n+5) {
+	background: rgb(172, 249, 255);
+}
+
+.confetti span:nth-child(7n+6) {
+	background: rgb(238, 161, 254);
+}
+
+.confetti span:nth-child(7n+7) {
+	background: rgb(254, 197, 228);
+}
+
+
+/* animation-duration */
+.confetti span:nth-child(4n+1) {
+	animation-duration: 5s;
+}
+
+.confetti span:nth-child(4n+2) {
+	animation-duration: 12s;
+}
+
+.confetti span:nth-child(4n+3) {
+	animation-duration: 8s;
+}
+
+.confetti span:nth-child(4n+4) {
+	animation-duration: 6s;
+}
+
+
+/* animation-delay */
+.confetti span:nth-child(11n+1) {
+	animation-delay: 0s;
+}
+
+.confetti span:nth-child(11n+2) {
+	animation-delay: 9s;
+}
+
+.confetti span:nth-child(11n+3) {
+	animation-delay: 2s;
+}
+
+.confetti span:nth-child(11n+4) {
+	animation-delay: 5s;
+}
+
+.confetti span:nth-child(11n+5) {
+	animation-delay: 6s;
+}
+
+.confetti span:nth-child(11n+6) {
+	animation-delay: 7s;
+}
+
+.confetti span:nth-child(11n+7) {
+	animation-delay: 3s;
+}
+
+.confetti span:nth-child(11n+8) {
+	animation-delay: 1s;
+}
+
+.confetti span:nth-child(11n+9) {
+	animation-delay: 2s;
+}
+
+.confetti span:nth-child(11n+10) {
+	animation-delay: 11s;
+}
+
+.confetti span:nth-child(11n+11) {
+	animation-delay: 10s;
+}
+
+/* animation */
+
+@keyframes confetti-anim-1 {
+	0% {
+		top: -10%;
+		transform: translateX(0) rotateX(0) rotateY(0);
+	}
+
+	100% {
+		top: 100%;
+		transform: translateX(20vw) rotateX(180deg) rotateY(360deg);
+	}
+}
+
+@keyframes confetti-anim-2 {
+	0% {
+		top: -10%;
+		transform: translateX(0) rotateX(0) rotateY(0);
+	}
+
+	100% {
+		top: 100%;
+		transform: translateX(-20vw) rotateX(180deg) rotateY(360deg);
+	}
+}
+
+.happy-birthday {
+    font-family: 'Pacifico', cursive;
+    font-size: 4em;
+    color: #ff69b4;
+    opacity: 0;
+    transform: scale(0);
+    animation: appear 1.5s ease-out forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+
+@keyframes appear {
+0% {
+opacity: 0;
+transform: scale(0);
+}
+100% {
+opacity: 1;
+transform: scale(1);
+}
+}
+
+.complete-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complete-links {
+  margin-top: 20px;
+}
+
+.complete-links a {
+  color: #eee;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.complete-links a:hover {
+  color: #ffd700;
+}
+
+.complete-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complete-row {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* アイコンとの間隔 */
+}
+
+.complete-row h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: azure;
+}
+
+.complete-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.complete-links a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.complete-links a:hover {
+  color: #ffd700;
+}
+
+.regist_complete {
+    /* color: #808080; */
+    color: azure;
+    text-align: center;
+    align-items: flex-end;
+
+    flex-grow: 1;
+    /* 残りの空間を全部使う */
+    display: flex;
+    justify-content: center;
+    /* 横中央 */
+    align-items: center;
+    /* 縦中央 */
+}
