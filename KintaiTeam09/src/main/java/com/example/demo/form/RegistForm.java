@@ -164,7 +164,7 @@ public class RegistForm {
         return workMinutes.compareTo(BigDecimal.valueOf(240)) >= 0 || breakTime.compareTo(BigDecimal.valueOf(60)) < 0;
     }
 
-    @AssertTrue(message = "実労働時間が8時間を超えています", groups = BasicChecks.class)
+    @AssertTrue(message = "実労働時間が8時間を超えています")
     public boolean isActualWorkTimeNotExceedingEightHours() {
         if (clockInTime == null || clockOutTime == null || (workStatus.intValue() != 1 && workStatus.intValue() != 2)) {
             return true;
