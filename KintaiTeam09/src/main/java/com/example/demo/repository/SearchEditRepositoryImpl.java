@@ -37,6 +37,9 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 				jdbcTemplate.queryForList(
 				sql, searchEdit.getSearchUserId(), searchEdit.getSearchDate()
 				);
+		if (list.isEmpty()) {
+			return null;
+		}
 		
 		Map<String, Object> one = list.get(0);
 		Regist regist = new Regist();

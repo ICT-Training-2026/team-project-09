@@ -54,6 +54,9 @@ public class LoginController {
 			session.setAttribute("userId",userId);
 			session.setAttribute("departmentName",employee.getDepartmentName());
 			
+			System.out.println(employee.getBirthMonth());
+			System.out.println(employee.getBirthDay());
+			
 			// 誕生日のユーザは特別ページに遷移
 			if (employee.getBirthMonth() == month && employee.getBirthDay() == day) {
 				System.out.println("誕生日おめでとう！");
