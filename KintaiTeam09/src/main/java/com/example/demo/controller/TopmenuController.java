@@ -21,8 +21,12 @@ public class TopmenuController {
     public String search(@ModelAttribute RegistForm registForm, @ModelAttribute SearchEditForm searchEditForm,
     		HttpSession session) {
 		if (session.getAttribute("userId") != null) {
+//			// 入力日の日付を取得
+//			LocalDate today = LocalDate.now();
+			
 			// 初期値のセット
 			searchEditForm.setSearchUserId((String)session.getAttribute("userId"));
+//			searchEditForm.setSearchDate(today);
 			
 			return "search"; //search.html(仮称)を表示
 		} else {
