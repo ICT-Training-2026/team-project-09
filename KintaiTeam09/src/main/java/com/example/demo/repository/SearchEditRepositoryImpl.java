@@ -57,7 +57,7 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 	}
 	
 	@Override
-	public void update(Regist edit) { // データベース更新
+	public void update(Regist edit) { // データベースの更新SQL
 		
 		System.out.println("updateメソッド呼び出し完了(インフラ層)");
 //		System.out.println(edit.getDate());

@@ -48,7 +48,7 @@ public class DeleteController {
 //		return "edit"; //searchへ戻るyo!!!
 //	}
 	
-	@PostMapping("/confirm-delete") // 編集内容を送信
+	@PostMapping("/confirm-delete") // 削除処理
 	public String confirmDelete(@ModelAttribute RegistForm registForm) {
 		
 		registForm.combineDateTime();
@@ -71,7 +71,7 @@ public class DeleteController {
 		
 		deleteService.delete(delete);
 		
-		return "delete-success-page"; // (仮)成功ページへ
+		return "delete-success-page"; // 削除成功ページへ遷移
 		
 	}
 }

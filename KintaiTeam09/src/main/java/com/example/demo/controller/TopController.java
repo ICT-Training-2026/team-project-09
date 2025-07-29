@@ -11,3 +11,5 @@ public class TopController {
 //    }
 	
 }
+
+// CommonController.javaに記述されているため、このコントローラクラスは使ってません
