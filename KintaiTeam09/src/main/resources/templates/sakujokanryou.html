@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>勤怠管理システム</title>
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/sakujokanryou.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+	<header>
+	  <h1>勤怠管理</h1>
+	  <div class="top-right-buttons">
+	    <div class="button-group">
+	      <a href="/topmenu" class="icon-circle"><i class="fas fa-house"></i></a>
+	      <span class="button-label">トップメニュー</span>
+	    </div>
+	    <div class="button-group">
+		<form th:action="@{/logout}" method="post">
+			<button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+			<span class="button-label">ログアウト</span>
+		</form> 
+	    </div>
+	  </div>
+	</header>
+
+<div class="completion-screen">
+    <div class="icon-container">
+        <div class="trash-icon">
+            <div class="lid"></div>
+            <div class="bin"></div>
+            <div class="lines">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div class="trash-item"></div>
+	<div class="regist_complete">
+	  <div class="complete-box">
+	    <div class="complete-row">
+	      <h2 class="message">削除完了！！！</h2>
+	    </div>
+	  </div>
+	</div>
+</div>
+</body>
+</html>

@@ -71,7 +71,7 @@ public class DeleteController {
 		
 		deleteService.delete(delete);
 		
-		return "delete-success-page"; // 削除成功ページへ遷移
+		return "sakujokanryou"; // 削除成功ページへ遷移
 		
 	}
 }
