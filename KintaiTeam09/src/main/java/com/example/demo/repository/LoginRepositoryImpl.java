@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,25 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginRepositoryImpl implements LoginRepository {
 	private final JdbcTemplate jdbcTemplate;
-	private final Map<String, Login> logins = new HashMap<>();
 
-	@Override
-	public void save(Login login) {
-        logins.put(login.getUserId(), login);
-    }
-
-	
-	@Override
-    public boolean findByUserId(Login login) {
-		boolean resultUser = login.getUserId().equals("user002");
-		boolean resultPass = login.getPass().equals("5678");
-		boolean result = resultUser && resultPass;
-		
-        System.out.println(login.getUserId());
-        System.out.println(login.getPass());
-        return result;
-    }
-	
+	// DB上のユーザ情報を取得するメソッド
 	@Override
 	public Employee loadAccoundInfo(Login login) {      
         String sqlEmp = "SELECT user_code, password, mail_address, name, " +
@@ -69,7 +51,6 @@ public class LoginRepositoryImpl implements LoginRepository {
         String sqlDep = "SELECT department FROM department WHERE department_code = ?";
         List<Map<String, Object>> listDep = jdbcTemplate.queryForList(sqlDep, (BigDecimal) one.get("department_code"));
         Map<String, Object> oneDep = listDep.get(0);
-//        System.out.println((String) oneDep.get("department"));
         employee.setDepartmentName((String) oneDep.get("department"));
     	
     	return employee;

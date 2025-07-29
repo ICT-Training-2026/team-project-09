@@ -26,11 +26,13 @@ public class LoginController {
 	@Autowired
 	private final LoginService loginService;
 
+	//ログイン画面に遷移
 	@GetMapping("/login")
 	public String login(@ModelAttribute LoginForm loginForm) {
-		return "login"; //ログイン画面に遷移
+		return "login"; 
 	}
 
+	//ログイン情報を送信
 	@PostMapping("/login-post")
 	public String loginPost(@ModelAttribute LoginForm loginForm, Model model,
 							@RequestParam String userId,
@@ -39,12 +41,10 @@ public class LoginController {
 		// ログイン処理の実行
 		Login login = new Login(loginForm.getUserId(), loginForm.getPass());
 		Employee employee = loginService.loadAccoundInfo(login);
-		// 仮ログイン用
-		boolean result = loginService.execute(login);
 
 		
-		// DB上のユーザ or (ID:user002, pass:5678)でログイン可能
-		if (employee != null) { // ログイン成功時
+		// DB上にユーザ情報が存在する場合（ログイン成功）
+		if (employee != null) { 
 			// 現在の日付を取得
 	        LocalDate today = LocalDate.now();
 	        // 月と日をint型の変数に格納
@@ -61,12 +61,10 @@ public class LoginController {
 			} else {
 				return "top_menu";
 			}
-		} else if (result) {
-			model.addAttribute("userId", "user002");
-			model.addAttribute("name", "仮ログイン用ユーザ");
-			session.setAttribute("userId",userId);
-			return "top_menu";
-		} else {  // ログイン失敗時
+		}
+		
+		// DB上にユーザ情報が存在しない場合（ログイン失敗）
+		else { 
 			model.addAttribute("errorMessage", "ユーザーIDまたはパスワードが間違っています。");
 			return "login";
 		}
