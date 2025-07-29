@@ -89,6 +89,17 @@ public class RegistController {
 		// 残り有給休暇日数を取得
 		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
 		registForm.setAnnualLeaveDays(numPaidHoliday);
+		
+		
+		//振出を取得●
+		int numHurisyutsu = registService.loadNumHurisyutsu(loginUser); 
+		registForm.setHurisyutsuCount(numHurisyutsu);// 新しいセッター
+		System.out.println(numHurisyutsu);
+
+        //振休を取得●
+		int numHurikyu = registService.loadNumHurikyu(loginUser);
+		registForm.setHurikyuCount(numHurikyu); // 新しいセッター
+		System.out.println(numHurikyu);
 
 		// エラーの数を取得
 	    int errorCount = result.getErrorCount();

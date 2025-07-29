@@ -108,6 +108,71 @@ public class RegistRepositoryImpl implements RegistRepository {
 		
 		return numPaidHoliday;
 	}
+		
+	
+//    // 振出の回数を取得するメソッド
+//    public BigDecimal loadNumHurisyutsu(String userId) {
+//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 2";
+////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
+//		Map<String, Object> one = list.get(0);
+//		long numHurisyutsuLong = (long) one.get("count");
+//		BigDecimal numHurisyutsu = BigDecimal.valueOf(numHurisyutsuLong);
+////		BigDecimal numHurisyutsu = (BigDecimal) one.get("count");
+//        return numHurisyutsu; // nullの場合は0を返す
+//    }
+//    
+//    // 振休の回数を取得するメソッド●
+//    public BigDecimal loadNumHurikyu(String userId) {
+//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 3";
+////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
+//		Map<String, Object> one = list.get(0);
+//		long numHurikyuLong = (long) one.get("count");
+//		BigDecimal numHurikyu = BigDecimal.valueOf(numHurikyuLong);
+//        return numHurikyu; // nullの場合は0を返す
+//    }
+    
+	
+//    // 振出の回数を取得するメソッド
+//    public Long loadNumHurisyutsu(String userId) {
+//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 2";
+////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
+//		Map<String, Object> one = list.get(0);
+//		Long numHurisyutsuLong = (Long) one.get("count");
+////		BigDecimal numHurisyutsu = (BigDecimal) one.get("count");
+//        return loadNumHurisyutsu(null); // nullの場合は0を返す
+//    }
+//    
+//    // 振休の回数を取得するメソッド●
+//    public Long loadNumHurikyu(String userId) {
+//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 3";
+////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
+//		Map<String, Object> one = list.get(0);
+//		Long numHurikyuLong = (Long) one.get("count");
+//        return loadNumHurikyu(null); // nullの場合は0を返す
+//    }
+
+
+	// 振出の回数を取得するメソッド
+	public int loadNumHurisyutsu(String userId) {
+	    String sql = "SELECT COUNT(*) AS count FROM attend_info WHERE user_code = ? AND work_status_code = 2";
+	    Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+	    return count != null ? count : 0; // nullの場合は0を返す
+	}
+
+	// 振休の回数を取得するメソッド
+	public int loadNumHurikyu(String userId) {
+	    String sql = "SELECT COUNT(*) AS count FROM attend_info WHERE user_code = ? AND work_status_code = 3";
+	    Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+	    return count != null ? count : 0; // nullの場合は0を返す
+	}
+
+
+
+
 	
 	
 	
