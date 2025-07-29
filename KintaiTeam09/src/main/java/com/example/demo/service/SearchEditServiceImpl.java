@@ -23,13 +23,10 @@ public class SearchEditServiceImpl implements SearchEditService {
 		
 	}
 	
-//	private final SearchEditRepository searchEditRepository2;
-	
 	@Override
 	public void update(Regist edit) {
-//		System.out.println("updateメソッド呼び出し完了");
 		
-		searchEditRepository.update(edit);
+		searchEditRepository.update(edit); // updateメソッドの呼び出し
 		
 	}
 	

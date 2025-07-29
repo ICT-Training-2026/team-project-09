@@ -11,7 +11,7 @@ public class LogoutController {
 @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();  // セッションを破棄
-        return "top";	//templateに置かれている場合MVCのコントローラからのみ表示可能(top.htmlを表示させるためのコントローラが必要)
+        return "top";	// top画面に遷移
     }
 
 }
