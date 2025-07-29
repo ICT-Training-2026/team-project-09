@@ -35,6 +35,8 @@ public class RegistForm {
     @NotNull(message = "勤怠区分は必須です")
     private BigDecimal workStatus;
     
+    private BigDecimal workStatusTemp;
+    
     private LocalTime clockInTime;
     private LocalTime clockOutTime;
 

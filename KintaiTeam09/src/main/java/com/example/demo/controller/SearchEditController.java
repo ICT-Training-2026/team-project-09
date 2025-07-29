@@ -72,6 +72,7 @@ public class SearchEditController {
 		registForm.setUserId(regist.getUserId());
 		registForm.setDate(regist.getDate());
 		registForm.setWorkStatus(regist.getWorkStatus());
+		registForm.setWorkStatusTemp(regist.getWorkStatus());
 		registForm.setClockInTime(regist.getClockInTime());
 		registForm.setClockOutTime(regist.getClockOutTime());
 		registForm.setActualWorkTime(regist.getActualWorkTime());
@@ -105,6 +106,7 @@ public class SearchEditController {
 		model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
 		model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
 		model.addAttribute("numPaidHoliday", numPaidHoliday);
+		
 
 		return "edit"; //searchへ戻るyo!!!
 	}
@@ -173,11 +175,14 @@ public class SearchEditController {
 			registForm.culcWorkTime();
 			registForm.culcActualWorkTime();
 			registForm.culcOverTime();
+			
+//			System.out.println("temp:" + registForm.getWorkStatusTemp());
 
 			Regist edit = new Regist();
 			edit.setUserId(registForm.getUserId());
 			edit.setDate(registForm.getDate());
 			edit.setWorkStatus(registForm.getWorkStatus());
+			edit.setWorkStatusTemp(registForm.getWorkStatusTemp());
 			edit.setClockIn(registForm.getClockIn());
 			edit.setClockOut(registForm.getClockOut());
 			edit.setWorkTime(registForm.getWorkTime());
