@@ -72,7 +72,8 @@ public class SearchEditController {
 		// 本実装
 		model.addAttribute("userId", regist.getUserId());
 		model.addAttribute("date", regist.getDate());
-		model.addAttribute("workStatus", regist.getWorkStatus());
+//		model.addAttribute("workStatus", regist.getWorkStatus());
+		model.addAttribute("workStatus", regist.getWorkStatusName());
 		model.addAttribute("clockInTime", regist.getClockInTime());
 		model.addAttribute("clockOutTime", regist.getClockOutTime());
 		model.addAttribute("actualWorkTime", regist.getActualWorkTime());

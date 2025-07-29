@@ -18,6 +18,7 @@ public class Regist {
 	private String userId;
 	private Date date;
 	private BigDecimal workStatus;
+	private String workStatusName;
 
 	private LocalTime clockInTime;
 	private LocalTime clockOutTime;
