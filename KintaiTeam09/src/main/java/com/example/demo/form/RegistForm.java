@@ -273,7 +273,7 @@ public class RegistForm {
     }
     
 
-    @AssertTrue(message = "出勤・欠勤は平日のみ指定可能です")
+    @AssertTrue(message = "出勤・欠勤・年休は平日のみ指定可能です")
     public boolean isAttendanceOrAbsenceOnWeekday() {
         if (date == null || workStatus == null) {
             return true; // 日付または勤怠区分がnullの場合はスキップ
