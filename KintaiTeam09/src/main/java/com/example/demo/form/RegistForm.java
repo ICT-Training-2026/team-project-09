@@ -224,19 +224,20 @@ public class RegistForm {
     
     
     
-    @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
-    public boolean isAnnualLeaveValid() {
-        if (workStatus == null || workStatus.intValue() != 4) { // 年休の場合のみチェック
-            return true;
-        }
-        if (this.annualLeaveDays == null) {
-            return false; // バリデーション失敗
-        }
-        
-        System.out.println(annualLeaveDays.compareTo(BigDecimal.ZERO));
-        return annualLeaveDays.compareTo(BigDecimal.ZERO) == 1;
-    }
-    
+//    @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
+//    public boolean isAnnualLeaveValid() {
+//        if (workStatus == null || workStatus.intValue() != 4) { // 年休の場合のみチェック
+//            return true;
+//        }
+//        if (this.annualLeaveDays == null) {
+//        	System.out.println("あああああ");
+//            return false; // バリデーション失敗
+//        }
+//        
+//        System.out.println(annualLeaveDays.compareTo(BigDecimal.ZERO));
+//        return annualLeaveDays.compareTo(BigDecimal.ZERO) == 1;
+//    }
+//    
     
     
     
