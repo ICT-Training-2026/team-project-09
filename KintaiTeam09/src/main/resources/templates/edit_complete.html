@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>regist_complete</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/edit_complete.css}">
+  <link rel="stylesheet" th:href="@{/images/balloon-1.png}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>勤怠管理</h1>
+	<div class="top-right-buttons">
+		<div class="button-group">
+		                    <a href="/topmenu" class="icon-circle"><i class="fas fa-house"></i></a>
+		                    <span class="button-label">トップメニュー</span>
+		                </div>
+						<div class="button-group">
+											<form th:action="@{/logout}" method="post">
+												<button type="submit" class="icon-circle"><i class="fas fa-arrow-right-from-bracket"></i></button>
+												<span class="button-label">ログアウト</span>
+											</form>
+						                </div>
+	</div>
+  </header>
+
+  <div class="regist_complete">
+    <div class="complete-box">
+      <div class="complete-row">
+        <h2>編集完了！！！</h2>
+    <svg class="good" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+    </svg>
+    <svg class="star" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+    </svg>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const balloonCount = 60; // 風船の数
+  const balloonImage = "/images/balloon-1.png"; // 自分で用意した風船画像のパス
+
+  function createBalloon() {
+    const balloon = document.createElement('img');
+    balloon.src = balloonImage;
+    balloon.classList.add('balloon');
+    balloon.style.left = Math.random() * 100 + 'vw'; // 横位置ランダム
+    balloon.style.animationDuration = (8 + Math.random() * 5) + 's'; // 速さランダム
+    balloon.style.animationDelay = (Math.random() * 10) + 's'; // 開始時間ランダム
+    document.body.appendChild(balloon);
+
+    // アニメーション終了後に要素を削除
+    balloon.addEventListener('animationend', () => {
+      balloon.remove();
+      // 新しい風船を追加してループ
+      createBalloon();
+    });
+  }
+
+  // 最初にまとめて作成
+  for(let i=0; i<balloonCount; i++) {
+    createBalloon();
+  }
+</script>
+
+<!-- <div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div> -->
+
+<!-- <div class="container">
+	<div class="confetti"><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+	</div>
+</div> -->
+
+</body>
+
+</html>
