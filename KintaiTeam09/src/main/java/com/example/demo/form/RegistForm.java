@@ -294,10 +294,8 @@ public class RegistForm {
 		if (this.workStatus.intValue() == 1 || this.workStatus.intValue() == 2) {
 			BigDecimal overTimeDecimal = this.actualWorkTime.subtract(this.regularTime);
 			if (overTimeDecimal.intValue() >= 0 ) {
-				System.out.println("分岐1");
 				this.overTime = overTimeDecimal;
 			} else {
-				System.out.println("分岐2");
 				this.overTime = BigDecimal.valueOf(0);
 			}
 		} else {
