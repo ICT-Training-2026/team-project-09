@@ -82,7 +82,6 @@ public class RegistController {
 	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm,
 			BindingResult result, HttpSession session, Model model) {
 		
-		// 日付をString型→Date型に変換
 		registForm.convertDate();
 		
 		ModelAndView modelAndView = new ModelAndView("regist");

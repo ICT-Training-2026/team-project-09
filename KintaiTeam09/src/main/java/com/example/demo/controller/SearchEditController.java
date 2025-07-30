@@ -126,10 +126,6 @@ public class SearchEditController {
 	@PostMapping("/confirm-edit") 
 	public ModelAndView confirmEdit(@Validated @ModelAttribute RegistForm registForm,
 			BindingResult result, HttpSession session) {
-		
-		// 日付をString型→Date型に変換
-		registForm.convertDate();
-		
 		// ログイン中のユーザID取得
 		String loginUser = (String) session.getAttribute("userId");
 		// 入力日の月、その月の累積超過時間を取得
@@ -193,7 +189,6 @@ public class SearchEditController {
 			Regist edit = new Regist();
 			edit.setUserId(registForm.getUserId());
 			edit.setDate(registForm.getDate());
-			edit.setDateTemp(registForm.getDateTemp());
 			edit.setWorkStatus(registForm.getWorkStatus());
 			edit.setWorkStatusTemp(registForm.getWorkStatusTemp());
 			edit.setClockIn(registForm.getClockIn());
@@ -204,7 +199,6 @@ public class SearchEditController {
 			edit.setOverTime(registForm.getOverTime());
 			edit.setCumOverTime(registForm.getCumOverTime());
 			edit.setNote(registForm.getNote());
-			
 
 			searchEditService.update(edit);
 
