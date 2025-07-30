@@ -301,8 +301,7 @@ public class RegistForm {
 		} else {
 			this.overTime = BigDecimal.valueOf(0);
 		}
-
+		
 	}
-
 	
 }
