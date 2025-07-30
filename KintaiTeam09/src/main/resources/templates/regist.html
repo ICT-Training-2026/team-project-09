@@ -129,6 +129,7 @@
 
                         <td>
 							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">
+							<input type="hidden" th:field="*{cumOverTimeThisMonth}" name="total_hours_this_month">
 							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>
 						</td>
 						

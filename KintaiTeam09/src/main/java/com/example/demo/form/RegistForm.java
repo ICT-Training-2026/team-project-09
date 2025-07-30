@@ -69,8 +69,10 @@ public class RegistForm {
     private BigDecimal overTime;
     // 編集前の超過時間を格納
     
-    // 累計超過時間
+    // 勤怠登録した月（フォームで選択した日付）の累計超過時間
     private BigDecimal cumOverTime;  // BigDecimalに変更
+    // 今月（入力している日）の累計超過時間
+    private BigDecimal cumOverTimeThisMonth;
     
     
     // 備考（ユーザが入力）
