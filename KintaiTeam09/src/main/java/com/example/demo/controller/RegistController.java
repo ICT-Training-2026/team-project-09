@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -85,12 +84,9 @@ public class RegistController {
 		// ログイン中のユーザID取得
 		String loginUser = (String) session.getAttribute("userId");
 		// 入力日の月、その月の累積超過時間を取得
-		//		int currentMonth = LocalDate.now().getMonthValue();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(registForm.getDate());
-		int month = calendar.get(Calendar.MONTH) + 1;
+		int currentMonth = LocalDate.now().getMonthValue();
 
-		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, month);
+		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, currentMonth);
 		registForm.setCumOverTime(cumOverTime);
 
 		// 残り有給休暇日数を取得
