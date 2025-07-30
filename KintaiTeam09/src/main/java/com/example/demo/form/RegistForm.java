@@ -187,72 +187,6 @@ public class RegistForm {
     }
     
 
-
-
-//	private RegistRepository registRepositoryImpl;
-//
-//    public void RegistForm(RegistRepository registRepository) {
-//        this.registRepositoryImpl = registRepository;
-//    }
-//    
-//    // 振休を取得できるかどうかを判断するメソッド●
-//    @AssertTrue(message = "振出を取得していない場合、振休を申請することはできません")
-//    public boolean isHurikyuValid() {
-//        int hurikaeCount = registRepositoryImpl.getHurisyutsuCount(userId);
-//        int hurikyuCount = registRepositoryImpl.getHurikyuuCount(userId);
-//        return hurikaeCount > hurikyuCount;
-//    }
-    
-//    @AssertTrue(message = "振出を取得していない場合、振休を申請することはできません")
-//    public boolean isHurikyuValid() {
-//    	System.out.println("勤怠区分(valid):" + this.workStatus);
-//    	System.out.println("振出(valid):" + this.hurisyutsuCount);
-//        System.out.println("振休(valid):" + this.hurikyuCount);
-//        System.out.println("有給(valid):" + this.annualLeaveDays);
-//    	
-//        // 勤怠区分が振休 (workStatus == 3) の場合のみチェック
-//        if (workStatus == null || workStatus.intValue() != 3) {
-//            return true; // 振休でない場合はバリデーションをスキップ
-//        }
-//        // nullチェックを追加
-//        if (this.hurisyutsuCount == null || this.hurikyuCount == null) {
-////            logger.debug("振出カウント: {}", hurisyutsuCount);
-////            logger.debug("振休カウント: {}", hurikyuCount);
-////            System.out.println(this.hurisyutsuCount);
-////            System.out.println(this.hurikyuCount);
-//            return false; // データが設定されていない場合はエラー
-//        }
-////        logger.debug("振出カウント: {}", hurisyutsuCount);
-////        logger.debug("振休カウント: {}", hurikyuCount);
-//
-//        return hurisyutsuCount > hurikyuCount;
-//    }
-    
-    
-    
-    
-//    @AssertTrue(message = "有給休暇日数が残っていない場合、年休を申請することはできません")
-//    public boolean isAnnualLeaveValid() {
-//        if (workStatus == null || workStatus.intValue() != 4) { // 年休の場合のみチェック
-//            return true;
-//        }
-//        if (this.annualLeaveDays == null) {
-//        	System.out.println("あああああ");
-//            return false; // バリデーション失敗
-//        }
-//        
-//        System.out.println(annualLeaveDays.compareTo(BigDecimal.ZERO));
-//        return annualLeaveDays.compareTo(BigDecimal.ZERO) == 1;
-//    }
-//    
-    
-    
-    
-    
-    
-    
-
-
     @AssertTrue(message = "勤務時間および休憩時間は設定しないでください")
     public boolean isNoWorkTimeRequired() {
         if (workStatus == null || (workStatus.intValue() != 3 && workStatus.intValue() != 4 && workStatus.intValue() != 5 && workStatus.intValue() != 6)) {
@@ -331,8 +265,6 @@ public class RegistForm {
 			LocalDateTime clockOutDateTime = LocalDateTime.of(localDate, clockOutTime);
 			this.clockIn = clockInDateTime;
 			this.clockOut = clockOutDateTime;
-			//            this.clockIn = Timestamp.valueOf(clockInDateTime);
-			//            this.clockOut = Timestamp.valueOf(clockOutDateTime);
 		}
 	}
 	
@@ -360,7 +292,14 @@ public class RegistForm {
 	// 超過時間を算出するメソッド
 	public void culcOverTime() {
 		if (this.workStatus.intValue() == 1 || this.workStatus.intValue() == 2) {
-			this.overTime = this.actualWorkTime.subtract(this.regularTime);
+			BigDecimal overTimeDecimal = this.actualWorkTime.subtract(this.regularTime);
+			if (overTimeDecimal.intValue() >= 0 ) {
+				System.out.println("分岐1");
+				this.overTime = overTimeDecimal;
+			} else {
+				System.out.println("分岐2");
+				this.overTime = BigDecimal.valueOf(0);
+			}
 		} else {
 			this.overTime = BigDecimal.valueOf(0);
 		}

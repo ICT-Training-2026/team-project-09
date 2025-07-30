@@ -118,7 +118,7 @@ public class SearchEditController {
 		model.addAttribute("numPaidHoliday", numPaidHoliday);
 		
 
-		return "edit"; //searchへ戻るyo!!!
+		return "edit"; 
 	}
 
 	// 編集画面→編集完了画面へ遷移
@@ -136,11 +136,11 @@ public class SearchEditController {
 		registForm.setAnnualLeaveDays(numPaidHoliday);
 		
 		
-		//振出を取得
+		//振出日数を取得
 		int numHurisyutsu = registService.loadNumHurisyutsu(loginUser);
 		registForm.setHurisyutsuCount(numHurisyutsu);
 
-		//振休を取得
+		//振休日数を取得
 		int numHurikyu = registService.loadNumHurikyu(loginUser);
 		registForm.setHurikyuCount(numHurikyu);
 		
@@ -148,7 +148,7 @@ public class SearchEditController {
 
 		// エラーの数を取得
 		int errorCount = result.getErrorCount();
-		System.out.println("エラーカウント:" + errorCount);
+//		System.out.println("エラーカウント:" + errorCount);
 
 		if (result.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView("edit");
@@ -156,8 +156,8 @@ public class SearchEditController {
 			// バリデーションのエラーメッセージを全て取得
 			List<String> errorMessages = new ArrayList<>();
 			for (ObjectError error : result.getAllErrors()) {
-				System.out.println(error);
-				System.out.println("  Message: " + error.getDefaultMessage());
+//				System.out.println(error);
+//				System.out.println("  Message: " + error.getDefaultMessage());
 
 				errorMessages.add(error.getDefaultMessage());
 			}
@@ -185,8 +185,6 @@ public class SearchEditController {
 			registForm.culcWorkTime();
 			registForm.culcActualWorkTime();
 			registForm.culcOverTime();
-			
-//			System.out.println("temp:" + registForm.getWorkStatusTemp());
 
 			Regist edit = new Regist();
 			edit.setUserId(registForm.getUserId());
