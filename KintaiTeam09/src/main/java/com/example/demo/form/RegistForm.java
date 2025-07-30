@@ -27,8 +27,10 @@ public class RegistForm {
     private String userId;
     
     // 日付（ユーザが入力）
-    @NotNull(message = "日付は必須です")
+//    @NotNull(message = "日付は必須です")
     private Date date;
+    
+    private String dateStr;
 
     // 勤怠区分（ユーザが入力）
     @NotNull(message = "勤怠区分は必須です")
@@ -304,4 +306,13 @@ public class RegistForm {
 		
 	}
 	
+	
+	public void convertDate() {
+		if (this.dateStr.isEmpty()) {
+			this.date = null;
+		} else {
+			this.date = Date.valueOf(this.dateStr);
+		}
+	}
+
 }
