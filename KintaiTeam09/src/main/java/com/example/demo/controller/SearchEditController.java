@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,6 +103,15 @@ public class SearchEditController {
 		// 残り有給休暇日数を取得
 		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
 		registForm.setAnnualLeaveDays(numPaidHoliday);
+		
+		if (registForm.getClockInTime() != null &&
+				registForm.getClockOutTime() != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+			String clockInTimeFmt = registForm.getClockInTime().format(formatter);
+			String clockOutTimeFmt = registForm.getClockOutTime().format(formatter);
+			model.addAttribute("clockInTimeFmt", clockInTimeFmt);
+			model.addAttribute("clockOutTimeFmt", clockOutTimeFmt);
+		}
 
 		model.addAttribute("cumOverTimeHour", cumOverTime.intValue() / 60);
 		model.addAttribute("cumOverTimeMinutes", cumOverTime.intValue() % 60);
