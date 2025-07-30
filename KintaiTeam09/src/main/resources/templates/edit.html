@@ -56,7 +56,7 @@
 						<th>出勤時間</th>
 						<th>退勤時間</th>
 						<th>休憩時間(分)</th>
-						<th>今月の累積超過時間</th>
+<!--						<th>今月の累積超過時間</th>-->
 						<th>備考</th>
 					</tr>
 				</thead>
@@ -132,10 +132,10 @@
 						</td>
 
 
-						<td>
-							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">
-							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>
-						</td>
+<!--						<td>-->
+<!--							<input type="hidden" th:field="*{cumOverTime}" name="total_hours">-->
+<!--							<div th:text="${cumOverTimeHour} + '時間' + ${cumOverTimeMinutes} + '分'"></div>-->
+<!--						</td>-->
 
 						<td><input type="text" th:field="*{note}" name="remarks" placeholder="備考"></td>
 
