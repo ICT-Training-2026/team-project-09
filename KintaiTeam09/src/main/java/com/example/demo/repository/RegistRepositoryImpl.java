@@ -87,7 +87,9 @@ public class RegistRepositoryImpl implements RegistRepository {
 				" WHERE user_code = ? " +
 				" AND MONTH(date) = ? " +
 				"ORDER BY date DESC LIMIT 1";
-
+		
+		System.out.println("intMonthRepo" + month);
+		
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId, month);
 		if (list.isEmpty()) {
 			return BigDecimal.valueOf(0);

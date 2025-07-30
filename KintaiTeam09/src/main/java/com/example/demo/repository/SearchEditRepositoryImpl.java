@@ -75,12 +75,48 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 	@Override
 	public void update(Regist edit) { // データベースの更新SQL
 		
-		System.out.println("updateメソッド呼び出し完了(インフラ層)");
-//		System.out.println(edit.getDate());
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		String formattedDate = sdf.format(edit.getDate());
+		
+		// 累積超過時間を修正する処理
+		String sqlTemp = 
+				" SELECT overtime        " +
+		        " FROM attend_info           " +
+		        " WHERE                      " + 
+				"   user_code = ?            " +
+				" AND date = ?               " ;
+		List<Map<String, Object>> listTemp = 
+				jdbcTemplate.queryForList(
+				sqlTemp, edit.getUserId(), edit.getDate()
+				);
+		
+		if (listTemp.isEmpty()) {
+			
+		} else {
+		
+		Map<String, Object> oneTemp = listTemp.get(0);
+		BigDecimal overtimeTemp = (BigDecimal)oneTemp.get("overtime");
+		BigDecimal DiffOverTime = edit.getOverTime().subtract(overtimeTemp);
+		
+		String sqlUpdateOverTime = 
+				" UPDATE                             " + 
+				"   attend_info                      " + 
+				" SET                                " + 
+				"   cum_overtime =  cum_overtime + ? " +
+				" WHERE                              " +
+				"   date >= ?                        " +
+				" AND MONTH(date) = MONTH(?)         " +
+				" AND YEAR(date)  = YEAR(?)          " ;
+
+		jdbcTemplate.update(sqlUpdateOverTime,
+				DiffOverTime,
+				edit.getDate(),
+				edit.getDate(),
+				edit.getDate()
+		);
+		
+		}
 		
 
+		// 勤怠情報を修正する処理
 		String sql =
 				" UPDATE                     " + 
 				"   attend_info              " + 
@@ -92,7 +128,7 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 				"   breaktime = ? ,          " +
 				"   actual_worktime = ? ,    " +
 				"   overtime = ? ,           " +
-				"   cum_overtime = ? ,       " +
+//				"   cum_overtime = ? ,       " +
 				"   note = ?                 " +
 				" WHERE                      " + 
 				"   user_code = ?            " +
@@ -108,14 +144,16 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 				edit.getBreakTime(),
 				edit.getActualWorkTime(),
 				edit.getOverTime(),
-				edit.getCumOverTime(),
+//				edit.getCumOverTime(),
 				edit.getNote(),
 				edit.getUserId(),
 				edit.getDate()
 
 		);
 		
-		//有給
+		
+		// 残り有給休暇日数を修正する処理
+		// (他の勤怠区分)→年休に変更：残り有給日数を1減らす
 		if (edit.getWorkStatus().intValue() == 4) {
 			String sqlUpdate = 
 					" UPDATE employees " + 
@@ -124,6 +162,7 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 			jdbcTemplate.update(sqlUpdate,edit.getUserId());
 		}
 		
+		// 年休→(他の勤怠区分)に変更：残り有給日数を1増やす
 		if (edit.getWorkStatusTemp().intValue() == 4 && 
 				edit.getWorkStatus().intValue() != 4) {
 			String sqlUpdate = 
