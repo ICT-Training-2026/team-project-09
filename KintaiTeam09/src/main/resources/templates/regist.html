@@ -82,8 +82,9 @@
 						
 
                         <td>
-                            <input type="date" th:field="*{date}" name="date">
-                            <div th:if="${#fields.hasErrors('date') and !hasErrors}" th:errors="*{date}" style="color: red;"></div>
+<!--                            <input type="date" th:field="*{date}" name="date">-->
+							<input type="date" th:field="*{dateStr}" name="date">
+<!--                            <div th:if="${#fields.hasErrors('date') and !hasErrors}" th:errors="*{date}" style="color: red;"></div>-->
                         </td>
 
                         <td>
