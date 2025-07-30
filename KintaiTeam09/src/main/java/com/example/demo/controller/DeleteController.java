@@ -18,35 +18,6 @@ public class DeleteController {
 	@Autowired
 	private final DeleteService deleteService;
 
-//	@PostMapping("/search-edit") // 編集画面へ遷移
-//	public String edit(@ModelAttribute RegistForm registForm,
-//			@ModelAttribute SearchEditForm searchEditForm, Model model) {
-//		
-//		registForm.combineDateTime();
-//	    registForm.culcWorkTime();
-//	    registForm.culcActualWorkTime();
-//	    registForm.culcOverTime();
-//		
-//		Regist edit = new Regist();
-//		edit.setUserId(registForm.getUserId()) ;
-//		edit.setDate(registForm.getDate());
-//		edit.setWorkStatus(registForm.getWorkStatus());
-//		edit.setClockIn(registForm.getClockIn());
-//		edit.setClockOut(registForm.getClockOut());
-//		edit.setWorkTime(registForm.getWorkTime());
-//		edit.setActualWorkTime(registForm.getActualWorkTime());
-//		edit.setBreakTime(registForm.getBreakTime());
-//		edit.setOverTime(registForm.getOverTime());
-//		edit.setCumOverTime(registForm.getCumOverTime());
-//		edit.setNote(registForm.getNote());
-		
-		
-//		service.update(edit);
-		
-//		searchEditService.update(edit);
-		
-//		return "edit"; //searchへ戻るyo!!!
-//	}
 	
 	@PostMapping("/confirm-delete") // 削除処理
 	public String confirmDelete(@ModelAttribute RegistForm registForm) {

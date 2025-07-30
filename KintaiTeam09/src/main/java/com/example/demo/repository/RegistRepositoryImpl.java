@@ -23,19 +23,7 @@ public class RegistRepositoryImpl implements RegistRepository {
 
     // 勤怠情報をデータベースに登録するメソッド
 	@Override
-	public void add(Regist regist) {
-		// 仮実装（コンソールに表示）
-		System.out.println("ID:" + regist.getUserId());
-		System.out.println("日付:" + regist.getDate());
-		System.out.println("区分:" + regist.getWorkStatus());
-		System.out.println("出勤時刻:" + regist.getClockIn());
-		System.out.println("退勤時刻:" + regist.getClockOut());
-		System.out.println("労働時間" + regist.getWorkTime());
-		System.out.println("実労働時間" + regist.getActualWorkTime());
-		System.out.println("休憩時間" + regist.getBreakTime());
-		System.out.println("累積超過時間" + regist.getCumOverTime());
-		System.out.println("備考:" + regist.getNote());
-		
+	public void add(Regist regist) {		
 		
         // 日付の重複を確認
         if (isDateAlreadyRegistered(regist.getUserId(), regist.getDate())) {
@@ -114,51 +102,6 @@ public class RegistRepositoryImpl implements RegistRepository {
 		return numPaidHoliday;
 	}
 		
-	
-//    // 振出の回数を取得するメソッド
-//    public BigDecimal loadNumHurisyutsu(String userId) {
-//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 2";
-////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
-//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
-//		Map<String, Object> one = list.get(0);
-//		long numHurisyutsuLong = (long) one.get("count");
-//		BigDecimal numHurisyutsu = BigDecimal.valueOf(numHurisyutsuLong);
-////		BigDecimal numHurisyutsu = (BigDecimal) one.get("count");
-//        return numHurisyutsu; // nullの場合は0を返す
-//    }
-//    
-//    // 振休の回数を取得するメソッド●
-//    public BigDecimal loadNumHurikyu(String userId) {
-//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 3";
-////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
-//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
-//		Map<String, Object> one = list.get(0);
-//		long numHurikyuLong = (long) one.get("count");
-//		BigDecimal numHurikyu = BigDecimal.valueOf(numHurikyuLong);
-//        return numHurikyu; // nullの場合は0を返す
-//    }
-    
-	
-//    // 振出の回数を取得するメソッド
-//    public Long loadNumHurisyutsu(String userId) {
-//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 2";
-////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
-//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
-//		Map<String, Object> one = list.get(0);
-//		Long numHurisyutsuLong = (Long) one.get("count");
-////		BigDecimal numHurisyutsu = (BigDecimal) one.get("count");
-//        return loadNumHurisyutsu(null); // nullの場合は0を返す
-//    }
-//    
-//    // 振休の回数を取得するメソッド●
-//    public Long loadNumHurikyu(String userId) {
-//        String sql = "SELECT COUNT(*) AS 'count' FROM attend_info WHERE user_code = ? AND work_status_code = 3";
-////        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
-//        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, userId);
-//		Map<String, Object> one = list.get(0);
-//		Long numHurikyuLong = (Long) one.get("count");
-//        return loadNumHurikyu(null); // nullの場合は0を返す
-//    }
 
 
 	// 振出の回数を取得するメソッド
@@ -176,11 +119,6 @@ public class RegistRepositoryImpl implements RegistRepository {
 	}
 
 
-
-
-	
-	
-	
     // 日付の重複を確認するメソッド
     public boolean isDateAlreadyRegistered(String userId, Date date) {
         String sql = "SELECT COUNT(*) FROM attend_info WHERE user_code = ? AND date = ?";

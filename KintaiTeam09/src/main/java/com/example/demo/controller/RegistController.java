@@ -91,18 +91,17 @@ public class RegistController {
 		int month = calendar.get(Calendar.MONTH) + 1;
 
 		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, month);
-		System.out.println("cumOverTime:" + cumOverTime);
 		registForm.setCumOverTime(cumOverTime);
 
 		// 残り有給休暇日数を取得
 		BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
 		registForm.setAnnualLeaveDays(numPaidHoliday);
 
-		//振出を取得●
+		//振出日数を取得
 		int numHurisyutsu = registService.loadNumHurisyutsu(loginUser);
 		registForm.setHurisyutsuCount(numHurisyutsu);
 
-		//振休を取得●
+		//振休日数を取得
 		int numHurikyu = registService.loadNumHurikyu(loginUser);
 		registForm.setHurikyuCount(numHurikyu);
 
@@ -112,7 +111,7 @@ public class RegistController {
 		int errorCount = result.getErrorCount();
 
 		if (result.hasErrors()) {
-			System.out.println("入力不備あり");
+//			System.out.println("入力不備あり");
 
 			// --- ここから追加・修正 ---
 			//	        System.out.println("--- BindingResult Errors ---");
@@ -120,8 +119,7 @@ public class RegistController {
 			// バリデーションのエラーメッセージを全て取得
 			List<String> errorMessages = new ArrayList<>();
 			for (ObjectError error : result.getAllErrors()) {
-				System.out.println(error);
-				System.out.println("  Message: " + error.getDefaultMessage());
+
 
 				errorMessages.add(error.getDefaultMessage());
 			}
@@ -154,7 +152,7 @@ public class RegistController {
 			}
 			return modelAndView;
 		} else { // バリデーションエラーがなかった場合のみ処理を進める
-			System.out.println("入力不備なし");
+//			System.out.println("入力不備なし");
 
 			registForm.combineDateTime();
 			registForm.culcWorkTime();
@@ -185,9 +183,6 @@ public class RegistController {
 
 			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 
-			//			registService.add(regist);
-			//
-			//			return new ModelAndView("redirect:/success-page"); // 成功時はリダイレクトが良いでしょう
 		}
 	}
 }

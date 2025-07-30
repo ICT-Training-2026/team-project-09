@@ -44,8 +44,6 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 		regist.setUserId((String) one.get("user_code"));
 		regist.setDate((Date) one.get("date"));
 		regist.setWorkStatus((BigDecimal)one.get("work_status_code"));
-//		regist.setClockInTime(((LocalDateTime) one.get("clock_in")).toLocalTime());
-//		regist.setClockOutTime(((LocalDateTime) one.get("clock_out")).toLocalTime());
 		regist.setActualWorkTime((BigDecimal)one.get("actual_worktime"));
 		regist.setBreakTime((BigDecimal)one.get("breaktime"));
 		regist.setCumOverTime((BigDecimal)one.get("cum_overtime"));

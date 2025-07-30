@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 // 全ページ共通の処理
 @Controller
 public class CommonController {
+	// メニュー画面を表示
 	@GetMapping("/topmenu")
 	public String topmenu(HttpSession session) {
 		if (session.getAttribute("userId") != null) {
@@ -19,6 +20,7 @@ public class CommonController {
 		
 	}
 
+	// ポータルトップ画面を表示
 	@GetMapping("/")
 	public String top() {
 	    return "top"; //トップ画面に遷移
