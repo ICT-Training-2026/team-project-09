@@ -31,9 +31,5 @@ public class ValidatorImpl implements Validator {
             	errors.rejectValue("workStatus", "workStatus.cannotGetNenkyu", 
             			"有給休暇日数が残っていない場合、年休を申請することはできません");
             }
-            
-            if (registForm.getDate() == null) {
-            	errors.rejectValue("date", "date.dateNotNull","日付は必須です" );
-            }
     }
 }
