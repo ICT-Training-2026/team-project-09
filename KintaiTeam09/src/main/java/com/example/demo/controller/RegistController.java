@@ -53,7 +53,6 @@ public class RegistController {
 			BigDecimal cumOverTimeThisMonth = registService.loadCumOverTime(loginUser, currentMonth);
 			// 残り有給休暇日数を取得
 			BigDecimal numPaidHoliday = registService.loadNumPaidHoliday(loginUser);
-			System.out.println("有給残り:" + numPaidHoliday);
 			registForm.setAnnualLeaveDays(numPaidHoliday);
 
 			// 初期値のセット
@@ -90,7 +89,6 @@ public class RegistController {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(registForm.getDate());
 		int month = calendar.get(Calendar.MONTH) + 1;
-		System.out.println("intMonth:" + month);
 
 		BigDecimal cumOverTime = registService.loadCumOverTime(loginUser, month);
 		System.out.println("cumOverTime:" + cumOverTime);
