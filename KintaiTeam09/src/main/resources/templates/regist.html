@@ -109,12 +109,12 @@
 
 						
 						<td>
-						    <input type="time" th:field="*{clockInTime}" name="start_time" id="clockInTime">
+						    <input type="time" th:value="${clockInTimeFmt}" name="clockInTime" id="clockInTime">
 						    <div th:if="${#fields.hasErrors('clockInTime') and !hasErrors}" th:errors="*{clockInTime}" style="color: red;"></div>
 						</td>
 
 						<td>
-						    <input type="time" th:field="*{clockOutTime}" name="end_time" id="clockOutTime">
+						    <input type="time" th:value="${clockOutTimeFmt}" name="clockOutTime" id="clockOutTime">
 						    <div th:if="${#fields.hasErrors('clockOutTime') and !hasErrors}" th:errors="*{clockOutTime}" style="color: red;"></div>
 						</td>						
 						

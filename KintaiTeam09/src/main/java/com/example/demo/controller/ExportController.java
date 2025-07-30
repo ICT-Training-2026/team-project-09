@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,14 @@ public class ExportController {
     private ExportService exportService;
 
     @GetMapping("/export")
-    public String exportDisplay(@ModelAttribute ExportForm exportForm) {
-        return "export";
+    public String exportDisplay(@ModelAttribute ExportForm exportForm,
+    		HttpSession session) {
+    	if (session.getAttribute("userId") != null) {
+    		return "export";
+    	} else {
+    		return "redirect:/login";
+    	}
+        
     }
 
     @PostMapping("/export-post")
