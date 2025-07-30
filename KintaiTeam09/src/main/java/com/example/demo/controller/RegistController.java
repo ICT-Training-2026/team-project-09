@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,11 +42,8 @@ public class RegistController {
 			Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			// 入力日の日付を取得
-//			long miliseconds = System.currentTimeMillis();
-//			Date today = new Date(miliseconds);
-			LocalDate today = LocalDate.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			String todayStr = today.format(formatter);
+			long miliseconds = System.currentTimeMillis();
+			Date today = new Date(miliseconds);
 
 			// ログイン中のユーザID取得
 			String loginUser = (String) session.getAttribute("userId");
@@ -58,7 +56,7 @@ public class RegistController {
 
 			// 初期値のセット
 			registForm.setUserId(loginUser);
-			registForm.setDateStr(todayStr);
+			registForm.setDate(today);
 			registForm.setBreakTime(BigDecimal.valueOf(60));
 			registForm.setCumOverTimeThisMonth(cumOverTimeThisMonth);
 
@@ -81,9 +79,6 @@ public class RegistController {
 	@PostMapping("/regist-post")
 	public ModelAndView registPost(@Validated @ModelAttribute RegistForm registForm,
 			BindingResult result, HttpSession session, Model model) {
-		
-		registForm.convertDate();
-		
 		ModelAndView modelAndView = new ModelAndView("regist");
 
 		// ログイン中のユーザID取得
@@ -123,7 +118,6 @@ public class RegistController {
 
 
 				errorMessages.add(error.getDefaultMessage());
-				System.out.println(error.getDefaultMessage());
 			}
 
 			//アルファベット順にソート
