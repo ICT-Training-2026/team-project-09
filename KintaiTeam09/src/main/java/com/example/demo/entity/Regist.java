@@ -17,7 +17,6 @@ public class Regist {
 	
 	private String userId;
 	private Date date;
-	private Date dateTemp;
 	private BigDecimal workStatus;
 	private BigDecimal workStatusTemp;
 	private String workStatusName;

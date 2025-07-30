@@ -119,7 +119,6 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 				" UPDATE                     " + 
 				"   attend_info              " + 
 				" SET                        " + 
-				"   date = ?,                " +
 				"   work_status_code = ? ,   " + 
 				"   clock_in = ? ,           " + 
 				"   clock_out = ? ,          " + 
@@ -136,7 +135,6 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 
 		
 		jdbcTemplate.update(sql,
-				edit.getDate(),
 				edit.getWorkStatus(),
 				edit.getClockIn(),
 				edit.getClockOut(),
@@ -147,7 +145,7 @@ public class SearchEditRepositoryImpl implements SearchEditRepository {
 //				edit.getCumOverTime(),
 				edit.getNote(),
 				edit.getUserId(),
-				edit.getDateTemp()
+				edit.getDate()
 
 		);
 		
