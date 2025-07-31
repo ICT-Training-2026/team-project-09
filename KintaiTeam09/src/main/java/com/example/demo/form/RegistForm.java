@@ -213,14 +213,14 @@ public class RegistForm {
     }
     
 
-    @AssertTrue(message = "出勤・欠勤・年休は平日のみ指定可能です")
+    @AssertTrue(message = "出勤・欠勤・年休・振休は平日のみ指定可能です")
     public boolean isAttendanceOrAbsenceOnWeekday() {
         if (date == null || workStatus == null) {
             return true; // 日付または勤怠区分がnullの場合はスキップ
         }
 
         // 勤怠区分が「出勤 (1)」または「欠勤 (6)」の場合
-        if (workStatus.intValue() == 1 || workStatus.intValue() == 4 || workStatus.intValue() == 6) {
+        if (workStatus.intValue() == 1 || workStatus.intValue() == 3 || workStatus.intValue() == 4 || workStatus.intValue() == 6) {
             LocalDate localDate = date.toLocalDate();
             DayOfWeek dayOfWeek = localDate.getDayOfWeek();
             // 土日ではないことを確認
@@ -231,14 +231,14 @@ public class RegistForm {
         return true; // その他の勤怠区分は常にtrue
     }
 
-    @AssertTrue(message = "休日は土日祝のみ指定可能です")
+    @AssertTrue(message = "休日・振出は土日祝のみ指定可能です")
     public boolean isHolidayOnWeekendOrPublicHoliday() {
         if (date == null || workStatus == null) {
             return true; // 日付または勤怠区分がnullの場合はスキップ
         }
 
         // 勤怠区分が「休日 (5)」の場合
-        if (workStatus.intValue() == 5) {
+        if (workStatus.intValue() == 5 || workStatus.intValue() == 2) {
             LocalDate localDate = date.toLocalDate();
             DayOfWeek dayOfWeek = localDate.getDayOfWeek();
             // 土日であるかを確認
